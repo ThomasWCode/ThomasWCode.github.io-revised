@@ -1,0 +1,61 @@
+name: Content review
+
+on:
+  schedule:
+    - cron: "0 7 1 * *"
+  workflow_dispatch:
+    inputs:
+      today:
+        description: "Review as if today were this date (YYYY-MM-DD). Leave empty for today."
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: content-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    name: Flag copy that is due for a re-read
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+      - name: Build the review report
+        env:
+          REVIEW_DATE: ${{ inputs.today }}
+        shell: bash
+        run: |
+          if [ -n "$REVIEW_DATE" ]; then
+            node scripts/content-review.mjs "--today=$REVIEW_DATE" > report.md
+          else
+            node scripts/content-review.mjs > report.md
+          fi
+          cat report.md
+      - name: Open or update the content review issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REVIEW_DATE: ${{ inputs.today }}
+        shell: bash
+        run: |
+          if [ ! -s report.md ]; then
+            echo "Nothing is due for review."
+            exit 0
+          fi
+          month=$(date -u -d "${REVIEW_DATE:-now}" +'%B %Y')
+          title="Content review: $month"
+          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title \
+            --jq '[.[] | select(.title | startswith("Content review:"))][0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md
+            echo "Updated issue #$number"
+          else
+            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md
+          fi
