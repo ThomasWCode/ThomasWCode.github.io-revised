@@ -83,6 +83,7 @@ function initialiseSkipLink() {
 }
 
 function initialiseNavigation() {
+  const header = document.querySelector(".site-header");
   const navbar = document.querySelector(".navbar");
   const navbarInner = document.querySelector(".navbar-inner");
   const navToggle = document.querySelector(".nav-toggle");
@@ -90,9 +91,11 @@ function initialiseNavigation() {
   const moreToggle = document.querySelector(".more-toggle");
   const moreMenu = document.querySelector(".more-menu");
   const desktopQuery = window.matchMedia("(min-width: 1025px)");
+  const compactHeaderOffset = 24;
   let fitFrame = null;
+  let compactFrame = null;
 
-  if (!navbar || !navbarInner || !navToggle || !navPanel || !moreToggle || !moreMenu) {
+  if (!header || !navbar || !navbarInner || !navToggle || !navPanel || !moreToggle || !moreMenu) {
     return;
   }
 
@@ -143,6 +146,23 @@ function initialiseNavigation() {
   function requestNavigationFit() {
     if (fitFrame === null) {
       fitFrame = window.requestAnimationFrame(fitNavigation);
+    }
+  }
+
+  // Below the desktop breakpoint, shrink the header to a corner menu button once the page leaves the top.
+  function updateCompactHeader() {
+    compactFrame = null;
+    const compact = !desktopQuery.matches && window.scrollY > compactHeaderOffset;
+
+    if (compact) {
+      header.classList.add("site-header--animated");
+    }
+    header.classList.toggle("site-header--compact", compact);
+  }
+
+  function requestCompactHeaderUpdate() {
+    if (compactFrame === null) {
+      compactFrame = window.requestAnimationFrame(updateCompactHeader);
     }
   }
 
@@ -213,8 +233,11 @@ function initialiseNavigation() {
   });
 
   desktopQuery.addEventListener("change", syncNavigation);
+  desktopQuery.addEventListener("change", updateCompactHeader);
   syncNavigation();
   fitNavigation();
+  updateCompactHeader();
+  window.addEventListener("scroll", requestCompactHeaderUpdate, { passive: true });
   window.addEventListener("resize", requestNavigationFit);
   window.addEventListener("load", requestNavigationFit, { once: true });
   document.fonts?.ready.then(requestNavigationFit);
