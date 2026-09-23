@@ -122,10 +122,7 @@ test("@phone-only the header becomes a corner menu button once the page scrolls"
 
   const box = await toggle.boundingBox();
   const viewport = page.viewportSize();
-  const scrollbarWidth = await page.evaluate(() =>
-    document.documentElement.classList.contains("site-scrollbar-active") ? 14 : 0,
-  );
-  expect(Math.round(box.x + box.width)).toBe(viewport.width - scrollbarWidth);
+  expect(Math.round(box.x + box.width)).toBe(viewport.width);
   expect(Math.round(box.y)).toBe(0);
   expect(
     await page.evaluate(() => Boolean(document.elementFromPoint(40, 35).closest(".site-header"))),

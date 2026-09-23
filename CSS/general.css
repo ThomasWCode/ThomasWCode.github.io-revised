@@ -1580,11 +1580,6 @@ figcaption {
     display: none;
   }
 
-  /* Keep clear of the 14px overlay scrollbar in narrow windows with a mouse. */
-  .site-scrollbar-active .site-header--compact .nav-toggle {
-    right: 14px;
-  }
-
   .site-header--animated:not(.site-header--compact) .nav-toggle {
     animation: nav-toggle-return 300ms ease-out both;
   }
