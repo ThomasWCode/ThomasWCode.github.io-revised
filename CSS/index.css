@@ -80,6 +80,11 @@
   margin-top: 1.5rem;
 }
 
+.now-updated {
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
 .dusty-note {
   margin-top: 2rem;
   padding: 1.2rem 1.35rem;
