@@ -108,6 +108,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ### music-drama
 - Drums and piano since primary school. School band, "Sunday Bloody Sunday". LAMDA Grades 1 to 6, Grade 6 Bronze Medal, five distinctions and one merit. LAMDA from Year 5 (September 2019, age 9) to now (Tom, September 2026).
+- Learning electric guitar (September 2026). After about a decade of drums it felt like time to learn something new, and it lets Tom record guitar for his own music instead of doing all the guitar on the computer. On Sport, music & drama and in the homepage Now section, where it replaced the cradle write-up line.
 
 ## Decisions about what stays off the site
 
