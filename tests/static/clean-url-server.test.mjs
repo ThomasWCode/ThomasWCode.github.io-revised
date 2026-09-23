@@ -17,6 +17,16 @@ test("the local server models clean GitHub Pages routes without exposing front m
   assert.doesNotMatch(html, /^---/);
 });
 
+test("the local server serves folder index pages at their clean path", async (context) => {
+  const server = await startServer({ port: 0 });
+  context.after(() => new Promise((resolve) => server.close(resolve)));
+  const address = server.address();
+  const response = await fetch(`http://127.0.0.1:${address.port}/blog/`);
+
+  assert.equal(response.status, 200);
+  assert.match(await response.text(), /<title>Blog \| Tom White<\/title>/);
+});
+
 test("the local server returns real 404 responses for missing routes and traversal attempts", async (context) => {
   const server = await startServer({ port: 0 });
   context.after(() => new Promise((resolve) => server.close(resolve)));
