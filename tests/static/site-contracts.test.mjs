@@ -122,6 +122,17 @@ test("active site files contain no Vercel deployment assumptions", async () => {
   }
 });
 
+test("the Jekyll configuration keeps the private record, docs, tests and tooling unpublished", async () => {
+  const config = await readSiteFile("_config.yml");
+  const excluded = new Set(
+    matches(config, /^\s+-\s+(\S+)\s*$/gm).map((match) => match[1]),
+  );
+
+  for (const entry of ["AGENTS.md", "docs/", "node_modules/", "package.json", "scripts/", "tests/"]) {
+    assert.ok(excluded.has(entry), `_config.yml must exclude ${entry}`);
+  }
+});
+
 test("all local site references resolve to files or clean page routes", async () => {
   const pagePaths = new Set(pages.map((page) => page.path));
   const missing = [];

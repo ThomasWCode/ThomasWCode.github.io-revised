@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { pages, productionBaseUrl, statusPageUrl } from "../support/page-manifest.mjs";
-import { textContent } from "../support/site-files.mjs";
+import { readSiteFile, textContent } from "../support/site-files.mjs";
 
-const baseUrl = (process.env.PRODUCTION_BASE_URL || productionBaseUrl).replace(/\/$/, "");
+const deployedHost = (await readSiteFile("CNAME")).trim();
+const baseUrl = (
+  process.env.PRODUCTION_BASE_URL || (deployedHost ? `https://${deployedHost}` : productionBaseUrl)
+).replace(/\/$/, "");
 const publicStatusUrl = process.env.STATUS_PAGE_URL || statusPageUrl;
 
 async function fetchWithRetries(url, attempts = 3) {
