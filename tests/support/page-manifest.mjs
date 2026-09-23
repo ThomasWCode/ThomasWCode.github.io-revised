@@ -38,6 +38,23 @@ export const pages = [
     monitorKeyword: "Volunteering",
   },
   {
+    source: "blog/index.html",
+    path: "/blog/",
+    title: "Blog | Tom White",
+    heading: "Blog",
+    monitorKeyword: "Blog",
+    stylesheet: "/CSS/blog.css",
+  },
+  {
+    source: "blog/bridging-the-gap.html",
+    path: "/blog/bridging-the-gap/",
+    title: "Bridging the Gap, the talk as an essay | Tom White",
+    heading: "Bridging the Gap",
+    monitorKeyword: "the talk as an essay",
+    stylesheet: "/CSS/blog.css",
+    inNavigation: false,
+  },
+  {
     source: "gallery.html",
     path: "/gallery/",
     title: "Gallery | Tom White",
