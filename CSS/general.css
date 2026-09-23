@@ -1794,4 +1794,9 @@ figcaption {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+
+  .path-card:hover img,
+  .path-card--plain:hover::before {
+    transform: none;
+  }
 }
