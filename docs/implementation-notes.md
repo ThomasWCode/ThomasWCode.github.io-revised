@@ -198,7 +198,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 2. The **Full talk** YouTube player on `/tedx/` has had an empty video ID and thumbnail since your commit of 24 August 2026 ("update tedx and testimonials"), so it shows a broken image and plays nothing. Was that intentional? If not, restore `data-videoid="YJ-s-Gx1FN0"` and the thumbnail `https://i.ytimg.com/vi/YJ-s-Gx1FN0/hqdefault.jpg`.
 3. "The code" links (Programming and the post) point to `https://github.com/ThomasWCode/ThomasWCode.github.io`, which I took to be the main repository. Is that right, and is it public?
 4. The Namesake "My merged changes" link searches for merged PRs by the GitHub user `ThomasWCode`. Did you open the Namesake PRs from that account?
-5. How do you want to describe the AI help in building this site? I drafted one plain sentence on Programming, and left "How building it taught me" in the post for you.
+5. How do you want to describe the AI help in building this site? I drafted one plain sentence on Programming, and left "What building it taught me" in the post for you.
 6. Is *This Mortal Coil* the Andrew Doig book (a history of death)? The record only says "Doig".
 7. The LSHTM copy says "It's the team my dad works in, and they asked me." Is that the wording you want? The plan's phrasing was "The team my dad works in asked me."
 8. Is it acceptable to drop the Better Stack monitor for `/youtube/` to stay within ten monitors? The alternative is dropping Testimonials instead.
