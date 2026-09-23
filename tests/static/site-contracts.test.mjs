@@ -75,7 +75,7 @@ for (const page of pages) {
     assert.match(html, /<main id="main-content"(?:\s[^>]*)?>/);
     assert.equal(matches(html, /data-current-year/g).length, 1);
     assert.equal(matches(html, /<span data-last-updated>/g).length, 1);
-    assert.equal(matches(html, /aria-current="page"/g).length, 1);
+    assert.equal(matches(html, /aria-current="page"/g).length, page.inNavigation ? 1 : 0);
   });
 
   test(`${page.source} links to the public status page beside Last updated`, async () => {

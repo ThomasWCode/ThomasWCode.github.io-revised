@@ -14,7 +14,7 @@ for (const sitePage of pages) {
       "href",
       statusPageUrl,
     );
-    await expect(page.locator('[aria-current="page"]')).toHaveCount(1);
+    await expect(page.locator('[aria-current="page"]')).toHaveCount(sitePage.inNavigation ? 1 : 0);
 
     const duplicateIds = await page.locator("[id]").evaluateAll((elements) => {
       const seen = new Set();
