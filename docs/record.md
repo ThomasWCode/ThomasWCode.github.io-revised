@@ -72,12 +72,12 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Not yet built. Mentioned only in the homepage Now section (September 2026). Web tool similar to WHO's ScreenTB, for TB vaccines. Volunteer. Asked by the TB vaccine modelling team at LSHTM that Tom's dad works in. Public once finished. Until then, only a line in the homepage Now section.
 
 ### early-projects
-- Chrome Dino: first game, Python. Repository uploaded 16 Aug 2025 (age 15). Site shows age 15; confirm.
-- Minesweeper: Python, three difficulty levels. Repository uploaded 20 Aug 2025 (age 15), but `flag.png` was created 6 May 2024 (age 13). Site shows age 13; confirm.
-- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics. Repository uploaded 16 Aug 2025 (age 15), but an earlier single-file `BouncingBalls.py` is in `ThomasWCode/thomas-tutoring`, last modified 23 Jun 2024 (age 14). Site shows age 14; confirm.
-- Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Repository uploaded 20 Aug 2025 (age 15). Site shows age 15; confirm.
-- SplitMate: first mobile app, splitting shared expenses. Repository uploaded 17 Aug 2025 (age 15). Site shows age 15; confirm.
-- All five repositories were uploaded through GitHub's web "Add files via upload" between 16 and 20 August 2025, so their dates are when they went online, not when they were written. Where there is earlier evidence the site uses it.
+- Chrome Dino: first game, Python. Age 10 (Tom, September 2026). Repository uploaded 16 Aug 2025 (age 15).
+- Minesweeper: Python, three difficulty levels. Age 12 (Tom, September 2026). Repository uploaded 20 Aug 2025 (age 15); its `flag.png` is dated 6 May 2024 (age 13).
+- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics. Repository uploaded 16 Aug 2025 (age 15), but an earlier single-file `BouncingBalls.py` is in `ThomasWCode/thomas-tutoring`, last modified 23 Jun 2024 (age 14). Age 14 (Tom, September 2026).
+- Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Age 14 (Tom, September 2026). Repository uploaded 20 Aug 2025 (age 15).
+- SplitMate: first mobile app, splitting shared expenses. Age 14 (Tom, September 2026). Repository uploaded 17 Aug 2025 (age 15).
+- All five repositories were uploaded through GitHub's web "Add files via upload" between 16 and 20 August 2025, so their dates are when they went online, not when they were written. The site uses the ages Tom gave.
 - Thomas Tutoring (`ThomasWCode/thomas-tutoring`, private): a tutoring website with sign-up and log-in pages, first commit 9 Jun 2024 (age 14), with Python projects (bouncing balls, speed typing) as downloads. Its projects page says "I have made many projects in Python, HTML and Lua". Earliest web development found; source of "since age 14" on the This website block. Not on the site.
 
 ### youtube
@@ -124,7 +124,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - Ages or years: St John's Garden site, LAMDA grades, Parks events, Mind shop, LSHTM calls start.
-- Drafted from repository and channel dates, marked `data-draft="check"` on the site: YouTube channel, Chrome Dino, Minesweeper, Game of Life, Bouncing Ball, SplitMate, TechAssist, web development "since age 14".
+- Drafted from repository and channel dates, marked `data-draft="check"` on the site: YouTube channel, TechAssist, web development "since age 14".
 - Cradle: software name, runs per parameter, term, headline finding, limitation, exact role.
 - TEDx organising milestones.
 - Islington Life and Gazette links.

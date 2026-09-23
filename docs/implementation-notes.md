@@ -79,7 +79,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - Check the call-to-action eyebrow "Volunteering, the online kind" (you may veto it). It is repeated on Programming, Volunteering and Contact.
 - Keep the Now section current. When a line changes, change `data-updated="YYYY-MM"` and the visible "Updated Month Year" together; the tests check they match.
 
-### Physics & Ideas (`physics.html`), 18 items
+### Physics & Ideas (`physics.html`), 16 items
 - **Cradle proof block:**
   - a build photo or a five-second clip;
   - the headline finding;
@@ -93,7 +93,6 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
   - one line on why for each "beyond physics" book;
   - check that *This Mortal Coil* is Andrew Doig's.
 - **Questions I'm stuck on:** five, in your words.
-- **Simulations:** your age for the Bouncing Ball simulation and Game of Life.
 
 ### Magnetic Newton's cradle (`physics/magnetic-newtons-cradle.html`), 9 items
 - **Write:**
@@ -117,8 +116,9 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - `blog/how-this-site-works.html`, 2 items: I drafted the post from what the repository actually does. Rewrite it in your voice, write "What building it taught me" (including how you used AI tools), then remove `data-draft="check"` from the `<article>`.
 - `blog/index.html`: check the lede.
 
-### Programming (`programming.html`), 22 items
+### Programming (`programming.html`), 17 items
 - **Check:**
+  - the drafted ages for this website, TechAssist and the YouTube channel;
   - the replacement "Why I like programming" line ("solitary when I want it to be…");
   - Namesake "What was hard" and "The cause matters to me";
   - "This website" (the AI-tools sentence and "What was hard");
@@ -126,10 +126,8 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - **Write:**
   - "What I took from it" for all three proof blocks;
   - Namesake before-and-after map screenshots;
-  - your age for this website and TechAssist;
   - TechAssist screenshots, what your grandparents said and the repository link;
   - "How I actually use AI" (two or three sentences);
-  - ages for the five early projects and the YouTube channel;
   - hours and dates in the new Details lines.
 
 ### Volunteering (`volunteering.html`), 5 items
@@ -141,7 +139,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - The years or ages you did LAMDA.
 
 ### YouTube (`youtube.html`), 1 item
-- Your age when you made the tutorials.
+- Check the drafted age in the lede (10).
 
 ### CV (`cv.html`), 6 items
 - School, A level subjects and predicted grades, then GCSE results.
