@@ -245,3 +245,26 @@ test("all local site references resolve to files or clean page routes", async ()
 
   assert.deepEqual(missing, []);
 });
+
+test("only links to the site's own pages open in the same tab", async () => {
+  const pagePaths = new Set([...pages, ...documents, ...redirects].map((page) => page.path));
+  const wrong = [];
+
+  for (const page of [...pages, ...documents, ...redirects]) {
+    const html = stripFrontMatter(await readSiteFile(page.source));
+
+    for (const [tag] of matches(html, /<a\s[^>]*>/g)) {
+      const href = tag.match(/\shref="([^"]*)"/)?.[1] ?? "";
+      const pathname = decodeURIComponent(href.split(/[?#]/)[0]);
+      const sitePage = href.startsWith("#") || pathname === "/" || pagePaths.has(pathname);
+      const newTab = /\starget="_blank"/.test(tag);
+      const noOpener = /\srel="[^"]*\bnoopener\b[^"]*"/.test(tag);
+
+      if (sitePage ? newTab : !(newTab && noOpener)) {
+        wrong.push(`${page.source}: ${href}`);
+      }
+    }
+  }
+
+  assert.deepEqual(wrong, []);
+});
