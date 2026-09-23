@@ -46,6 +46,7 @@ Seven baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suf
 - `/` and `/programming/` are full-page captures, so any visible content change on those two pages requires a new baseline.
 - A change to `CSS/general.css`, the header, navigation, footer, fonts or design tokens affects all seven.
 - Regenerate with `npm run test:visual:update` on Windows. The committed files carry the `win32` platform suffix, so a Linux or macOS run neither validates nor reproduces them; it looks for baselines that do not exist. CI runs this job on `windows-latest`.
+- Without Windows, dispatch the **Update visual baselines** workflow on your branch. It runs the same command on `windows-latest` and commits changed baselines to that branch; pull and inspect them like any other baseline change.
 - Inspect every changed PNG, commit only intended differences, and commit them alongside the change that caused them.
 
 ## Lighthouse budgets

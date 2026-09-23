@@ -15,9 +15,9 @@
 - `npm run test:static` checks every page’s front matter, metadata, shared shell, status link, HTML, local references and image contracts. It also exercises the clean-URL test server.
 - `npm run test:e2e` runs the deterministic Playwright suite in Chromium desktop and phone modes, Firefox, WebKit, reduced-motion mode and no-JavaScript mode.
 - `npm run test:visual` compares the seven committed Win32 visual baselines.
-- `npm run test:visual:update` deliberately replaces those baselines after a reviewed visual change. Run this on Windows, inspect every changed PNG and commit only intended differences.
+- `npm run test:visual:update` deliberately replaces those baselines after a reviewed visual change. Run this on Windows, inspect every changed PNG and commit only intended differences. Without a Windows machine, run the **Update visual baselines** workflow from the Actions tab on your branch (never `main`); it runs the same command on `windows-latest` and commits any changed baselines back to that branch.
 - `npm run test:lighthouse` runs three local audits each for the homepage, Programming, Gallery and Contact. The median gates are 85 performance, 95 accessibility, 90 best practices and 95 SEO.
-- `npm run test:production` makes read-only checks against every published page and `https://status.thomaswhite.me/`.
+- `npm run test:production` makes read-only checks against every published page and `https://status.thomaswhite.me/`. It checks the host named in `CNAME` (`thomaswhite.me` in the main repository, `new.thomaswhite.me` in the preview clone); set `PRODUCTION_BASE_URL` to check another host.
 - `npm run test:external-links` makes read-only reachability checks against published external links.
 - `npm test` runs lint, static checks and the deterministic browser suite.
 - `npm run check` adds visual regression and Lighthouse checks to `npm test`.
@@ -35,6 +35,7 @@
 
 - `.github/workflows/ci.yml` runs on pull requests, pushes to `main` and manual dispatch. It does not deploy or mutate the site.
 - `.github/workflows/production-checks.yml` runs daily at approximately 06:15 UTC. External links run on Monday and on manual dispatch.
+- `.github/workflows/update-visual-baselines.yml` runs only on manual dispatch, refuses to run on `main`, and pushes a commit to the dispatched branch when baselines change. A commit pushed by the workflow does not start the test suite by itself; dispatch **Test suite** on the branch, or push the next change, so the new baselines are checked. Pull the commit and inspect every changed PNG before merging.
 - There is deliberately no branch-protection requirement. A direct push to `main` can therefore be published before CI finishes. The safe local sequence is `npm ci`, `npx playwright install chromium firefox webkit`, `npm run check`, then `git push`.
 
 ## Related
