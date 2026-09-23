@@ -1,0 +1,15 @@
+# GitHub Pages builds this site with Jekyll. Jekyll renders Markdown even without
+# front matter, so anything not listed here is published. Keep the private record,
+# the rest of the documentation, the tests and the development tooling out of the site.
+exclude:
+  - AGENTS.md
+  - docs/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - scripts/
+  - tests/
+  - eslint.config.mjs
+  - lighthouse.config.mjs
+  - playwright.config.mjs
+  - stylelint.config.mjs
