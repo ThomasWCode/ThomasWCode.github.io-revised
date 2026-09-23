@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { listPublishedHtml, reviewMarkup, scanHtml } from "../../scripts/content-review.mjs";
-import { readSiteFile, repositoryRoot } from "../support/site-files.mjs";
+import { readSiteFile, repositoryRoot, textContent } from "../support/site-files.mjs";
 
 const whenPattern = /^(?:unknown|\d{4}(?:-\d{2})?(?:\/(?:\d{4}(?:-\d{2})?)?)?)$/;
 const reviewPattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -21,6 +21,8 @@ const monthNames = [
   "December",
 ];
 const bannedWords = /\b(impressive|incredible|journey|leverage|showcase)\b/gi;
+const analisaQuote =
+  "I was honestly so impressed with Thomas after working on this project with him. Yes, his technical abilities were great, but actually, it was his strategic mindset and communications skills that made this a good project to work on with him.";
 
 const recordSlugs = new Set(
   Array.from((await readSiteFile("docs/record.md")).matchAll(/^### ([a-z0-9-]+)\s*$/gm), (match) => match[1]),
@@ -184,6 +186,20 @@ test("banned words stay off the site and “passionate” appears at most once",
 
   assert.deepEqual(errors, []);
   assert.ok(passionate <= 1, `“passionate” appears ${passionate} times`);
+});
+
+test("Analisa’s testimonial is quoted word for word wherever it appears", () => {
+  const quoted = [];
+
+  for (const [file, source] of sources) {
+    const text = textContent(source);
+    if (text.includes("I was honestly so impressed")) {
+      assert.ok(text.includes(analisaQuote), `${file} changes Analisa’s words`);
+      quoted.push(file);
+    }
+  }
+
+  assert.ok(quoted.includes("testimonials.html"), "the testimonial is missing from testimonials.html");
 });
 
 test("draft placeholders never ship to thomaswhite.me", async (context) => {
