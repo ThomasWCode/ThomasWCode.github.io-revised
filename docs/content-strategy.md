@@ -2,6 +2,8 @@
 
 This is the content, structure and voice plan for `thomaswhite.me`. It records the decisions made with Tom on 21 and 22 September 2026 across five rounds of questions, so that anyone (Tom, or a future session) can implement it page by page without re-asking. Where it names files it is only so the reader knows where the current copy lives. No site pages change with this document; each phase in §12 is its own change.
 
+**Implementation status (23 September 2026):** Phases 1 to 5 are implemented in the preview repository (`new.thomaswhite.me`). Phase 6 is ongoing writing. `docs/implementation-notes.md` lists what changed, every place Tom still has to write, and the open questions. Where the implementation departs from this plan it says so there.
+
 Companion file: `docs/record.md` holds every fact, date and age from those conversations in note form, including things that will not appear on the site. It is Tom's private reference for his personal statement and CV. Ages on the site are computed from the birth date recorded there and never guessed.
 
 ---
@@ -167,7 +169,7 @@ Home · Programming · Physics & Ideas · Volunteering · Blog · Sport, music &
 
 **Pages removed**: `/sport/` and `/music&drama/` are replaced by `/sport-music-and-drama/`. Keep the old URLs redirecting (Jekyll redirect page or meta refresh) since the Better Stack monitor and inbound links use them. Update the monitor keyword list and `tests/support/page-manifest.mjs` in the same change.
 
-**Blog file layout**: `blog/index.html` (permalink `/blog/`), `blog/<slug>.html` (permalink `/blog/<slug>/`), one shared `CSS/blog.css`. Tom writes each post in Markdown in `docs/blog-sources/<slug>.md`; an implementation session converts it to the post template. Markdown without front matter is not processed by GitHub Pages, so the sources stay raw and unlinked. Keeping the Markdown is the hedge for a later Eleventy migration (§12).
+**Blog file layout**: `blog/index.html` (permalink `/blog/`), `blog/<slug>.html` (permalink `/blog/<slug>/`), one shared `CSS/blog.css`. Tom writes each post in Markdown in `docs/blog-sources/<slug>.md`; an implementation session converts it to the post template. Markdown without front matter is not processed by GitHub Pages, so the sources stay raw and unlinked. *(Correction at implementation: GitHub Pages does render Markdown without front matter, through `jekyll-optional-front-matter`; this file and `docs/record.md` were public at `/docs/…`. `_config.yml` now excludes `docs/`, so the sources really are unpublished.)* Keeping the Markdown is the hedge for a later Eleventy migration (§12).
 
 ---
 

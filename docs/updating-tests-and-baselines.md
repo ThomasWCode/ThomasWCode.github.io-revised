@@ -10,9 +10,10 @@
 
 `npm run test:static`
 
-- `tests/support/page-manifest.mjs` pins every page's source file, clean path, `<title>`, `<h1>` and Better Stack keyword. Update it when a page is added, removed, renamed or re-titled, or when its `<h1>` changes. `site-contracts.test.mjs` fails immediately if a root-level HTML file is missing from the manifest.
+- `tests/support/page-manifest.mjs` pins every page's source file, clean path, `<title>`, `<h1>` and Better Stack keyword, plus `stylesheet` (default `/CSS/<source>.css`), `inNavigation` (default true; false for deep pages, posts and `/youtube/`) and the derived `monitored` flag. It also lists `documents` (the CV) and `redirects` (old URL, target, heading). Update it when a page is added, removed, renamed, moved or re-titled, or when its `<h1>` changes. `site-contracts.test.mjs` fails immediately if any published HTML file, in any folder, is missing from the manifest.
 - A `monitorKeyword` change is also a monitoring change. Update the Better Stack monitor and the table in `docs/status-page-operations.md` in the same change.
-- The front matter, metadata, shared shell, status link, HTML validity and local-reference checks are generic. They need no edit when a page follows `AGENTS.md`; a failure there means the page is wrong, not the test.
+- The front matter, metadata, shared shell, status link, HTML validity, local-reference and JSON-LD checks are generic. They need no edit when a page follows `AGENTS.md`; a failure there means the page is wrong, not the test.
+- `content-contracts.test.mjs` encodes the content strategy: fix the page (add the review date, the record slug or the Updated line), never the rule. Add a `### slug` to `docs/record.md` when a new record entry is needed. The draft check deliberately fails in the main repository while any `data-draft` remains.
 - `media-assets.test.mjs` pins image contracts: `srcset` descriptors equal to intrinsic widths, dimension and deferred-loading consistency, gallery expansion sources below one megabyte, an eagerly loaded above-the-fold gallery image, and an `<img>` fallback in every `<picture>`. Satisfy these by adding the right derivatives, not by relaxing the test.
 
 ## Browser tests
@@ -22,6 +23,7 @@
 - Update these when behaviour changes: an initializer added or removed, a control renamed, a status message reworded, an interactive feature added to a page.
 - Visible strings asserted by name are the usual breakage. The contact form's status text and accessible button names in `tests/e2e/interactions.spec.mjs` are matched by exact or substring text, so rewording them in `JS/script.js` or the markup means updating the assertion in the same change.
 - `tests/e2e/pages.spec.mjs` iterates the manifest, so a new page gains shell, metadata and accessibility coverage as soon as the manifest lists it.
+- `tests/e2e/navigation.spec.mjs` asserts the bar fits at 1025, 1060, 1100, 1140, 1280 and 1440 pixels. Changing a nav label or adding an item can require new no-JavaScript promotion widths in `general.css`; update the widths list when you move them.
 - Tests tagged `@smoke`, `@desktop-only`, `@phone-only`, `@reduced-motion` and `@no-js` are selected by the project greps in `playwright.config.mjs`. Keep a tag attached when moving or renaming a test; the tag decides which projects run it.
 - `tests/support/browser-fixtures.mjs` stubs CookieYes, Formspree, reCAPTCHA, Google Analytics and YouTube, and pins every page response's `Last-Modified` to `Mon, 31 Aug 2026 12:00:00 GMT`. Changing that fixture date changes the last-updated expectations and every visual baseline that shows the footer.
 
@@ -45,6 +47,7 @@ Seven baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suf
 - Three of the seven are clipped to a single element and ignore everything outside it. Contact page copy outside `.contact-form`, for example, is not captured by any baseline.
 - `/` and `/programming/` are full-page captures, so any visible content change on those two pages requires a new baseline.
 - A change to `CSS/general.css`, the header, navigation, footer, fonts or design tokens affects all seven.
+- Which phases changed which baselines: every navigation or footer change touches all seven; homepage and Programming copy changes touch the two full-page captures; Contact copy outside the form touches none.
 - Regenerate with `npm run test:visual:update` on Windows. The committed files carry the `win32` platform suffix, so a Linux or macOS run neither validates nor reproduces them; it looks for baselines that do not exist. CI runs this job on `windows-latest`.
 - Without Windows, dispatch the **Update visual baselines** workflow on your branch. It runs the same command on `windows-latest` and commits changed baselines to that branch; pull and inspect them like any other baseline change.
 - Inspect every changed PNG, commit only intended differences, and commit them alongside the change that caused them.
