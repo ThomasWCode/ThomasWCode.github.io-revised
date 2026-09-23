@@ -48,10 +48,11 @@ test("@visual homepage phone navigation", async ({ page }) => {
 test("@visual phone header as a corner menu button after scrolling", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openDeterministicPage(page, "/programming/");
-  await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
+  await settleVisualAssets(page);
+  await page.evaluate(() => document.fonts.ready);
+  await page.locator("#projects").evaluate((section) => section.scrollIntoView({ behavior: "instant" }));
   await expect(page.locator(".site-header")).toHaveClass(/site-header--compact/);
   await page.evaluate(() => Promise.all(document.getAnimations().map((animation) => animation.finished)));
-  await settleVisualAssets(page);
 
   await expect(page).toHaveScreenshot("phone-compact-header.png", screenshotOptions);
 });
