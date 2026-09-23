@@ -135,9 +135,6 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - Advising: one example of advice that changed something, "What I took from it", and the start month of the calls.
 - Parks: links to the Islington Life and Gazette pieces if they're online. Delete the box if they aren't.
 
-### Sport, music & drama (`sport-music-and-drama.html`), 1 item
-- The years or ages you did LAMDA.
-
 ### YouTube (`youtube.html`), 1 item
 - Check the drafted age in the lede (10).
 

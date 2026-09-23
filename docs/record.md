@@ -107,7 +107,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Running is the favourite. parkrun PB 21:21. Spartan races: a 5K, then two 10Ks a year. Brighton Triathlon. Squash, tennis, cross-country. Dates to confirm.
 
 ### music-drama
-- Drums and piano since primary school. School band, "Sunday Bloody Sunday". LAMDA Grades 1 to 6, Grade 6 Bronze Medal, five distinctions and one merit. Years to confirm.
+- Drums and piano since primary school. School band, "Sunday Bloody Sunday". LAMDA Grades 1 to 6, Grade 6 Bronze Medal, five distinctions and one merit. LAMDA from Year 5 (September 2019, age 9) to now (Tom, September 2026).
 
 ## Decisions about what stays off the site
 
@@ -123,7 +123,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ## To confirm (fill in and copy to the site's Details lines)
 
-- Ages or years: St John's Garden site, LAMDA grades, Parks events, Mind shop, LSHTM calls start.
+- Ages or years: St John's Garden site, Parks events, Mind shop, LSHTM calls start.
 - Drafted from repository and channel dates, marked `data-draft="check"` on the site: YouTube channel, TechAssist, web development "since age 14".
 - Cradle: software name, runs per parameter, term, headline finding, limitation, exact role.
 - TEDx organising milestones.
