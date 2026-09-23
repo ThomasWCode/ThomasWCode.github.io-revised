@@ -80,7 +80,7 @@ export const pages = [
   {
     source: "tedx.html",
     path: "/tedx/",
-    title: "TEDx Talk | Tom White",
+    title: "TEDx | Tom White",
     heading: "Bridging the Gap",
     monitorKeyword: "Bridging the Gap",
   },
