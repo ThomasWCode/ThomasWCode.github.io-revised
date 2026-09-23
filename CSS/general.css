@@ -541,6 +541,20 @@ hr {
   transform: translateY(-1.5px) rotate(-45deg);
 }
 
+/* Compact mobile header: the menu button swings in from the right as a quarter circle, and pops back into the bar at the top. */
+@keyframes nav-quarter-in {
+  from {
+    transform: rotate(-90deg);
+  }
+}
+
+@keyframes nav-toggle-return {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+}
+
 .mobile-more-label {
   display: none;
 }
@@ -1487,6 +1501,92 @@ figcaption {
 
   .nav-toggle {
     display: inline-flex;
+  }
+
+  /* The header is fixed here. Once the page scrolls, initialiseNavigation() adds site-header--compact: the bar and brand slide away and the menu button becomes a quarter circle in the corner. */
+  .page-container {
+    padding-top: var(--header-height);
+  }
+
+  .site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .site-header::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(33, 78, 59, 0.98);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.14);
+    content: "";
+    transition: transform 350ms ease;
+  }
+
+  .logo-container {
+    transition:
+      transform 350ms ease,
+      opacity 350ms ease,
+      visibility 0s;
+  }
+
+  .site-header--compact {
+    pointer-events: none;
+  }
+
+  .site-header--compact::before {
+    transform: translateY(calc(-100% - 2px));
+  }
+
+  .site-header--compact .logo-container {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateX(calc(-100% - 1.5rem));
+    transition:
+      transform 350ms ease,
+      opacity 350ms ease,
+      visibility 0s 350ms;
+  }
+
+  .site-header--compact .nav-toggle,
+  .site-header--compact .nav-panel {
+    pointer-events: auto;
+  }
+
+  .site-header--compact .nav-toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 76px;
+    height: 76px;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 28px 20px 0 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 253, 248, 0.32);
+    border-left: 1px solid rgba(255, 253, 248, 0.32);
+    border-radius: 0 0 0 100%;
+    background: var(--forest);
+    box-shadow: -2px 3px 14px rgba(20, 30, 25, 0.22);
+    transform-origin: 100% 0;
+    animation: nav-quarter-in 450ms cubic-bezier(0.2, 0.9, 0.3, 1.1) both;
+  }
+
+  .site-header--compact .nav-toggle-label {
+    display: none;
+  }
+
+  /* Keep clear of the 14px overlay scrollbar in narrow windows with a mouse. */
+  .site-scrollbar-active .site-header--compact .nav-toggle {
+    right: 14px;
+  }
+
+  .site-header--animated:not(.site-header--compact) .nav-toggle {
+    animation: nav-toggle-return 300ms ease-out both;
   }
 
   .nav-panel {

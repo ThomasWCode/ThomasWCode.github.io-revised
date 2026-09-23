@@ -28,6 +28,7 @@ Each phase went in as its own pull request and was merged with a merge commit, s
 | [#8](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/8) | Follow-up | Every link that isn't a page of the site opens in a new tab: the CV, email links, the Status link, the status page and GitHub links in the post, and the links on the CV. The Blog card's background ring now zooms on hover like the photo cards. |
 | [#9](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/9) | Follow-up | Analisa's testimonial says "impressed with Thomas" again, as she wrote it, with a contract that keeps her words exact. |
 | [#10](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/10) | Follow-up | The Blog card's backdrop is `Images/blog-card-texture.svg`: scattered rings and a scribbled placeholder paragraph inside the big ring, all zooming on hover. The local test server now sends SVG as `image/svg+xml`. |
+| [#11](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/11) | Follow-up | On phones and tablets (1024px and below) the header is fixed. Once you scroll, the logo and name slide off, the bar lifts away and the Menu button swings in from the right as a quarter circle in the top-right corner. It stays there until you scroll back to the top. Desktop is unchanged. |
 
 Page by page, the site now has:
 
@@ -212,6 +213,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 10. Is the GitHub repository public? If so, `docs/record.md`, including the birth date, is readable there even after the website fix.
 11. The overlay scrollbar's 14px arrow buttons cost one Lighthouse accessibility point on every page (`target-size`). This existed before this work. Should they be enlarged or removed?
 12. ~~Should Analisa's quote go back to "Thomas"?~~ Answered: yes. She wrote "impressed with Thomas" (your commit of 22 September 2025); the site-wide "Thomas > Tom" commit of 23 August 2026 had changed it, and that was the only change to her words. Both copies say "Thomas" again, and a content contract now fails if her words change.
+13. Three things are `position: sticky` in the CSS but have never stuck since the redesign of 22 August 2026: the header, the About heading on the homepage and the Contact intro card. `overflow-x: hidden` on `body` makes it a scroll container, which stops sticky working. Changing it to `overflow-x: clip` fixes all three, but on desktop that makes the header stick and the other two follow it. Should desktop get the sticky behaviour the CSS describes? Phones and tablets already have the fixed compact header, which doesn't depend on this.
 
 ---
 

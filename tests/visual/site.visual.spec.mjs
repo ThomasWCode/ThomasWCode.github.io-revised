@@ -45,6 +45,18 @@ test("@visual homepage phone navigation", async ({ page }) => {
   await expect(page).toHaveScreenshot("home-phone-navigation.png", screenshotOptions);
 });
 
+test("@visual phone header as a corner menu button after scrolling", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await openDeterministicPage(page, "/programming/");
+  await settleVisualAssets(page);
+  await page.evaluate(() => document.fonts.ready);
+  await page.locator("#projects").evaluate((section) => section.scrollIntoView({ behavior: "instant" }));
+  await expect(page.locator(".site-header")).toHaveClass(/site-header--compact/);
+  await page.evaluate(() => Promise.all(document.getAnimations().map((animation) => animation.finished)));
+
+  await expect(page).toHaveScreenshot("phone-compact-header.png", screenshotOptions);
+});
+
 test("@visual programming desktop", async ({ page }) => {
   await openDeterministicPage(page, "/programming/");
   await settleVisualAssets(page);

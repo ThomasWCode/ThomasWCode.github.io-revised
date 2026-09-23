@@ -108,6 +108,7 @@ The header and footer are repeated in every page rather than generated from a te
 - Priority-plus: every item after Programming appears twice, in the bar as `<li data-nav-item="key">` and at the top of More as `<li data-nav-copy="key">`, in the same order. `initialiseNavigation()` measures the bar and moves trailing items into More, last first, marking the unused copy `hidden` and `aria-hidden`. Contact :) never moves.
 - Without JavaScript, the last two items carry `nav-item--fallback` / `nav-copy--fallback` and start in More; the `min-width` media queries in `general.css` promote them at widths known to fit (currently 1060px and 1140px). Re-measure these whenever a nav label changes; `tests/e2e/navigation.spec.mjs` checks the bar never overflows.
 - The mobile menu (1024px and below) shows each page once and hides every More copy.
+- At 1024px and below the header is fixed. Once the page scrolls more than 24px, `initialiseNavigation()` adds `site-header--compact`: the bar slides up, the logo and name slide off to the left, and the Menu button swings in as a quarter circle in the top-right corner (14px in when the overlay scrollbar is active). Scrolling back to the top reverses it. Desktop is unchanged.
 - Footer "Pages": Home, Programming, Physics & Ideas, Volunteering, Blog, Sport, music & drama, Gallery. Footer "More": TEDx, Testimonials, GitHub, LinkedIn (when it exists), CV (PDF), Contact :). Each page leaves itself out of the footer lists.
 - Do not manually update only the copyright end year; `data-current-year` is populated at runtime.
 - Keep `<span data-last-updated>unknown – please enable JavaScript</span>` identical on every page. `initialiseLastUpdated()` replaces it with a `<time>` element carrying the deployed page's `Last-Modified` date, or with `unknown` when that header is missing.
@@ -145,7 +146,7 @@ All JavaScript is in `JS/script.js` and initializes after `DOMContentLoaded`. Pr
 
 - `initialiseAnalytics()`: consent-aware Google Analytics.
 - `initialiseSkipLink()`: keyboard focus transfer.
-- `initialiseNavigation()`: desktop More menu, mobile navigation, and priority-plus fitting (measures on load, resize and font load; adds `nav-measured` to `.navbar`, which switches off the no-JavaScript fallback CSS).
+- `initialiseNavigation()`: desktop More menu, mobile navigation, priority-plus fitting (measures on load, resize and font load; adds `nav-measured` to `.navbar`, which switches off the no-JavaScript fallback CSS), and the compact mobile header (`site-header--compact` once the page scrolls, `site-header--animated` after the first time so the button animates back into the bar).
 - `initialiseScrollbarTrack()`: overlay scrollbar for fine-pointer devices.
 - `initialiseCurrentYear()`: `data-current-year` elements.
 - `initialiseLastUpdated()`: deployment date from `document.lastModified`, rendered as a `<time>` element.

@@ -72,6 +72,8 @@ export default [
         initialiseTrackAudio: "readonly",
         matchMedia: "readonly",
         Promise: "readonly",
+        requestAnimationFrame: "readonly",
+        window: "readonly",
       },
     },
   },
