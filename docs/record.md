@@ -120,6 +120,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - IYPT: in-school project, never "IYPT competitor".
 - CV PDF: public download, will be indexed by search engines; accepted.
 - Blog post dates show the month and year only, no age (September 2026).
+- TechAssist is on Programming only. Its card on Volunteering was replaced by a small advising card that links to the Advising section (September 2026).
 - No AI-run rot check in the plan; the GitHub Action is deterministic. A scheduled AI review is Tom's separate addition if he wants it.
 
 ## To confirm (fill in and copy to the site's Details lines)

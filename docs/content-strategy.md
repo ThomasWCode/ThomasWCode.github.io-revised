@@ -279,7 +279,7 @@ Metadata: description → "Projects I'm proudest of: Namesake, this website, Tec
 **Section 1: Building for people**
 - Namesake (summary + link to the Programming block).
 - Friends of St John's Garden website (what, for whom, link, the Analisa Plehn quote in context).
-- TechAssist (one line, link).
+- A small card for the LSHTM advising, linking to Section 2 (replaced the TechAssist card, September 2026).
 - VAXTB: not listed until shipped.
 
 **Section 2: Advising** (new)
