@@ -81,7 +81,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Age at the time to confirm.
 
 ### st-johns-garden
-- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn. Date to confirm.
+- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). Date to confirm.
 
 ## Advising
 

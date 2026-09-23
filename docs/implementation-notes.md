@@ -209,7 +209,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 9. Should the CV fit on one A4 page? It is two pages now, with the education gaps.
 10. Is the GitHub repository public? If so, `docs/record.md`, including the birth date, is readable there even after the website fix.
 11. The overlay scrollbar's 14px arrow buttons cost one Lighthouse accessibility point on every page (`target-size`). This existed before this work. Should they be enlarged or removed?
-12. Analisa's quote on Testimonials (and now Volunteering) says "impressed with Tom". She wrote "impressed with Thomas" (your commit of 22 September 2025); your "Thomas > Tom" commit of 23 August 2026 changed the name inside the quote along with the rest of the site. That is the only change to her words since they were added. Should it go back to "Thomas"?
+12. ~~Should Analisa's quote go back to "Thomas"?~~ Answered: yes. She wrote "impressed with Thomas" (your commit of 22 September 2025); the site-wide "Thomas > Tom" commit of 23 August 2026 had changed it, and that was the only change to her words. Both copies say "Thomas" again, and a content contract now fails if her words change.
 
 ---
 
