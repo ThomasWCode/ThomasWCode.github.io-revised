@@ -1152,8 +1152,8 @@ figcaption {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 384'%3E%3Ccircle cx='192' cy='192' r='191.5' fill='none' stroke='rgb(255 253 248 / 0.2)' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E")
-    right -7rem top -9rem / 24rem 24rem no-repeat;
+  background: url("/Images/blog-card-texture.svg") right top / clamp(36rem, 200%, 48rem) auto
+    no-repeat;
   content: "";
   transition: transform 500ms ease;
 }

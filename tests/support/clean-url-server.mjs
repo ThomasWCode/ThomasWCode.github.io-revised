@@ -19,6 +19,7 @@ const mimeTypes = new Map([
   [".mp4", "video/mp4"],
   [".pdf", "application/pdf"],
   [".png", "image/png"],
+  [".svg", "image/svg+xml"],
   [".webm", "video/webm"],
   [".webp", "image/webp"],
   [".woff2", "font/woff2"],
