@@ -64,24 +64,27 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Pinned blog post "How this site works" (`/blog/how-this-site-works/`): drafted in September 2026 from what the repository does, for Tom to rewrite. The commit history shows AI coding tools (Claude) wrote part of the site; the site now says so.
 
 ### techassist
-- Built for grandparents, age to confirm. Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Massive time investment.
+- Built for grandparents, age 14 (drafted; confirm). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Massive time investment.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
+- Dates from `ThomasWCode/techassist` (the TechAssist website and installer): first commit 4 Feb 2025 (age 14), most commits February and April 2025, last 20 Aug 2025. The first commit already uploads setup version 1.4.5, so the app itself is older than the repository.
 
 ### vaxtb
 - Not yet built. Mentioned only in the homepage Now section (September 2026). Web tool similar to WHO's ScreenTB, for TB vaccines. Volunteer. Asked by the TB vaccine modelling team at LSHTM that Tom's dad works in. Public once finished. Until then, only a line in the homepage Now section.
 
 ### early-projects
-- Chrome Dino: first game, Python. Age to confirm.
-- Minesweeper: Python, three difficulty levels. Age to confirm.
-- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics. Age to confirm.
-- Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Age to confirm.
-- SplitMate: first mobile app, splitting shared expenses. Age to confirm.
+- Chrome Dino: first game, Python. Repository uploaded 16 Aug 2025 (age 15). Site shows age 15; confirm.
+- Minesweeper: Python, three difficulty levels. Repository uploaded 20 Aug 2025 (age 15), but `flag.png` was created 6 May 2024 (age 13). Site shows age 13; confirm.
+- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics. Repository uploaded 16 Aug 2025 (age 15), but an earlier single-file `BouncingBalls.py` is in `ThomasWCode/thomas-tutoring`, last modified 23 Jun 2024 (age 14). Site shows age 14; confirm.
+- Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Repository uploaded 20 Aug 2025 (age 15). Site shows age 15; confirm.
+- SplitMate: first mobile app, splitting shared expenses. Repository uploaded 17 Aug 2025 (age 15). Site shows age 15; confirm.
+- All five repositories were uploaded through GitHub's web "Add files via upload" between 16 and 20 August 2025, so their dates are when they went online, not when they were written. Where there is earlier evidence the site uses it.
+- Thomas Tutoring (`ThomasWCode/thomas-tutoring`, private): a tutoring website with sign-up and log-in pages, first commit 9 Jun 2024 (age 14), with Python projects (bouncing balls, speed typing) as downloads. Its projects page says "I have made many projects in Python, HTML and Lua". Earliest web development found; source of "since age 14" on the This website block. Not on the site.
 
 ### youtube
-- Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Age at the time to confirm.
+- Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Channel joined 29 Nov 2020 (age 10); 30 videos, the oldest Roblox tutorials about five years old, Advent of Code videos December 2022 (age 12), last upload 1 Sep 2023 (age 13). Site shows ages 10 to 13 and "learning Lua, at 10"; confirm.
 
 ### st-johns-garden
-- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). Date to confirm.
+- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). Date to confirm: the domain was registered 8 Aug 2025 (age 15) and the Wayback Machine first saved it 15 Apr 2026, but neither shows when Tom built it.
 
 ## Advising
 
@@ -120,7 +123,8 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ## To confirm (fill in and copy to the site's Details lines)
 
-- Ages or years: YouTube channel, Chrome Dino, Minesweeper, Game of Life, Bouncing Ball, SplitMate, TechAssist, St John's Garden site, LAMDA grades, Parks events, Mind shop, LSHTM calls start.
+- Ages or years: St John's Garden site, LAMDA grades, Parks events, Mind shop, LSHTM calls start.
+- Drafted from repository and channel dates, marked `data-draft="check"` on the site: YouTube channel, Chrome Dino, Minesweeper, Game of Life, Bouncing Ball, SplitMate, TechAssist, web development "since age 14".
 - Cradle: software name, runs per parameter, term, headline finding, limitation, exact role.
 - TEDx organising milestones.
 - Islington Life and Gazette links.
