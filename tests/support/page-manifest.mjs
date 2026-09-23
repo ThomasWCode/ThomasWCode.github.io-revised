@@ -71,6 +71,15 @@ export const pages = [
     inNavigation: false,
   },
   {
+    source: "blog/how-this-site-works.html",
+    path: "/blog/how-this-site-works/",
+    title: "How this site works | Tom White",
+    heading: "How this site works",
+    monitorKeyword: "How this site works",
+    stylesheet: "/CSS/blog.css",
+    inNavigation: false,
+  },
+  {
     source: "gallery.html",
     path: "/gallery/",
     title: "Gallery | Tom White",
