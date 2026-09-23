@@ -24,7 +24,8 @@ Each phase went in as its own pull request and was merged with a merge commit, s
 | [#3](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/3) | 2: structure | Priority-plus navigation (with a no-JavaScript fallback). Shared components: proof block, Details toggle, compact list, post list, post layout, draft notes. The date-attribute convention with the monthly content review workflow and its contract tests. `cv.html` and `Tom-White-CV.pdf` with `npm run build:cv`. |
 | [#5](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/5) | 3: Physics & Ideas and the Blog | `/physics/`, `/physics/magnetic-newtons-cradle/`, `/blog/` with the post template and the "Bridging the Gap" skeleton, the TEDx page split into the talk and organising the 2027 event, Physics & Ideas and Blog in the nav, footer and home grid. |
 | [#6](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/6) | 4: Programming and Volunteering | Programming rebuilt around three proof blocks (Namesake, this website, TechAssist), Using AI and Where I started. Volunteering split into building, advising (LSHTM) and hands-on. The "How this site works" post. |
-| #7 | 5: consolidation | `/sport/` and `/music&drama/` merged into `/sport-music-and-drama/`, with the old URLs redirecting. The Now section on the homepage. Contact finished. Consistent JSON-LD `sameAs`. `AGENTS.md` and the docs rewritten. This file. |
+| [#7](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/7) | 5: consolidation | `/sport/` and `/music&drama/` merged into `/sport-music-and-drama/`, with the old URLs redirecting. The Now section on the homepage. Contact finished. Consistent JSON-LD `sameAs`. `AGENTS.md` and the docs rewritten. This file. |
+| [#8](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/8) | Follow-up | Every link that isn't a page of the site opens in a new tab: the CV, email links, the Status link, the status page and GitHub links in the post, and the links on the CV. The Blog card's background ring now zooms on hover like the photo cards. |
 
 Page by page, the site now has:
 
@@ -55,6 +56,7 @@ Behind the pages:
   - the redirects;
   - no draft placeholders once `CNAME` is `thomaswhite.me`.
 - `npm run list:drafts` lists every placeholder still to fill.
+- Only links to the site's own pages (and same-page anchors) open in the same tab. Everything else (other sites, the CV PDF, `mailto:`) has `target="_blank" rel="noopener noreferrer"`, and a contract fails if a link breaks this. New-tab text links show ↗; the "Email me" buttons keep →.
 
 ---
 
@@ -175,7 +177,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - **Namesake "What I did":**
   - It says "the summer after Year 11" rather than the plan's example "(July 2026, age 16)", because principle 3 keeps real months out of visible copy. The real dates are in Details.
   - The "My merged changes" button links to a GitHub search for merged PRs by `ThomasWCode` (see questions).
-- **"This website":** it says AI coding tools helped. Before this work, 13 of the repository's 57 commits were authored by Claude, and principle 6 is "say exactly what happened". The wording is marked for you to check.
+- **"This website":** it says AI coding tools helped. Before this work, 13 of the repository's 369 commits were authored by Claude (all between 18 and 22 September 2026) and 5 more of yours name Claude as co-author, and principle 6 is "say exactly what happened". The wording is marked for you to check.
 - **Details toggles:** these follow the plan (`initialiseInfoToggles()`) but work without JavaScript. The details show until the script collapses them.
 - **More menu:** without JavaScript it opens on hover and keyboard focus. Before, it could not be opened at all without JavaScript.
 - **TEDx page title:** "TEDx Talk | Tom White" is now "TEDx | Tom White", and the nav and footer label is "TEDx", because the page now covers organising too. The H1 and URL are unchanged.
@@ -188,6 +190,8 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - **New image:** `Images/this-website.png` is a homepage screenshot. ImageMagick wasn't available, so its WebP derivatives were encoded by Chromium at quality 0.92, not with `-define webp:method=6`. Re-encode them with the commands in `AGENTS.md` if you want them to match exactly.
 - **Redirects:** these are plain meta-refresh pages, not the Jekyll plugin, so they need no configuration and are tested locally.
 - **Rabbit strip:** "A few other bits" now has two cards in a two-column grid.
+- **Email links open in a new tab:** you asked for only site pages to open in the same tab, so `mailto:` links have `target="_blank"` too. If a webmail handler such as Gmail is set up, that keeps the site open. With a desktop mail app, some browsers may briefly open (or leave) an empty tab. Remove the attribute from the `mailto:` links if that bothers you; the contract would need the same exception.
+- **CV link:** the plan calls the PDF "download only". It now opens in the browser's PDF viewer in a new tab, from which it can be downloaded.
 - **Unused files:** the early-project screenshots (`chrome-dino.png`, `minesweeper.png` and others) are no longer shown on Programming. I kept the files.
 
 ---
@@ -205,6 +209,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 9. Should the CV fit on one A4 page? It is two pages now, with the education gaps.
 10. Is the GitHub repository public? If so, `docs/record.md`, including the birth date, is readable there even after the website fix.
 11. The overlay scrollbar's 14px arrow buttons cost one Lighthouse accessibility point on every page (`target-size`). This existed before this work. Should they be enlarged or removed?
+12. Analisa's quote on Testimonials (and now Volunteering) says "impressed with Tom". She wrote "impressed with Thomas" (your commit of 22 September 2025); your "Thomas > Tom" commit of 23 August 2026 changed the name inside the quote along with the rest of the site. That is the only change to her words since they were added. Should it go back to "Thomas"?
 
 ---
 
