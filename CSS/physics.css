@@ -1,0 +1,12 @@
+.reading-group {
+  margin: 2.5rem 0 1rem;
+  font-size: 1.35rem;
+}
+
+.reading-group:first-of-type {
+  margin-top: 0;
+}
+
+#questions .draft-note {
+  max-width: var(--prose-width);
+}

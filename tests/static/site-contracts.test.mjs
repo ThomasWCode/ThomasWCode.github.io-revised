@@ -47,7 +47,7 @@ for (const page of pages) {
       new RegExp(`^---\\r?\\npermalink: ${page.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\r?\\n---\\r?\\n`),
     );
     assert.equal(textContent(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || ""), page.title);
-    assert.match(html, /<meta\s+name="description"\s+content="[^"]+"\s*\/>/i);
+    assert.match(html, /<meta\s+name="description"\s+content="[^"]+"(?:\s+data-[\w-]+="[^"]*")*\s*\/>/i);
     assert.match(html, new RegExp(`<link rel="canonical" href="${page.canonical}"\\s*/>`));
     assert.match(html, new RegExp(`<meta property="og:url" content="${page.canonical}"\\s*/>`));
     assert.match(html, /<script type="application\/ld\+json">[\s\S]*?<\/script>/i);

@@ -76,6 +76,10 @@
   top: calc(var(--header-height) + 2rem);
 }
 
+.about-cv {
+  margin-top: 1.5rem;
+}
+
 .dusty-note {
   margin-top: 2rem;
   padding: 1.2rem 1.35rem;
@@ -88,6 +92,10 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
+}
+
+.rabbit-grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .rabbit-card {
@@ -105,6 +113,15 @@
 
 .rabbit-card:nth-child(3) {
   border-color: rgba(169, 78, 52, 0.35);
+}
+
+.rabbit-grid--two .rabbit-card:nth-child(1) {
+  background: var(--sage-light);
+}
+
+.rabbit-grid--two .rabbit-card:nth-child(2) {
+  border-color: rgba(169, 78, 52, 0.35);
+  background: var(--paper);
 }
 
 .rabbit-card h3 {

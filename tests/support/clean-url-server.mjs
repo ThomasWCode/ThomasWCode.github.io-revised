@@ -17,13 +17,14 @@ const mimeTypes = new Map([
   [".json", "application/json; charset=utf-8"],
   [".mp3", "audio/mpeg"],
   [".mp4", "video/mp4"],
+  [".pdf", "application/pdf"],
   [".png", "image/png"],
   [".webm", "video/webm"],
   [".webp", "image/webp"],
   [".woff2", "font/woff2"],
 ]);
 
-function resolveRequestPath(requestUrl) {
+async function resolveRequestPath(requestUrl) {
   const pathname = decodeURIComponent(new URL(requestUrl, "http://localhost").pathname);
 
   if (pathname === "/") {
@@ -31,14 +32,20 @@ function resolveRequestPath(requestUrl) {
   }
 
   if (pathname.endsWith("/")) {
-    return path.join(root, `${pathname.slice(1, -1)}.html`);
+    const pagePath = path.join(root, `${pathname.slice(1, -1)}.html`);
+    try {
+      await access(pagePath);
+      return pagePath;
+    } catch {
+      return path.join(root, pathname.slice(1), "index.html");
+    }
   }
 
   return path.join(root, pathname.slice(1));
 }
 
 async function requestHandler(request, response) {
-  const filePath = resolveRequestPath(request.url || "/");
+  const filePath = await resolveRequestPath(request.url || "/");
   const relativePath = path.relative(root, filePath);
 
   if (relativePath.startsWith("..") || path.isAbsolute(relativePath)) {

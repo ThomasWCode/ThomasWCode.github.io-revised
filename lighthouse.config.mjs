@@ -1,5 +1,5 @@
 export const lighthouseConfig = {
-  urls: ["/", "/programming/", "/gallery/", "/contact/"],
+  urls: ["/", "/programming/", "/physics/", "/blog/", "/gallery/", "/contact/"],
   runs: 3,
   blockedUrlPatterns: [
     "https://api.github.com/**",

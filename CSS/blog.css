@@ -1,0 +1,3 @@
+.post-list h3 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+}

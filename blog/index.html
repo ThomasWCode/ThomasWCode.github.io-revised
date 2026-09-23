@@ -1,5 +1,5 @@
 ---
-permalink: /music&drama/
+permalink: /blog/
 ---
 
 <!doctype html>
@@ -7,27 +7,27 @@ permalink: /music&drama/
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Music &amp; Drama | Tom White</title>
+    <title>Blog | Tom White</title>
     <meta
       name="description"
-      content="I play drums, performed with a school band and spent several years doing LAMDA drama exams."
+      content="Things I’ve written: my TEDx talk as an essay, how this site is built, and whatever else I’m thinking about."
     />
-    <link rel="canonical" href="https://thomaswhite.me/music&drama/" />
+    <link rel="canonical" href="https://thomaswhite.me/blog/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Music &amp; Drama | Tom White" />
+    <meta property="og:title" content="Blog | Tom White" />
     <meta
       property="og:description"
-      content="Drums, playing in a band and my LAMDA exams."
+      content="Things I’ve written: my TEDx talk as an essay, how this site is built, and whatever else I’m thinking about."
     />
-    <meta property="og:url" content="https://thomaswhite.me/music&drama/" />
+    <meta property="og:url" content="https://thomaswhite.me/blog/" />
     <meta
       property="og:image"
-      content="https://thomaswhite.me/Images/drumming-band.png"
+      content="https://thomaswhite.me/Images/tedx-talk.jpg"
     />
     <meta name="theme-color" content="#214e3b" />
     <link rel="icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/CSS/general.css" />
-    <link rel="stylesheet" href="/CSS/music&drama.css" />
+    <link rel="stylesheet" href="/CSS/blog.css" />
     <script
       async
       id="cookieyes"
@@ -36,13 +36,14 @@ permalink: /music&drama/
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Tom White",
-        "url": "https://thomaswhite.me",
-        "sameAs": [
-          "https://github.com/ThomasWCode",
-          "https://www.youtube.com/@leopardbookshop7761"
-        ]
+        "@type": "Blog",
+        "name": "Tom White’s blog",
+        "url": "https://thomaswhite.me/blog/",
+        "author": {
+          "@type": "Person",
+          "name": "Tom White",
+          "url": "https://thomaswhite.me"
+        }
       }
     </script>
   </head>
@@ -77,9 +78,9 @@ permalink: /music&drama/
                 <li><a href="/programming/">Programming</a></li>
                 <li data-nav-item="physics"><a href="/physics/">Physics &amp; Ideas</a></li>
                 <li data-nav-item="volunteering"><a href="/volunteering/">Volunteering</a></li>
-                <li data-nav-item="blog"><a href="/blog/">Blog</a></li>
+                <li data-nav-item="blog"><a href="/blog/" aria-current="page">Blog</a></li>
                 <li data-nav-item="sport"><a href="/sport/">Sport</a></li>
-                <li data-nav-item="music-drama" class="nav-item--fallback"><a href="/music&drama/" aria-current="page">Music &amp; Drama</a></li>
+                <li data-nav-item="music-drama" class="nav-item--fallback"><a href="/music&drama/">Music &amp; Drama</a></li>
                 <li data-nav-item="gallery" class="nav-item--fallback"><a href="/gallery/">Gallery</a></li>
                 <li class="nav-more">
                   <span class="mobile-more-label">A few more pages</span
@@ -112,95 +113,64 @@ permalink: /music&drama/
         <section class="page-hero">
           <div class="hero-inner">
             <div class="hero-copy">
-              <p class="eyebrow">I do have other hobbies!</p>
-              <h1>Music &amp; Drama</h1>
-              <p class="hero-lede">
-                Actually, I do have hobbies other than programming! I play drums
-                and I spent several years doing LAMDA.
+              <p class="eyebrow">Things I’ve written</p>
+              <h1>Blog</h1>
+              <p class="hero-lede" data-draft="check">
+                Longer things I’ve written: physics, how this site is built, and
+                whatever else I’m thinking about.
               </p>
             </div>
           </div>
         </section>
         <section
           class="section section--paper"
-          id="music"
-          aria-labelledby="music-heading"
+          id="pinned"
+          aria-labelledby="pinned-heading"
         >
-          <div class="story-grid">
-            <div class="prose">
-              <p class="eyebrow">Drums (and a bit of piano)</p>
-              <h2 id="music-heading">Music</h2>
-              <p>
-                I started learning piano and drums in primary school. Drums
-                suited me much better, so that is what I stuck with.
-              </p>
-              <p>
-                I also played in a band with two school friends. We performed at
-                several school concerts. Below is one where we performed “Sunday
-                Bloody Sunday”.
-              </p>
-            </div>
-            <div class="related-callout">
-              <p class="eyebrow">The best bit</p>
-              <h3>Just bashing stuff</h3>
-              <p>
-                I do grades but my favourite thing to do is just sit down, shuffle my playlist and play
-                to whatever comes up.
-              </p>
-            </div>
+          <div class="section-heading">
+            <p class="eyebrow">Pinned</p>
+            <h2 id="pinned-heading">Start here</h2>
           </div>
-          <figure class="image-frame music-feature">
-            <picture
-              ><source
-                type="image/webp"
-                srcset="
-                  /Images/optimized/drumming-band-480.webp   480w,
-                  /Images/optimized/drumming-band-960.webp   960w,
-                  /Images/optimized/drumming-band-1600.webp 1600w
-                "
-                sizes="100vw" />
-              <img
-                src="/Images/drumming-band.png"
-                width="1920"
-                height="1080"
-                alt="Tom playing drums while his school band performs"
-                loading="lazy"
-                decoding="async"
-            /></picture>
-            <figcaption>
-              Our school band performing “Sunday Bloody Sunday”
-            </figcaption>
-          </figure>
+          <div class="path-grid path-grid--three">
+            <a class="path-card" href="/blog/bridging-the-gap/"
+              ><picture
+                ><source
+                  type="image/webp"
+                  srcset="
+                    /Images/optimized/tedx-talk-480.webp 480w,
+                    /Images/optimized/tedx-talk-960.webp 960w
+                  "
+                  sizes="(max-width: 650px) 100vw, 33vw" />
+                <img
+                  src="/Images/tedx-talk.jpg"
+                  width="6048"
+                  height="4032"
+                  alt="Tom speaking on the TEDxDulwich Youth stage"
+                  loading="lazy"
+                  decoding="async"
+              /></picture>
+              <div class="path-card-content">
+                <h3>Bridging the Gap</h3>
+                <p>My TEDx talk as an essay.</p>
+              </div></a
+            >
+          </div>
         </section>
-        <section class="section" id="drama" aria-labelledby="drama-heading">
-          <div class="story-grid story-grid--reverse">
-            <div class="related-callout">
-              <p class="eyebrow">One step ahead</p>
-              <h3>Monologues not duologues</h3>
-              <p>
-                I was either one or two grades ahead of everyone else and so could only do monologues.
-              </p>
-              <p>
-                Suited me just fine.
-              </p>
-            </div>
-            <div class="prose">
-              <p class="eyebrow">Drama</p>
-              <h2 id="drama-heading">LAMDA</h2>
-              <p>
-                <a
-                  class="new-tab-link external-link"
-                  href="https://www.lamda.ac.uk/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >LAMDA</a
-                >
-                is an awarding body for drama. I passed Grades 1
-                through 6, including the Grade 6 Bronze Medal, with five
-                distinctions and one merit.
-              </p>
-            </div>
+        <section class="section" id="posts" aria-labelledby="posts-heading">
+          <div class="section-heading">
+            <p class="eyebrow">Everything, newest first</p>
+            <h2 id="posts-heading">All posts</h2>
           </div>
+          <ol class="post-list">
+            <li data-record="tedx-talk" data-when="2026-02" data-review="2027-09-01">
+              <p class="eyebrow">February 2026, age 15</p>
+              <h3><a href="/blog/bridging-the-gap/">Bridging the Gap</a></h3>
+              <p>
+                My TEDx talk as an essay: why General Relativity and Quantum
+                Mechanics disagree, and the ideas trying to bridge them.
+              </p>
+            </li>
+          </ol>
         </section>
       </main>
       <footer class="site-footer">
@@ -220,8 +190,8 @@ permalink: /music&drama/
                 <li><a href="/programming/">Programming</a></li>
                 <li><a href="/physics/">Physics &amp; Ideas</a></li>
                 <li><a href="/volunteering/">Volunteering</a></li>
-                <li><a href="/blog/">Blog</a></li>
                 <li><a href="/sport/">Sport</a></li>
+                <li><a href="/music&drama/">Music &amp; Drama</a></li>
                 <li><a href="/gallery/">Gallery</a></li>
               </ul>
             </div>
