@@ -69,7 +69,7 @@ Redirects: `sport.html` (`/sport/`) and `music&drama.html` (`/music&drama/`) are
 `docs/content-strategy.md` §4 and §5 are the rules; the short version:
 
 - Keep Tom's voice. Short first-person sentences, contractions, British spelling, at most one exclamation mark per page. Jokes only in eyebrows, ledes and last sentences, never in an H2, a caption or a proof block's "What I did".
-- Visible copy shows ages and school years; real dates go in data attributes and Details lines. TEDx event dates are the one visible exception.
+- Visible copy shows ages and school years; real dates go in data attributes and Details lines. TEDx event dates and blog post months are the visible exceptions; blog posts show no age.
 - Proof over claims. Never overclaim: IYPT was the in-school stage; Tom is one of three student organisers of TEDxDulwich Youth (never "licensee"); the LSHTM work is advising, via the team Tom's dad works in; Namesake #753 was proposed, not built.
 - Banned everywhere: impressive, incredible, journey, leverage, showcase. "Passionate" at most once site-wide. A contract enforces both.
 - Every deep page and post gets a summary on its parent page, never a bare link.
@@ -96,7 +96,7 @@ Redirects: `sport.html` (`/sport/`) and `music&drama.html` (`/music&drama/`) are
 - Copy the most similar existing page. Set metadata deliberately; do not retain metadata copied from another page.
 - Add the page to `tests/support/page-manifest.mjs` (source, path, title, heading, monitor keyword, and `stylesheet` or `inNavigation: false` when they differ from the defaults).
 - Add a top-level page to the desktop navigation, its More copy, the mobile menu and the footer on every page (§ Shared navigation and footer), and check `aria-current`.
-- Blog posts: Tom writes `docs/blog-sources/<slug>.md` (unpublished); convert it into `blog/<slug>.html` from the post template (page hero with a "Month Year, age N" eyebrow, `.prose.post-body` article with `h2` subheadings, a Related block). Then add it to the post list on `/blog/` (newest first), pin it if it is informative (at most three pinned), summarise it on its parent page, and give it a `BlogPosting` JSON-LD block.
+- Blog posts: Tom writes `docs/blog-sources/<slug>.md` (unpublished); convert it into `blog/<slug>.html` from the post template (page hero with a "Month Year" eyebrow, no age, `.prose.post-body` article with `h2` subheadings, a Related block). Then add it to the post list on `/blog/` (newest first), pin it if it is informative (at most three pinned), summarise it on its parent page, and give it a `BlogPosting` JSON-LD block.
 - Include the shared header, footer, CookieYes script, and `/JS/script.js`.
 - Verify desktop, tablet, phone, keyboard, reduced-motion and no-JavaScript behaviour.
 

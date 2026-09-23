@@ -142,7 +142,7 @@ This guide exists to inform AI suggestions and the site's structure (what space 
 - Proof links.
 
 **Blog post skeleton**
-- Eyebrow: month, year and age ("March 2027, age 16").
+- Eyebrow: month and year, no age ("March 2027").
 - Title. Lede. Prose in the 70-character column with an eyebrow-style subheading every 300 to 400 words.
 - "Related" block linking the parent page and any project.
 - Posts can be pure thoughts. Pinned posts are the informative ones.
@@ -293,8 +293,8 @@ Metadata: description → "Projects I'm proudest of: Namesake, this website, Tec
 
 ### 7.5 Blog (new page and post template)
 
-- **Index** (`/blog/`): eyebrow "Things I've written", H1 "Blog", lede one line. **Pinned** strip at the top using the homepage card grid (up to three). Then the full list newest first: date and age eyebrow, title, one-line summary.
-- **Post template**: page hero (eyebrow with month, year, age; title; lede), prose column, "Related" block, footer. Same header and footer as every page.
+- **Index** (`/blog/`): eyebrow "Things I've written", H1 "Blog", lede one line. **Pinned** strip at the top using the homepage card grid (up to three). Then the full list newest first: date eyebrow, title, one-line summary.
+- **Post template**: page hero (eyebrow with month and year; title; lede), prose column, "Related" block, footer. Same header and footer as every page.
 - **Planned posts, in order**: "Bridging the Gap" (the talk as an essay, pinned); "How this site works" (pinned); "Organising TEDxDulwich Youth" (after the event, pinned); "Using AI in a small research team" (from the LSHTM work); reading and thought posts as they come.
 - Subject pages summarise and link their posts (principle 2).
 
@@ -338,7 +338,7 @@ Every new element maps to an existing class so implementation sessions do not in
 | Figure row | cradle page, TEDx | `.media-card.editorial-card` + `.image-frame` + `<figcaption>` as on `/tedx/` |
 | Compact list | Where I started, reading, Now, Questions I'm stuck on | new shared `.compact-list`: one line per item, eyebrow-style age label, optional arrow link |
 | Pinned strip | Blog index | the homepage `.path-card` grid, three across |
-| Post list | Blog index | new `.post-list`: rows of eyebrow (date, age), title link, one-line summary |
+| Post list | Blog index | new `.post-list`: rows of eyebrow (date), title link, one-line summary |
 | Priority-plus nav | every page | existing `.nav-links` and `.nav-more`, plus measuring logic in `initialiseNavigation()` and CSS media queries for the no-JS fallback |
 | CTA block | Home, Programming, Volunteering, Contact | existing block, new copy |
 
@@ -355,7 +355,7 @@ Tom writes; an implementation session places the text into the templates. Each b
 - Structure: the problem in one paragraph; what General Relativity gets right; what Quantum Mechanics gets right; where they collide; the bridges the talk mentioned; why a 15-year-old cared.
 - Add a closing paragraph, **"Since the talk"**: anything learned or that Tom would change now.
 - Reading list at the end, only things actually read.
-- Voice: first person, plain, no hedging about being young. Eyebrow "February 2026, age 15".
+- Voice: first person, plain, no hedging about being young. Eyebrow "February 2026".
 
 ### 9.2 Magnetic Newton's cradle investigation
 - 800 to 1,500 words plus figures, sections per §7.2a. Two plots minimum, one clip, build photos.
