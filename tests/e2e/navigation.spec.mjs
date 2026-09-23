@@ -141,6 +141,45 @@ test("@phone-only the header becomes a corner menu button once the page scrolls"
   await expect(brand).toBeVisible();
 });
 
+test("@phone-only the mobile menu slides in and its rows follow one by one, top to bottom", async ({ page }) => {
+  await openDeterministicPage(page, "/");
+  await page.locator(".nav-toggle").click();
+  const panel = page.locator("#primary-navigation");
+  await expect(panel).toHaveClass(/nav-panel--open/);
+
+  const rows = await panel.evaluate((element) =>
+    Array.from(element.querySelectorAll(".nav-row"))
+      .filter((row) => row.getClientRects().length > 0)
+      .map((row) => ({
+        text: row.textContent.trim(),
+        top: row.getBoundingClientRect().top,
+        delay: row.getAnimations()[0]?.effect.getComputedTiming().delay,
+      })),
+  );
+  expect(rows.map((row) => row.text)).toContain("Home");
+  expect(rows.at(-1).text).toBe("Contact :)");
+  for (let index = 1; index < rows.length; index += 1) {
+    expect(rows[index].delay, rows[index].text).toBeGreaterThan(rows[index - 1].delay);
+  }
+  expect(await panel.evaluate((element) => element.getAnimations().length)).toBe(1);
+
+  await finishAnimations(page);
+  await panel.getByRole("link", { name: "Gallery", exact: true }).filter({ visible: true }).click({ trial: true });
+});
+
+test("@phone-only the mobile menu opens without motion when reduced motion is requested", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await openDeterministicPage(page, "/");
+  await page.locator(".nav-toggle").click();
+
+  await expect(page.locator("#primary-navigation")).toBeVisible();
+  expect(
+    await page.locator("#primary-navigation").evaluate((element) =>
+      element.getAnimations({ subtree: true }).map((animation) => animation.animationName),
+    ),
+  ).toEqual([]);
+});
+
 test("@desktop-only the desktop header does not change when the page scrolls", async ({ page }) => {
   await openDeterministicPage(page, "/programming/");
   await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
