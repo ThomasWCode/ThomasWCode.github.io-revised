@@ -92,6 +92,7 @@ function initialiseNavigation() {
   const moreMenu = document.querySelector(".more-menu");
   const desktopQuery = window.matchMedia("(min-width: 1025px)");
   const compactHeaderOffset = 24;
+  const menuRowSelector = ".nav-links > li:not(.nav-more), .mobile-more-label, .more-menu > li, .contact-nav";
   let fitFrame = null;
   let compactFrame = null;
 
@@ -166,6 +167,16 @@ function initialiseNavigation() {
     }
   }
 
+  // Number the visible mobile menu rows so the CSS can slide them in one after another.
+  function numberMenuRows() {
+    Array.from(navPanel.querySelectorAll(menuRowSelector))
+      .filter((row) => row.getClientRects().length > 0)
+      .forEach((row, index) => {
+        row.classList.add("nav-row");
+        row.style.setProperty("--nav-row", String(index));
+      });
+  }
+
   function setNavState(open) {
     navToggle.setAttribute("aria-expanded", String(open));
     navToggle.setAttribute(
@@ -173,6 +184,11 @@ function initialiseNavigation() {
       open ? "Close navigation menu" : "Open navigation menu",
     );
     navPanel.hidden = !open;
+    navPanel.classList.toggle("nav-panel--open", open);
+
+    if (open) {
+      numberMenuRows();
+    }
   }
 
   function setMoreState(open) {
