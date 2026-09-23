@@ -57,6 +57,7 @@ export const pages = [
     title: "My Old YouTube Channel | Tom White",
     heading: "leopardbookshop",
     monitorKeyword: "leopardbookshop",
+    inNavigation: false,
   },
   {
     source: "testimonials.html",
@@ -73,6 +74,7 @@ export const pages = [
     monitorKeyword: "Contact me",
   },
 ].map((page) => ({
+  inNavigation: true,
   ...page,
   canonical: `${productionBaseUrl}${page.path}`,
 }));

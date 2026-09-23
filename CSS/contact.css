@@ -16,6 +16,13 @@
   font-size: clamp(1.8rem, 3.5vw, 2.7rem);
 }
 
+.contact-email {
+  color: var(--forest);
+  font-size: 1.15rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
 .contact-form {
   padding: clamp(1.4rem, 4vw, 2.5rem);
 }

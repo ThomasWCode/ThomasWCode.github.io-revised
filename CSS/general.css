@@ -710,6 +710,7 @@ hr {
 
 .button[href^="/"]::after,
 .button[href^="#"]::after,
+.button[href^="mailto:"]::after,
 .link-arrow[href^="/"]::after,
 .link-arrow[href^="#"]::after {
   content: "→";
