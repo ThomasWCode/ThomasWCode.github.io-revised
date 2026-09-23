@@ -17,6 +17,22 @@ export const pages = [
     monitorKeyword: "Programming",
   },
   {
+    source: "physics.html",
+    path: "/physics/",
+    title: "Physics & Ideas | Tom White",
+    heading: "Physics & Ideas",
+    monitorKeyword: "Physics & Ideas",
+  },
+  {
+    source: "physics/magnetic-newtons-cradle.html",
+    path: "/physics/magnetic-newtons-cradle/",
+    title: "Magnetic Newton’s cradle | Tom White",
+    heading: "Magnetic Newton’s cradle",
+    monitorKeyword: "Magnetic Newton’s cradle",
+    stylesheet: "/CSS/physics.css",
+    inNavigation: false,
+  },
+  {
     source: "sport.html",
     path: "/sport/",
     title: "Sport | Tom White",
