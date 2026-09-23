@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { pages, statusPageUrl } from "../support/page-manifest.mjs";
+import { documents, pages, statusPageUrl } from "../support/page-manifest.mjs";
 import { openDeterministicPage } from "../support/browser-fixtures.mjs";
 
 for (const sitePage of pages) {
@@ -38,6 +38,20 @@ for (const sitePage of pages) {
         targets: violation.nodes.map((node) => node.target),
       })),
     ).toEqual([]);
+    health.assertHealthy();
+  });
+}
+
+for (const printDocument of documents) {
+  test(`${printDocument.path} renders as an accessible print document`, async ({ page }) => {
+    const health = await openDeterministicPage(page, printDocument.path);
+
+    await expect(page).toHaveTitle(printDocument.title);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(printDocument.heading);
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", "noindex");
+
+    const accessibility = await new AxeBuilder({ page }).analyze();
+    expect(accessibility.violations.map((violation) => violation.id)).toEqual([]);
     health.assertHealthy();
   });
 }

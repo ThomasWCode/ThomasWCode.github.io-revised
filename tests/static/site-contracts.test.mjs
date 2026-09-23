@@ -3,7 +3,8 @@ import { readdir } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
 import { HtmlValidate } from "html-validate";
-import { pages, statusPageUrl } from "../support/page-manifest.mjs";
+import { listPublishedHtml } from "../../scripts/content-review.mjs";
+import { documents, pages, publishedSources, statusPageUrl } from "../support/page-manifest.mjs";
 import {
   readSiteFile,
   repositoryRoot,
@@ -30,13 +31,10 @@ function matches(source, expression) {
   return Array.from(source.matchAll(expression));
 }
 
-test("the page manifest covers every active root HTML file", async () => {
-  const files = (await readdir(repositoryRoot))
-    .filter((file) => file.endsWith(".html"))
-    .sort();
-  const manifestFiles = pages.map((page) => page.source).sort();
+test("the page manifest covers every published HTML file", async () => {
+  const files = await listPublishedHtml(repositoryRoot);
 
-  assert.deepEqual(files, manifestFiles);
+  assert.deepEqual(files, [...publishedSources].sort());
 });
 
 for (const page of pages) {
@@ -62,7 +60,7 @@ for (const page of pages) {
   test(`${page.source} keeps the shared shell consistent`, async () => {
     const html = stripFrontMatter(await readSiteFile(page.source));
     const generalStyleIndex = html.indexOf('href="/CSS/general.css"');
-    const pageStyleIndex = html.indexOf(`href="/CSS/${page.source.replace(".html", ".css")}"`);
+    const pageStyleIndex = html.indexOf(`href="${page.stylesheet}"`);
     const sharedScriptIndex = html.indexOf('<script defer src="/JS/script.js"></script>');
     const closingBodyIndex = html.indexOf("</body>");
 
@@ -107,11 +105,32 @@ for (const page of pages) {
   });
 }
 
+for (const printDocument of documents) {
+  test(`${printDocument.source} is an unlinked, unindexed print document`, async () => {
+    const source = await readSiteFile(printDocument.source);
+    const html = stripFrontMatter(source);
+    const report = await validator.validateString(html);
+    const messages = report.results.flatMap((result) =>
+      result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
+    );
+
+    assert.match(source, new RegExp(`^---\\r?\\npermalink: ${printDocument.path}\\r?\\n---\\r?\\n`));
+    assert.equal(textContent(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || ""), printDocument.title);
+    assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
+    assert.match(html, new RegExp(`<link rel="canonical" href="${printDocument.canonical}"\\s*/>`));
+    assert.ok(html.indexOf('href="/CSS/general.css"') > -1);
+    assert.ok(html.indexOf(`href="${printDocument.stylesheet}"`) > html.indexOf('href="/CSS/general.css"'));
+    assert.equal(textContent(html.match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/i)?.[1] || ""), printDocument.heading);
+    assert.equal(messages.join("\n"), "");
+    await readSiteFile(printDocument.pdf).catch(() => assert.fail(`${printDocument.pdf} has not been built`));
+  });
+}
+
 test("active site files contain no Vercel deployment assumptions", async () => {
   const files = [
     ...(await readdir(path.join(repositoryRoot, "JS"))).map((file) => `JS/${file}`),
     ...(await readdir(path.join(repositoryRoot, "CSS"))).map((file) => `CSS/${file}`),
-    ...pages.map((page) => page.source),
+    ...publishedSources,
     "CNAME",
     "package.json",
   ];
@@ -134,10 +153,10 @@ test("the Jekyll configuration keeps the private record, docs, tests and tooling
 });
 
 test("all local site references resolve to files or clean page routes", async () => {
-  const pagePaths = new Set(pages.map((page) => page.path));
+  const pagePaths = new Set([...pages, ...documents].map((page) => page.path));
   const missing = [];
 
-  for (const page of pages) {
+  for (const page of [...pages, ...documents]) {
     const html = stripFrontMatter(await readSiteFile(page.source));
     const attributes = matches(
       html,
