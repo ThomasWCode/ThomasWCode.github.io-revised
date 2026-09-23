@@ -36,6 +36,7 @@
   --header-height: 76px;
   --transition: 180ms ease;
   --focus-ring: 3px solid #d8a84e;
+  --nav-item-padding: clamp(0.44rem, calc(0.44rem + (100vw - 1025px) * 0.0135), 0.67rem);
 }
 
 *,
@@ -357,6 +358,7 @@ hr {
 
 .nav-panel {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 0.7rem;
 }
@@ -381,7 +383,7 @@ hr {
   display: inline-flex;
   min-height: 42px;
   align-items: center;
-  padding: 0.6rem 0.67rem;
+  padding: 0.6rem var(--nav-item-padding);
   border: 0;
   border-radius: 9px;
   background: transparent;
@@ -390,6 +392,7 @@ hr {
   font-weight: 700;
   line-height: 1.15;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     color var(--transition),
@@ -403,7 +406,7 @@ hr {
   color: var(--paper);
 }
 
-.nav-links > li > a[aria-current="page"]::after,
+.nav-links > li > a[aria-current]::after,
 .more-toggle.current::after {
   position: absolute;
   right: 0.65rem;
@@ -461,7 +464,7 @@ hr {
 }
 
 .more-menu a:hover,
-.more-menu a[aria-current="page"] {
+.more-menu a[aria-current] {
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -540,6 +543,52 @@ hr {
 
 .mobile-more-label {
   display: none;
+}
+
+/* Priority-plus navigation without JavaScript: fallback items start in More and are promoted at widths known to fit. */
+@media (min-width: 1025px) {
+  .navbar:not(.nav-measured) .more-menu {
+    display: none;
+  }
+
+  .navbar:not(.nav-measured) .nav-more:hover .more-menu,
+  .navbar:not(.nav-measured) .nav-more:focus-within .more-menu {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) .more-menu::before {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+    height: 0.75rem;
+    content: "";
+  }
+
+  .navbar:not(.nav-measured) .nav-item--fallback,
+  .navbar:not(.nav-measured) [data-nav-copy]:not(.nav-copy--fallback) {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar:not(.nav-measured) [data-nav-item="music-drama"] {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) [data-nav-copy="music-drama"] {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navbar:not(.nav-measured) [data-nav-item="gallery"] {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) [data-nav-copy="gallery"] {
+    display: none;
+  }
 }
 
 .page-hero {
@@ -1453,7 +1502,7 @@ figcaption {
     font-size: 0.95rem;
   }
 
-  .nav-links > li > a[aria-current="page"]::after,
+  .nav-links > li > a[aria-current]::after,
   .more-toggle.current::after {
     top: 0.75rem;
     right: auto;
@@ -1470,6 +1519,10 @@ figcaption {
   }
 
   .more-toggle {
+    display: none;
+  }
+
+  .more-menu [data-nav-copy] {
     display: none;
   }
 

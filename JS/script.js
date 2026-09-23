@@ -83,14 +83,67 @@ function initialiseSkipLink() {
 }
 
 function initialiseNavigation() {
+  const navbar = document.querySelector(".navbar");
+  const navbarInner = document.querySelector(".navbar-inner");
   const navToggle = document.querySelector(".nav-toggle");
   const navPanel = document.querySelector(".nav-panel");
   const moreToggle = document.querySelector(".more-toggle");
   const moreMenu = document.querySelector(".more-menu");
   const desktopQuery = window.matchMedia("(min-width: 1025px)");
+  let fitFrame = null;
 
-  if (!navToggle || !navPanel || !moreToggle || !moreMenu) {
+  if (!navbar || !navbarInner || !navToggle || !navPanel || !moreToggle || !moreMenu) {
     return;
+  }
+
+  const priorityItems = Array.from(navPanel.querySelectorAll("[data-nav-item]"))
+    .map((item) => ({
+      item,
+      copy: moreMenu.querySelector(`[data-nav-copy="${item.dataset.navItem}"]`),
+    }))
+    .filter((pair) => pair.copy);
+
+  function showInBar(pair, inBar) {
+    const shown = inBar ? pair.item : pair.copy;
+    const concealed = inBar ? pair.copy : pair.item;
+    const currentLink = concealed.querySelector("a[aria-current]");
+
+    shown.hidden = false;
+    shown.removeAttribute("aria-hidden");
+    concealed.hidden = true;
+    concealed.setAttribute("aria-hidden", "true");
+
+    if (currentLink) {
+      shown.querySelector("a")?.setAttribute("aria-current", currentLink.getAttribute("aria-current"));
+      currentLink.removeAttribute("aria-current");
+    }
+  }
+
+  function navigationOverflows() {
+    return navbarInner.scrollWidth > navbarInner.clientWidth + 1;
+  }
+
+  function fitNavigation() {
+    fitFrame = null;
+    navbar.classList.add("nav-measured");
+    priorityItems.forEach((pair) => showInBar(pair, true));
+
+    if (desktopQuery.matches) {
+      for (let index = priorityItems.length - 1; index >= 0 && navigationOverflows(); index -= 1) {
+        showInBar(priorityItems[index], false);
+      }
+    }
+
+    moreToggle.classList.toggle(
+      "current",
+      Boolean(moreMenu.querySelector("li:not([hidden]) > a[aria-current]")),
+    );
+  }
+
+  function requestNavigationFit() {
+    if (fitFrame === null) {
+      fitFrame = window.requestAnimationFrame(fitNavigation);
+    }
   }
 
   function setNavState(open) {
@@ -161,6 +214,10 @@ function initialiseNavigation() {
 
   desktopQuery.addEventListener("change", syncNavigation);
   syncNavigation();
+  fitNavigation();
+  window.addEventListener("resize", requestNavigationFit);
+  window.addEventListener("load", requestNavigationFit, { once: true });
+  document.fonts?.ready.then(requestNavigationFit);
 }
 
 function initialiseScrollbarTrack() {
