@@ -41,8 +41,9 @@ permalink: /
         "@context": "https://schema.org",
         "@type": "Person",
         "name": "Tom White",
+        "alternateName": "Thomas White",
         "url": "https://thomaswhite.me",
-        "image": "https://thomaswhite.me/favicon.png",
+        "image": "https://thomaswhite.me/Images/thomasw.png",
         "sameAs": [
           "https://github.com/ThomasWCode",
           "https://www.youtube.com/@leopardbookshop7761"
@@ -82,8 +83,7 @@ permalink: /
                 <li data-nav-item="physics"><a href="/physics/">Physics &amp; Ideas</a></li>
                 <li data-nav-item="volunteering"><a href="/volunteering/">Volunteering</a></li>
                 <li data-nav-item="blog"><a href="/blog/">Blog</a></li>
-                <li data-nav-item="sport"><a href="/sport/">Sport</a></li>
-                <li data-nav-item="music-drama" class="nav-item--fallback"><a href="/music&drama/">Music &amp; Drama</a></li>
+                <li data-nav-item="sport-music-drama" class="nav-item--fallback"><a href="/sport-music-and-drama/">Sport, music &amp; drama</a></li>
                 <li data-nav-item="gallery" class="nav-item--fallback"><a href="/gallery/">Gallery</a></li>
                 <li class="nav-more">
                   <span class="mobile-more-label">A few more pages</span
@@ -99,8 +99,7 @@ permalink: /
                     <li data-nav-copy="physics"><a href="/physics/">Physics &amp; Ideas</a></li>
                     <li data-nav-copy="volunteering"><a href="/volunteering/">Volunteering</a></li>
                     <li data-nav-copy="blog"><a href="/blog/">Blog</a></li>
-                    <li data-nav-copy="sport"><a href="/sport/">Sport</a></li>
-                    <li data-nav-copy="music-drama" class="nav-copy--fallback"><a href="/music&drama/">Music &amp; Drama</a></li>
+                    <li data-nav-copy="sport-music-drama" class="nav-copy--fallback"><a href="/sport-music-and-drama/">Sport, music &amp; drama</a></li>
                     <li data-nav-copy="gallery" class="nav-copy--fallback"><a href="/gallery/">Gallery</a></li>
                     <li><a href="/tedx/">TEDx</a></li>
                     <li><a href="/testimonials/">Testimonials</a></li>
@@ -194,6 +193,58 @@ permalink: /
         </section>
         <section
           class="section"
+          id="now"
+          aria-labelledby="now-heading"
+          data-updated="2026-09"
+        >
+          <div class="section-heading">
+            <p class="eyebrow">Right now</p>
+            <h2 id="now-heading">What I’m up to</h2>
+            <p class="now-updated">Updated September 2026</p>
+          </div>
+          <ul class="compact-list">
+            <li>
+              <span class="compact-list-label">TEDx</span>
+              <span class="compact-list-text"
+                >Organising TEDxDulwich Youth (28 February 2027): the website,
+                posters, application forms, and most of the technical
+                bits.</span
+              >
+              <a class="link-arrow" href="/tedx/#organising">The event</a>
+            </li>
+            <li>
+              <span class="compact-list-label">VAXTB</span>
+              <span class="compact-list-text"
+                >Building VAXTB, a volunteer web tool for a TB vaccine research
+                team at LSHTM (public when it’s released).</span
+              >
+            </li>
+            <li>
+              <span class="compact-list-label">LSHTM</span>
+              <span class="compact-list-text"
+                >Weekly calls with that team about using AI in their modelling
+                workflow.</span
+              >
+              <a class="link-arrow" href="/volunteering/#advising">Advising</a>
+            </li>
+            <li>
+              <span class="compact-list-label">Namesake</span>
+              <span class="compact-list-text">Contributing to Namesake.</span>
+              <a class="link-arrow" href="/programming/#namesake">My changes</a>
+            </li>
+            <li>
+              <span class="compact-list-label">Physics</span>
+              <span class="compact-list-text"
+                >Writing up my magnetic Newton’s cradle investigation.</span
+              >
+              <a class="link-arrow" href="/physics/magnetic-newtons-cradle/"
+                >The write-up</a
+              >
+            </li>
+          </ul>
+        </section>
+        <section
+          class="section section--paper"
           id="interests"
           aria-labelledby="interests-heading"
         >
@@ -297,7 +348,7 @@ permalink: /
                 </p>
               </div></a
             >
-            <a class="path-card path-card--wide path-card--plain" href="/blog/"
+            <a class="path-card path-card--plain" href="/blog/"
               ><div class="path-card-content">
                 <h3>Blog</h3>
                 <p>
@@ -306,7 +357,7 @@ permalink: /
                 </p>
               </div></a
             >
-            <a class="path-card" href="/sport/"
+            <a class="path-card" href="/sport-music-and-drama/"
               ><img
                 src="/Images/brighton-tri.jpeg"
                 width="1210"
@@ -316,35 +367,11 @@ permalink: /
                 decoding="async"
               />
               <div class="path-card-content">
-                <h3>Sport</h3>
-                <p>
-                  Mostly running, but also triathlons, Spartan races and squash.
-                </p>
+                <h3>Sport, music &amp; drama</h3>
+                <p>Running, Spartan races, a triathlon, drums and LAMDA.</p>
               </div></a
             >
-            <a class="path-card" href="/music&drama/"
-              ><picture
-                ><source
-                  type="image/webp"
-                  srcset="
-                    /Images/optimized/drumming-band-cropped-480.webp 480w,
-                    /Images/optimized/drumming-band-cropped-691.webp 691w
-                  "
-                  sizes="(max-width: 650px) 100vw, 33vw" />
-                <img
-                  src="/Images/drumming-band-cropped.png"
-                  width="691"
-                  height="1080"
-                  alt="Tom playing drums with his school band"
-                  loading="lazy"
-                  decoding="async"
-              /></picture>
-              <div class="path-card-content">
-                <h3>Music &amp; Drama</h3>
-                <p>I play drums and spent several years doing LAMDA.</p>
-              </div></a
-            >
-            <a class="path-card path-card--wide" href="/gallery/"
+            <a class="path-card" href="/gallery/"
               ><img
                 src="/Images/peru-mountains.jpg"
                 width="2688"
@@ -360,10 +387,7 @@ permalink: /
             >
           </div>
         </section>
-        <section
-          class="section section--paper"
-          aria-labelledby="rabbit-heading"
-        >
+        <section class="section" aria-labelledby="rabbit-heading">
           <div class="section-heading">
             <p class="eyebrow">A few other bits</p>
             <h2 id="rabbit-heading">There’s more...</h2>
@@ -435,8 +459,7 @@ permalink: /
                 <li><a href="/physics/">Physics &amp; Ideas</a></li>
                 <li><a href="/volunteering/">Volunteering</a></li>
                 <li><a href="/blog/">Blog</a></li>
-                <li><a href="/sport/">Sport</a></li>
-                <li><a href="/music&drama/">Music &amp; Drama</a></li>
+                <li><a href="/sport-music-and-drama/">Sport, music &amp; drama</a></li>
                 <li><a href="/gallery/">Gallery</a></li>
               </ul>
             </div>

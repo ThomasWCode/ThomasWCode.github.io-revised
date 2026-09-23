@@ -23,6 +23,15 @@
   overflow-wrap: anywhere;
 }
 
+.contact-links {
+  display: grid;
+  gap: 0.4rem;
+  margin: 1.4rem 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
 .contact-form {
   padding: clamp(1.4rem, 4vw, 2.5rem);
 }

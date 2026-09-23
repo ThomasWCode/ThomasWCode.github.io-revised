@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { documents, pages, statusPageUrl } from "../support/page-manifest.mjs";
+import { documents, pages, redirects, statusPageUrl } from "../support/page-manifest.mjs";
 import { openDeterministicPage } from "../support/browser-fixtures.mjs";
 
 for (const sitePage of pages) {
@@ -53,6 +53,15 @@ for (const printDocument of documents) {
     const accessibility = await new AxeBuilder({ page }).analyze();
     expect(accessibility.violations.map((violation) => violation.id)).toEqual([]);
     health.assertHealthy();
+  });
+}
+
+for (const redirect of redirects) {
+  test(`${redirect.path} forwards visitors to ${redirect.target}`, async ({ page }) => {
+    await openDeterministicPage(page, redirect.path);
+
+    await expect(page).toHaveURL(new RegExp(`${redirect.target.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sport, music & drama");
   });
 }
 

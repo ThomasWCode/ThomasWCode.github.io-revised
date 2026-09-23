@@ -85,7 +85,7 @@ test("a YouTube facade becomes a titled, autoplaying iframe on demand", async ({
 });
 
 test("audio playback pauses other tracks and resets altered playback speed", async ({ page }) => {
-  await openDeterministicPage(page, "/music&drama/");
+  await openDeterministicPage(page, "/sport-music-and-drama/");
   await page.evaluate(() => {
     const container = document.createElement("div");
     container.innerHTML = '<audio class="track-audio"></audio><audio class="track-audio"></audio>';

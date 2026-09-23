@@ -37,17 +37,31 @@
 | --- | --- | --- |
 | Home | `https://thomaswhite.me/` | `Hi, I’m Tom.` |
 | Programming | `https://thomaswhite.me/programming/` | `Programming` |
-| Sport | `https://thomaswhite.me/sport/` | `Sport` |
-| Music & Drama | `https://thomaswhite.me/music&drama/` | `Music & Drama` |
+| Physics & Ideas | `https://thomaswhite.me/physics/` | `Physics & Ideas` |
 | Volunteering | `https://thomaswhite.me/volunteering/` | `Volunteering` |
+| Blog | `https://thomaswhite.me/blog/` | `Blog` |
+| Sport, music & drama | `https://thomaswhite.me/sport-music-and-drama/` | `Sport, music & drama` |
 | Gallery | `https://thomaswhite.me/gallery/` | `Gallery` |
-| TEDx Talk | `https://thomaswhite.me/tedx/` | `Bridging the Gap` |
-| My old YouTube channel | `https://thomaswhite.me/youtube/` | `leopardbookshop` |
+| TEDx | `https://thomaswhite.me/tedx/` | `Bridging the Gap` |
 | Testimonials | `https://thomaswhite.me/testimonials/` | `Testimonials` |
 | Contact | `https://thomaswhite.me/contact/` | `Contact me` |
 
-- The same routes and keywords live in `tests/support/page-manifest.mjs`. Update the monitor, manifest and relevant page metadata together when a page moves or its identifying text changes.
-- Ten monitors use the complete planned free allowance. Before adding an eleventh page, either consolidate components or obtain approval for a paid plan.
+- The same routes and keywords live in `tests/support/page-manifest.mjs`; the monitored pages are the ones with `monitored: true` (every page in the navigation). Update the monitor, manifest and relevant page metadata together when a page moves or its identifying text changes.
+- Ten monitors use the complete planned free allowance. Deep pages, blog posts, `/youtube/`, the CV and the two redirects are deliberately not monitored; `npm run test:production` still checks all of them daily. Before adding an eleventh monitor, either consolidate components or obtain approval for a paid plan.
+
+### Changing the monitors for the content-strategy pages
+
+The content-strategy implementation replaced three routes. When it is merged into the main repository, change Better Stack in the same session as the deploy:
+
+1. Edit the **Sport** monitor to `https://thomaswhite.me/sport-music-and-drama/` with keyword `Sport, music & drama`, and rename its component to **Sport, music & drama**.
+2. Edit the **Music & Drama** monitor to `https://thomaswhite.me/physics/` with keyword `Physics & Ideas`, and rename its component to **Physics & Ideas**.
+3. Edit the **My old YouTube channel** monitor to `https://thomaswhite.me/blog/` with keyword `Blog`, and rename its component to **Blog**.
+4. Rename the **TEDx Talk** component to **TEDx** (URL and keyword unchanged).
+5. Reorder the components to match the table above, then run `npm run test:production`.
+
+Keywords containing `&` are written decoded here, as the production test reads them; the raw HTML contains `&amp;`. If an edited monitor reports a missing keyword, use the `&amp;` form or a phrase without an ampersand.
+
+Editing rather than deleting keeps each component's history. `/sport/` and `/music&drama/` remain as redirect pages that still contain their old keywords, so nothing goes red if the edits happen shortly after the deploy.
 
 ## DNS and custom-domain operation
 

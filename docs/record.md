@@ -21,7 +21,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ### tedx-talk
 - TEDxDulwich Youth, 28 February 2026. Year 11, age 15. Talk "Bridging the Gap": why General Relativity and Quantum Mechanics disagree, gravity across both, String Theory, Theory of Everything. Twelve minutes. Designed to be engaging and understandable, not technical.
 - Eight youth speakers, four adult speakers, theme "Bridges". TEDx event page 67110. YouTube `YJ-s-Gx1FN0`. 60-second highlight hosted on the site. Script exists as text.
-- Planned: blog post "Bridging the Gap", 800 to 1,000 words plus "Since the talk".
+- Planned: blog post "Bridging the Gap", 800 to 1,000 words plus "Since the talk". The page `/blog/bridging-the-gap/` and `docs/blog-sources/bridging-the-gap.md` hold the section structure; Tom writes the text.
 
 ### tedx-organising
 - TEDxDulwich Youth, 28 February 2027. Year 12, age 16. One of three student organisers. Licence held by an adult (never "licensee").
@@ -61,14 +61,14 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ### this-website
 - `thomaswhite.me`, hand-written HTML/CSS/JS, no framework. Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
-- Planned: pinned blog post "How this site works".
+- Pinned blog post "How this site works" (`/blog/how-this-site-works/`): drafted in September 2026 from what the repository does, for Tom to rewrite. The commit history shows AI coding tools (Claude) wrote part of the site; the site now says so.
 
 ### techassist
 - Built for grandparents, age to confirm. Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Massive time investment.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
 
 ### vaxtb
-- Not yet built. Web tool similar to WHO's ScreenTB, for TB vaccines. Volunteer. Asked by the TB vaccine modelling team at LSHTM that Tom's dad works in. Public once finished. Until then, only a line in the homepage Now section.
+- Not yet built. Mentioned only in the homepage Now section (September 2026). Web tool similar to WHO's ScreenTB, for TB vaccines. Volunteer. Asked by the TB vaccine modelling team at LSHTM that Tom's dad works in. Public once finished. Until then, only a line in the homepage Now section.
 
 ### early-projects
 - Chrome Dino: first game, Python. Age to confirm.
@@ -108,6 +108,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ## Decisions about what stays off the site
 
+- This file and the rest of `docs/` are excluded from the published site by `_config.yml` (September 2026). Before that, GitHub Pages rendered this file publicly at `/docs/record.html`, birth date included.
 - VAXTB: off until it ships. When it does, say plainly it came via the team his dad works in.
 - Namesake research: "in progress", no detail.
 - TechAssist: say restore was manual, lightly; do not overstate the backup app.
@@ -124,3 +125,6 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - TEDx organising milestones.
 - Islington Life and Gazette links.
 - LinkedIn URL when created.
+- CV: school, A level subjects, predicted grades, GCSE results.
+- Author of *This Mortal Coil* (assumed Andrew Doig's history of death; confirm).
+- Reading reactions, papers, and the five "Questions I'm stuck on".

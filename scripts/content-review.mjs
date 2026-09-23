@@ -247,7 +247,8 @@ export async function listDrafts(root = repositoryRoot) {
           .map((element) => element.attributes["data-record"])
           .filter(Boolean)
           .pop();
-        const draft = { file, line: token.element.line, record, text: "" };
+        const kind = token.element.attributes["data-draft"] === "check" ? "check" : "write";
+        const draft = { file, line: token.element.line, kind, record, text: "" };
         open.set(token.element, draft);
         drafts.push(draft);
       } else if (token.type === "text") {
@@ -298,7 +299,8 @@ if (path.resolve(process.argv[1] || "") === fileURLToPath(import.meta.url)) {
 
   if (process.argv.includes("--drafts")) {
     for (const draft of await listDrafts()) {
-      console.log(`${draft.file}:${draft.line}${draft.record ? ` [${draft.record}]` : ""}  ${draft.text}`);
+      const text = draft.text.length > 110 ? `${draft.text.slice(0, 107)}...` : draft.text;
+      console.log(`${draft.file}:${draft.line} ${draft.kind}${draft.record ? ` [${draft.record}]` : ""}  ${text}`);
     }
   } else {
     process.stdout.write(formatReport(await reviewContent({ today }), today));
