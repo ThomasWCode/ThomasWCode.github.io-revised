@@ -26,6 +26,8 @@ Each phase went in as its own pull request and was merged with a merge commit, s
 | [#6](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/6) | 4: Programming and Volunteering | Programming rebuilt around three proof blocks (Namesake, this website, TechAssist), Using AI and Where I started. Volunteering split into building, advising (LSHTM) and hands-on. The "How this site works" post. |
 | [#7](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/7) | 5: consolidation | `/sport/` and `/music&drama/` merged into `/sport-music-and-drama/`, with the old URLs redirecting. The Now section on the homepage. Contact finished. Consistent JSON-LD `sameAs`. `AGENTS.md` and the docs rewritten. This file. |
 | [#8](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/8) | Follow-up | Every link that isn't a page of the site opens in a new tab: the CV, email links, the Status link, the status page and GitHub links in the post, and the links on the CV. The Blog card's background ring now zooms on hover like the photo cards. |
+| [#9](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/9) | Follow-up | Analisa's testimonial says "impressed with Thomas" again, as she wrote it, with a contract that keeps her words exact. |
+| [#10](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/10) | Follow-up | The Blog card's backdrop is `Images/blog-card-texture.svg`: scattered rings and a scribbled placeholder paragraph inside the big ring, all zooming on hover. The local test server now sends SVG as `image/svg+xml`. |
 
 Page by page, the site now has:
 
@@ -186,7 +188,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
   - The Programming card keeps the Bouncing Ball screenshot until a Namesake map screenshot exists.
   - Physics & Ideas uses the TEDx stage photo (no cradle photos yet).
   - The TEDx card now uses the speaker photoshoot.
-  - The Blog card has no image.
+  - The Blog card has no photo. Its backdrop is an SVG texture (rings and placeholder-text scribbles) that shrinks with narrow cards, between 36rem and 48rem, so the scribbles stay inside the big ring and clear of the heading at every width.
 - **New image:** `Images/this-website.png` is a homepage screenshot. ImageMagick wasn't available, so its WebP derivatives were encoded by Chromium at quality 0.92, not with `-define webp:method=6`. Re-encode them with the commands in `AGENTS.md` if you want them to match exactly.
 - **Redirects:** these are plain meta-refresh pages, not the Jekyll plugin, so they need no configuration and are tested locally.
 - **Rabbit strip:** "A few other bits" now has two cards in a two-column grid.
