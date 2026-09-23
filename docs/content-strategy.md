@@ -191,7 +191,7 @@ Home · Programming · Physics & Ideas · Volunteering · Blog · Sport, music &
   - "Building VAXTB, a volunteer web tool for a TB vaccine research team at LSHTM (public when it's released)."
   - "Weekly calls with that team about using AI in their modelling workflow."
   - "Contributing to Namesake."
-  - "Writing up my magnetic Newton's cradle investigation."
+  - "Learning electric guitar, so I can record my own music instead of doing all the guitar on the computer." (Replaced "Writing up my magnetic Newton's cradle investigation." in September 2026.)
 - Carries `data-updated="YYYY-MM"` and a visible "Updated Month Year" line. The rot check (§11) flags it after 60 days.
 
 **Card grid "What do you want to look at?"** (reorder and recopy; keep the current picture-card look, which Tom likes)
