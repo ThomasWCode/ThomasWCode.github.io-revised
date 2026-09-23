@@ -41,6 +41,10 @@
   object-fit: cover;
 }
 
+.prose p + .eyebrow {
+  margin-top: 2.25rem;
+}
+
 .part-subheading {
   font-size: clamp(1.8rem, 3.4vw, 2.8rem);
 }
