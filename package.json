@@ -7,7 +7,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "lint": "eslint JS tests playwright.config.mjs lighthouse.config.mjs eslint.config.mjs stylelint.config.mjs && stylelint \"CSS/**/*.css\"",
+    "lint": "eslint JS scripts tests playwright.config.mjs lighthouse.config.mjs eslint.config.mjs stylelint.config.mjs && stylelint \"CSS/**/*.css\"",
     "test:static": "node --test tests/static/*.test.mjs",
     "test:e2e": "playwright test --project=chromium-desktop --project=chromium-phone --project=firefox-smoke --project=webkit-smoke --project=chromium-reduced-motion --project=chromium-no-js",
     "test:visual": "playwright test --project=visual-chromium --workers=1",
@@ -15,6 +15,9 @@
     "test:lighthouse": "node tests/support/run-lighthouse.mjs",
     "test:production": "node --test tests/production/site.test.mjs",
     "test:external-links": "node --test tests/production/external-links.test.mjs",
+    "review:content": "node scripts/content-review.mjs",
+    "list:drafts": "node scripts/content-review.mjs --drafts",
+    "build:cv": "node scripts/build-cv.mjs",
     "test": "npm run lint && npm run test:static && npm run test:e2e",
     "check": "npm test && npm run test:visual && npm run test:lighthouse"
   },

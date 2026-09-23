@@ -13,6 +13,9 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Cat: Dusty, `dusty.thomaswhite.me`.
 - Email now: `thomasawhite321@gmail.com`. Domain mailbox on Zoho Mail (free plan), unused; planned public address `tom@thomaswhite.me`. No LinkedIn yet.
 
+### education
+- Year 12 from September 2026. School name, A level subjects, predicted grades and GCSE results (summer 2026): to confirm. Needed for the CV (`cv.html`).
+
 ## Physics and ideas
 
 ### tedx-talk

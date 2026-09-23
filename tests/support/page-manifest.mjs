@@ -75,6 +75,23 @@ export const pages = [
   },
 ].map((page) => ({
   inNavigation: true,
+  stylesheet: `/CSS/${page.source.replace(/\.html$/, ".css")}`,
   ...page,
   canonical: `${productionBaseUrl}${page.path}`,
 }));
+
+export const documents = [
+  {
+    source: "cv.html",
+    path: "/cv/",
+    title: "CV | Tom White",
+    heading: "Tom White",
+    stylesheet: "/CSS/cv.css",
+    pdf: "Tom-White-CV.pdf",
+  },
+].map((printDocument) => ({
+  ...printDocument,
+  canonical: `${productionBaseUrl}${printDocument.path}`,
+}));
+
+export const publishedSources = [...pages, ...documents].map((entry) => entry.source);

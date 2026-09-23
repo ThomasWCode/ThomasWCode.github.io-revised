@@ -36,6 +36,7 @@
   --header-height: 76px;
   --transition: 180ms ease;
   --focus-ring: 3px solid #d8a84e;
+  --nav-item-padding: clamp(0.44rem, calc(0.44rem + (100vw - 1025px) * 0.0135), 0.67rem);
 }
 
 *,
@@ -357,6 +358,7 @@ hr {
 
 .nav-panel {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 0.7rem;
 }
@@ -381,7 +383,7 @@ hr {
   display: inline-flex;
   min-height: 42px;
   align-items: center;
-  padding: 0.6rem 0.67rem;
+  padding: 0.6rem var(--nav-item-padding);
   border: 0;
   border-radius: 9px;
   background: transparent;
@@ -390,6 +392,7 @@ hr {
   font-weight: 700;
   line-height: 1.15;
   text-decoration: none;
+  white-space: nowrap;
   cursor: pointer;
   transition:
     color var(--transition),
@@ -403,7 +406,7 @@ hr {
   color: var(--paper);
 }
 
-.nav-links > li > a[aria-current="page"]::after,
+.nav-links > li > a[aria-current]::after,
 .more-toggle.current::after {
   position: absolute;
   right: 0.65rem;
@@ -461,7 +464,7 @@ hr {
 }
 
 .more-menu a:hover,
-.more-menu a[aria-current="page"] {
+.more-menu a[aria-current] {
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -540,6 +543,52 @@ hr {
 
 .mobile-more-label {
   display: none;
+}
+
+/* Priority-plus navigation without JavaScript: fallback items start in More and are promoted at widths known to fit. */
+@media (min-width: 1025px) {
+  .navbar:not(.nav-measured) .more-menu {
+    display: none;
+  }
+
+  .navbar:not(.nav-measured) .nav-more:hover .more-menu,
+  .navbar:not(.nav-measured) .nav-more:focus-within .more-menu {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) .more-menu::before {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+    height: 0.75rem;
+    content: "";
+  }
+
+  .navbar:not(.nav-measured) .nav-item--fallback,
+  .navbar:not(.nav-measured) [data-nav-copy]:not(.nav-copy--fallback) {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar:not(.nav-measured) [data-nav-item="music-drama"] {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) [data-nav-copy="music-drama"] {
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .navbar:not(.nav-measured) [data-nav-item="gallery"] {
+    display: block;
+  }
+
+  .navbar:not(.nav-measured) [data-nav-copy="gallery"] {
+    display: none;
+  }
 }
 
 .page-hero {
@@ -1017,6 +1066,372 @@ figcaption {
   transform: translate(-50%, -50%) scale(1.08);
 }
 
+.path-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+
+.path-card {
+  position: relative;
+  grid-column: span 4;
+  min-height: 380px;
+  overflow: hidden;
+  border-radius: var(--radius-medium);
+  background: var(--forest-dark);
+  color: var(--paper);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.path-card--wide {
+  grid-column: span 8;
+}
+
+.path-card img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.path-card::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(16, 28, 22, 0.03) 20%,
+    rgba(16, 28, 22, 0.92) 100%
+  );
+  content: "";
+}
+
+.path-card-content {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: clamp(1.35rem, 4vw, 2rem);
+}
+
+.path-card h3 {
+  margin-bottom: 0.5rem;
+  color: var(--paper);
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+}
+
+.path-card p {
+  margin: 0;
+  color: rgba(255, 253, 248, 0.82);
+  font-size: 0.96rem;
+  line-height: 1.5;
+}
+
+.path-card:hover {
+  color: var(--paper);
+}
+
+.path-card:hover img {
+  transform: scale(1.04);
+}
+
+.path-grid--three .path-card,
+.path-grid--three .path-card--wide {
+  grid-column: span 4;
+}
+
+/* Proof block: a featured item with what it is, what I did, what was hard and what I took from it. */
+.proof-block {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.35fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.proof-block + .proof-block {
+  margin-top: 1.5rem;
+}
+
+.proof-block-media {
+  display: grid;
+  gap: 1rem;
+}
+
+.proof-block-media .image-frame {
+  border: 1px solid var(--line);
+}
+
+.proof-block-media .image-frame--contain img {
+  aspect-ratio: 4 / 3;
+  padding: 1.5rem;
+  object-fit: contain;
+}
+
+.proof-block h3 {
+  margin-bottom: 1rem;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.proof-block h4 {
+  margin: 1.4rem 0 0.4rem;
+  color: var(--terracotta);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.94rem;
+  font-style: italic;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.proof-block p,
+.proof-block li {
+  color: var(--muted-ink);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.proof-block ul {
+  margin: 0 0 1.2rem;
+  padding-left: 1.2rem;
+}
+
+.proof-block .proof-takeaway {
+  padding-left: 1rem;
+  border-left: 3px solid var(--gold);
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.proof-block .button-row {
+  margin-top: 1.5rem;
+}
+
+.proof-block--solo {
+  grid-template-columns: minmax(0, 1fr);
+  max-width: 860px;
+}
+
+/* Details toggle: real dates and specifics, collapsed once JavaScript runs. */
+.details-toggle {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--forest-dark);
+  font-size: 0.86rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.details-toggle::after {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  content: "";
+  transform: rotate(45deg) translateY(-2px);
+  transition: transform var(--transition);
+}
+
+.details-toggle[aria-expanded="true"]::after {
+  transform: rotate(225deg) translate(-1px, -1px);
+}
+
+.details-toggle:hover {
+  background: var(--sage-light);
+}
+
+.details-panel {
+  margin-top: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-small);
+  background: var(--warm-background);
+}
+
+.details-panel ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.details-panel li {
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+/* Compact list: one line per item with an eyebrow-style label. */
+.compact-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.compact-list > li {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, 0.22fr) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.4rem 1.25rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.compact-list-label {
+  color: var(--terracotta);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  font-weight: 650;
+}
+
+.compact-list-text {
+  color: var(--muted-ink);
+}
+
+.compact-list-text strong,
+.compact-list-text cite {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 750;
+}
+
+.compact-list .link-arrow {
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* Post list: blog rows of date and age, title and a one-line summary. */
+.post-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.post-list > li {
+  padding: 1.6rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.post-list .eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.post-list h3 {
+  margin-bottom: 0.4rem;
+}
+
+.post-list h3 a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.post-list h3 a:hover {
+  color: var(--terracotta);
+  text-decoration: underline;
+}
+
+.post-list p:not(.eyebrow) {
+  max-width: var(--prose-width);
+  color: var(--muted-ink);
+}
+
+/* Post layout: long-form writing in the prose column. */
+.post-body h2 {
+  margin: 2.8rem 0 1rem;
+  color: var(--terracotta);
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+.post-body h2:first-child {
+  margin-top: 0;
+}
+
+.post-body ul,
+.post-body ol {
+  color: var(--muted-ink);
+  font-size: clamp(1rem, 1.4vw, 1.1rem);
+  line-height: 1.75;
+}
+
+.post-body li + li {
+  margin-top: 0.4rem;
+}
+
+.post-body figure {
+  margin: 2rem 0;
+}
+
+.related-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.related-list a {
+  display: block;
+  height: 100%;
+  padding: 1.25rem;
+  text-decoration: none;
+}
+
+.related-list strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--ink);
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.25rem;
+}
+
+.related-list span {
+  color: var(--muted-ink);
+  font-size: 0.92rem;
+}
+
+/* Draft note: content Tom still has to write. Must not reach thomaswhite.me. */
+.draft-note {
+  margin: 1rem 0;
+  padding: 0.9rem 1.1rem;
+  border: 2px dashed var(--terracotta);
+  border-radius: var(--radius-small);
+  background: #fbefe9;
+  color: #6f2f1f;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.draft-note::before {
+  display: block;
+  margin-bottom: 0.25rem;
+  content: "Draft: Tom to write";
+  font-weight: 800;
+}
+
+.draft-inline {
+  padding: 0 0.3rem;
+  border-bottom: 2px dashed var(--terracotta);
+  background: #fbefe9;
+  color: #6f2f1f;
+}
+
 .external-link::after {
   margin-left: 0.28em;
   content: "↗";
@@ -1087,7 +1502,7 @@ figcaption {
     font-size: 0.95rem;
   }
 
-  .nav-links > li > a[aria-current="page"]::after,
+  .nav-links > li > a[aria-current]::after,
   .more-toggle.current::after {
     top: 0.75rem;
     right: auto;
@@ -1104,6 +1519,10 @@ figcaption {
   }
 
   .more-toggle {
+    display: none;
+  }
+
+  .more-menu [data-nav-copy] {
     display: none;
   }
 
@@ -1181,6 +1600,20 @@ figcaption {
   .footer-bottom {
     flex-direction: column;
   }
+
+  .path-card,
+  .path-card--wide,
+  .path-grid--three .path-card {
+    grid-column: span 6;
+  }
+
+  .proof-block {
+    grid-template-columns: 1fr;
+  }
+
+  .compact-list > li {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1195,6 +1628,13 @@ figcaption {
   .button-row,
   .button-row .button {
     width: 100%;
+  }
+
+  .path-card,
+  .path-card--wide,
+  .path-grid--three .path-card {
+    grid-column: 1 / -1;
+    min-height: 330px;
   }
 }
 
