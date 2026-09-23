@@ -4,7 +4,13 @@ import path from "node:path";
 import test from "node:test";
 import { HtmlValidate } from "html-validate";
 import { listPublishedHtml } from "../../scripts/content-review.mjs";
-import { documents, pages, publishedSources, statusPageUrl } from "../support/page-manifest.mjs";
+import {
+  documents,
+  pages,
+  publishedSources,
+  redirects,
+  statusPageUrl,
+} from "../support/page-manifest.mjs";
 import {
   readSiteFile,
   repositoryRoot,
@@ -126,6 +132,28 @@ for (const printDocument of documents) {
   });
 }
 
+for (const redirect of redirects) {
+  test(`${redirect.source} redirects its old URL to a published page`, async () => {
+    const source = await readSiteFile(redirect.source);
+    const html = stripFrontMatter(source);
+    const targetPath = redirect.target.split("#")[0];
+    const target = pages.find((page) => page.path === targetPath);
+    const report = await validator.validateString(html);
+    const messages = report.results.flatMap((result) =>
+      result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
+    );
+
+    assert.ok(target, `${redirect.target} is not a page in the manifest`);
+    assert.ok(source.startsWith(`---\npermalink: ${redirect.path}\n---\n`));
+    assert.ok(html.includes(`<meta http-equiv="refresh" content="0; url=${redirect.target}" />`));
+    assert.ok(html.includes(`<link rel="canonical" href="${target.canonical}" />`));
+    assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
+    assert.ok(html.includes(`<a href="${redirect.target}">`), "no-refresh fallback link");
+    assert.equal(textContent(html.match(/<h1>([\s\S]*?)<\/h1>/)?.[1] || ""), redirect.heading);
+    assert.equal(messages.join("\n"), "");
+  });
+}
+
 test("structured data parses and describes the same Person everywhere", async () => {
   const people = [];
 
@@ -188,7 +216,7 @@ test("all local site references resolve to files or clean page routes", async ()
   const pagePaths = new Set([...pages, ...documents].map((page) => page.path));
   const missing = [];
 
-  for (const page of [...pages, ...documents]) {
+  for (const page of [...pages, ...documents, ...redirects]) {
     const html = stripFrontMatter(await readSiteFile(page.source));
     const attributes = matches(
       html,

@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 import { openDeterministicPage } from "../support/browser-fixtures.mjs";
 
-const desktopWidths = [1025, 1100, 1180, 1280, 1440];
+const desktopWidths = [1025, 1060, 1100, 1140, 1280, 1440];
 
 async function readNavigation(page, visible) {
   return page.evaluate((mode) => {

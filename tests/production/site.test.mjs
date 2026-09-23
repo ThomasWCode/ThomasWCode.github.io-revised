@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { pages, productionBaseUrl, statusPageUrl } from "../support/page-manifest.mjs";
+import { pages, productionBaseUrl, redirects, statusPageUrl } from "../support/page-manifest.mjs";
 import { readSiteFile, textContent } from "../support/site-files.mjs";
 
 const deployedHost = (await readSiteFile("CNAME")).trim();
@@ -44,6 +44,16 @@ for (const page of pages) {
     );
     assert.ok(html.includes(`<link rel="canonical" href="${page.canonical}"`));
     assert.ok(html.includes(`href="${publicStatusUrl}"`));
+  });
+}
+
+for (const redirect of redirects) {
+  test(`production ${redirect.path} still answers and forwards to ${redirect.target}`, async () => {
+    const response = await fetchWithRetries(`${baseUrl}${redirect.path}`);
+    const html = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.ok(html.includes(`url=${redirect.target}`), `${redirect.path} does not forward to ${redirect.target}`);
   });
 }
 

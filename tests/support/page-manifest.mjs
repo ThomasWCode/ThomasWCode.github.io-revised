@@ -33,20 +33,6 @@ export const pages = [
     inNavigation: false,
   },
   {
-    source: "sport.html",
-    path: "/sport/",
-    title: "Sport | Tom White",
-    heading: "Sport",
-    monitorKeyword: "Sport",
-  },
-  {
-    source: "music&drama.html",
-    path: "/music&drama/",
-    title: "Music & Drama | Tom White",
-    heading: "Music & Drama",
-    monitorKeyword: "Music & Drama",
-  },
-  {
     source: "volunteering.html",
     path: "/volunteering/",
     title: "Volunteering | Tom White",
@@ -78,6 +64,13 @@ export const pages = [
     monitorKeyword: "How this site works",
     stylesheet: "/CSS/blog.css",
     inNavigation: false,
+  },
+  {
+    source: "sport-music-and-drama.html",
+    path: "/sport-music-and-drama/",
+    title: "Sport, music & drama | Tom White",
+    heading: "Sport, music & drama",
+    monitorKeyword: "Sport, music & drama",
   },
   {
     source: "gallery.html",
@@ -119,8 +112,24 @@ export const pages = [
   inNavigation: true,
   stylesheet: `/CSS/${page.source.replace(/\.html$/, ".css")}`,
   ...page,
+  monitored: page.inNavigation !== false,
   canonical: `${productionBaseUrl}${page.path}`,
 }));
+
+export const redirects = [
+  {
+    source: "sport.html",
+    path: "/sport/",
+    target: "/sport-music-and-drama/#sport",
+    heading: "Sport",
+  },
+  {
+    source: "music&drama.html",
+    path: "/music&drama/",
+    target: "/sport-music-and-drama/#music",
+    heading: "Music & Drama",
+  },
+];
 
 export const documents = [
   {
@@ -136,4 +145,4 @@ export const documents = [
   canonical: `${productionBaseUrl}${printDocument.path}`,
 }));
 
-export const publishedSources = [...pages, ...documents].map((entry) => entry.source);
+export const publishedSources = [...pages, ...documents, ...redirects].map((entry) => entry.source);
