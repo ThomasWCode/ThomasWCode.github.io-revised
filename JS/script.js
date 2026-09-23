@@ -688,10 +688,15 @@ function initialiseInfoToggles() {
       return;
     }
 
-    toggle.addEventListener("click", () => {
-      const open = toggle.getAttribute("aria-expanded") !== "true";
+    function setOpen(open) {
       toggle.setAttribute("aria-expanded", String(open));
       target.hidden = !open;
+    }
+
+    setOpen(toggle.dataset.infoToggle === "open");
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => {
+      setOpen(toggle.getAttribute("aria-expanded") !== "true");
     });
   });
 }

@@ -111,3 +111,26 @@ test("audio playback pauses other tracks and resets altered playback speed", asy
   });
   await expect.poll(() => tracks.first().evaluate((track) => track.playbackRate)).toBe(1);
 });
+
+test("details toggles start collapsed with JavaScript and expand on demand", async ({ page }) => {
+  await openDeterministicPage(page, "/");
+  await page.evaluate(() => {
+    const container = document.createElement("div");
+    container.innerHTML =
+      '<button type="button" class="details-toggle" data-info-toggle aria-controls="test-details" aria-expanded="true" hidden>Details</button>' +
+      '<div class="details-panel" id="test-details"><ul><li>July 2026</li></ul></div>';
+    document.querySelector("main").appendChild(container);
+    initialiseInfoToggles();
+  });
+  const toggle = page.getByRole("button", { name: "Details" });
+  const panel = page.locator("#test-details");
+
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(panel).toBeHidden();
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(panel).toBeVisible();
+  await toggle.click();
+  await expect(panel).toBeHidden();
+});

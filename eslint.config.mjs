@@ -68,6 +68,7 @@ export default [
         document: "readonly",
         Event: "readonly",
         getComputedStyle: "readonly",
+        initialiseInfoToggles: "readonly",
         initialiseTrackAudio: "readonly",
         matchMedia: "readonly",
         Promise: "readonly",
