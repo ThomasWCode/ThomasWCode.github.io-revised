@@ -29,6 +29,7 @@ Each phase went in as its own pull request and was merged with a merge commit, s
 | [#9](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/9) | Follow-up | Analisa's testimonial says "impressed with Thomas" again, as she wrote it, with a contract that keeps her words exact. |
 | [#10](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/10) | Follow-up | The Blog card's backdrop is `Images/blog-card-texture.svg`: scattered rings and a scribbled placeholder paragraph inside the big ring, all zooming on hover. The local test server now sends SVG as `image/svg+xml`. |
 | [#11](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/11) | Follow-up | On phones and tablets (1024px and below) the header is fixed. Once you scroll, the logo and name slide off, the bar lifts away and the Menu button swings in from the right as a quarter circle in the top-right corner. It stays there until you scroll back to the top. Desktop is unchanged. |
+| [#12](https://github.com/ThomasWCode/ThomasWCode.github.io-revised/pull/12) | Follow-up | The quarter-circle menu button sits flush with the right edge on every device. #11 moved it 14px in whenever the site's overlay scrollbar was switched on, but that class is set on phones too, where the scrollbar is hidden, so the button stopped short of the edge. |
 
 Page by page, the site now has:
 
