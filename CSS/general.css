@@ -1295,7 +1295,7 @@ figcaption {
 
 .compact-list > li {
   display: grid;
-  grid-template-columns: minmax(7.5rem, 0.22fr) minmax(0, 1fr) auto;
+  grid-template-columns: 10rem minmax(0, 1fr) auto;
   align-items: baseline;
   gap: 0.4rem 1.25rem;
   padding: 1rem 0;
