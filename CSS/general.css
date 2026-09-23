@@ -555,6 +555,20 @@ hr {
   }
 }
 
+/* Mobile menu opening: the panel slides in from the right, then each row fades in from the right in turn. */
+@keyframes nav-panel-in {
+  from {
+    transform: translateX(calc(100% + 1rem));
+  }
+}
+
+@keyframes nav-row-in {
+  from {
+    opacity: 0;
+    transform: translateX(1.5rem);
+  }
+}
+
 .mobile-more-label {
   display: none;
 }
@@ -1669,6 +1683,18 @@ figcaption {
   .more-menu a {
     min-height: 44px;
     padding: 0.7rem 0.9rem;
+  }
+}
+
+/* initialiseNavigation() adds nav-panel--open when the menu opens and numbers the visible rows in --nav-row. */
+@media (max-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .nav-panel--open {
+    animation: nav-panel-in 380ms cubic-bezier(0.22, 0.9, 0.3, 1) backwards;
+  }
+
+  .nav-panel--open .nav-row {
+    animation: nav-row-in 320ms ease-out backwards;
+    animation-delay: calc(140ms + var(--nav-row, 0) * 40ms);
   }
 }
 
