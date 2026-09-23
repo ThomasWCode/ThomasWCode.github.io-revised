@@ -102,6 +102,56 @@ test("@phone-only the mobile menu lists every page once", async ({ page }) => {
   expect(new Set(links).size).toBe(links.length);
 });
 
+async function finishAnimations(page) {
+  await page.evaluate(() => Promise.all(document.getAnimations().map((animation) => animation.finished)));
+}
+
+test("@phone-only the header becomes a corner menu button once the page scrolls", async ({ page }) => {
+  await openDeterministicPage(page, "/programming/");
+  const header = page.locator(".site-header");
+  const toggle = page.locator(".nav-toggle");
+  const brand = page.locator(".brand-name");
+
+  await expect(header).not.toHaveClass(/site-header--compact/);
+  await expect(brand).toBeVisible();
+
+  await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
+  await expect(header).toHaveClass(/site-header--compact/);
+  await expect(brand).toBeHidden();
+  await finishAnimations(page);
+
+  const box = await toggle.boundingBox();
+  const viewport = page.viewportSize();
+  const scrollbarWidth = await page.evaluate(() =>
+    document.documentElement.classList.contains("site-scrollbar-active") ? 14 : 0,
+  );
+  expect(Math.round(box.x + box.width)).toBe(viewport.width - scrollbarWidth);
+  expect(Math.round(box.y)).toBe(0);
+  expect(
+    await page.evaluate(() => Boolean(document.elementFromPoint(40, 35).closest(".site-header"))),
+    "the empty header must not block taps on the page",
+  ).toBe(false);
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await page.locator("#primary-navigation a[href='/gallery/']:visible").click({ trial: true });
+  await page.keyboard.press("Escape");
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(toggle).toBeFocused();
+
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await expect(header).not.toHaveClass(/site-header--compact/);
+  await expect(brand).toBeVisible();
+});
+
+test("@desktop-only the desktop header does not change when the page scrolls", async ({ page }) => {
+  await openDeterministicPage(page, "/programming/");
+  await page.evaluate(() => window.scrollTo({ top: 1200, behavior: "instant" }));
+  await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+
+  await expect(page.locator(".site-header")).not.toHaveClass(/site-header--compact/);
+});
+
 for (const width of desktopWidths) {
   test(`@no-js the navigation fits one line without JavaScript at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
