@@ -765,6 +765,10 @@ hr {
   content: "→";
 }
 
+.link-arrow[target="_blank"]::after {
+  content: "↗";
+}
+
 .button:hover,
 .btn:hover {
   background: var(--forest-dark);

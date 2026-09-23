@@ -95,10 +95,10 @@ for (const page of pages) {
     assert.match(
       lastUpdatedParagraph,
       new RegExp(
-        `<a\\s+class="footer-status-link"\\s+href="${statusPageUrl}"\\s+aria-label="Website status"\\s*>\\s*Status</a\\s*>`,
+        `<a\\s+class="footer-status-link external-link"\\s+href="${statusPageUrl}"\\s+target="_blank"\\s+rel="noopener noreferrer"\\s+aria-label="Website status"\\s*>\\s*Status</a\\s*>`,
       ),
     );
-    assert.equal(matches(html, /class="footer-status-link"/g).length, 1);
+    assert.equal(matches(html, /class="footer-status-link[ "]/g).length, 1);
   });
 
   test(`${page.source} is valid HTML after front matter processing`, async () => {
