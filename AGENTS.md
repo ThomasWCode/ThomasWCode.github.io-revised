@@ -134,7 +134,7 @@ Home, Programming, Volunteering and Contact end with the same block (`id="tech-p
   - `.details-toggle` + `.details-panel` (see `initialiseInfoToggles()`).
   - `.compact-list` with `.compact-list-label`, `.compact-list-text` and an optional `.link-arrow`.
   - `.post-list`, `.post-body`, `.related-list`.
-  - `.path-grid` / `.path-card` (home grid and the Blog's `.path-grid--three` pinned strip; `.path-card--plain` has no image).
+  - `.path-grid` / `.path-card` (home grid and the Blog's `.path-grid--three` pinned strip; `.path-card--plain` has no image). The image, or the plain card's rings, zooms on hover; reduced motion removes the zoom.
   - `.draft-note` and `.draft-inline`.
 - Reuse existing custom properties in `:root`. Follow the 1024, 768 and 480 pixel breakpoints unless a component requires otherwise.
 - Preserve visible focus, contrast, reduced-motion support, and touch-device behaviour.

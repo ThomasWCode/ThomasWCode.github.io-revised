@@ -196,6 +196,31 @@ test("@reduced-motion the reduced-motion stylesheet removes meaningful transitio
   );
 });
 
+test("@reduced-motion the homepage cards do not zoom on hover", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await openDeterministicPage(page, "/");
+
+  // Read the transform two frames after the hover so a started transition has settled.
+  const settledTransform = (locator, pseudoElement = null) =>
+    locator.evaluate(
+      (element, pseudo) =>
+        new Promise((resolve) => {
+          requestAnimationFrame(() =>
+            requestAnimationFrame(() => resolve(getComputedStyle(element, pseudo).transform)),
+          );
+        }),
+      pseudoElement,
+    );
+
+  const photoCard = page.locator(".path-card:not(.path-card--plain)").first();
+  await photoCard.hover();
+  expect(await settledTransform(photoCard.locator("img"))).toBe("none");
+
+  const plainCard = page.locator(".path-card--plain").first();
+  await plainCard.hover();
+  expect(await settledTransform(plainCard, "::before")).toBe("none");
+});
+
 test("@no-js core content and the status link remain available without JavaScript", async ({ page }) => {
   await page.goto("/");
 
