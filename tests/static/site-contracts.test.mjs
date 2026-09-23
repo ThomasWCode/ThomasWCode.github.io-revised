@@ -126,6 +126,38 @@ for (const printDocument of documents) {
   });
 }
 
+test("structured data parses and describes the same Person everywhere", async () => {
+  const people = [];
+
+  function collectPeople(node, file) {
+    if (Array.isArray(node)) {
+      node.forEach((child) => collectPeople(child, file));
+    } else if (node && typeof node === "object") {
+      if (node["@type"] === "Person") {
+        people.push({ file, name: node.name, url: node.url, sameAs: JSON.stringify(node.sameAs) });
+      }
+      Object.values(node).forEach((child) => collectPeople(child, file));
+    }
+  }
+
+  for (const page of [...pages, ...documents]) {
+    const html = stripFrontMatter(await readSiteFile(page.source));
+    for (const match of matches(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+      collectPeople(JSON.parse(match[1]), page.source);
+    }
+  }
+
+  const reference = people.find((person) => person.file === "index.html");
+  assert.ok(reference, "index.html must describe Tom as a Person");
+  for (const person of people) {
+    assert.deepEqual(
+      { name: person.name, url: person.url, sameAs: person.sameAs },
+      { name: reference.name, url: reference.url, sameAs: reference.sameAs },
+      person.file,
+    );
+  }
+});
+
 test("active site files contain no Vercel deployment assumptions", async () => {
   const files = [
     ...(await readdir(path.join(repositoryRoot, "JS"))).map((file) => `JS/${file}`),
