@@ -36,9 +36,9 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - IYPT in-school project, Year 11 (2025 to 2026, age 15 to 16). Not the national competition. Team of three.
 - Question: factors affecting a magnetic Newton's cradle. Magnetic cradles are rare and could not be sourced, so the team built one from scratch.
 - Parameters varied, in order of how thoroughly they were tested: initial release angle; number of magnets (3 or 5); separation between magnets at equilibrium; friction between wires and frame; magnet strength; mass of each magnet.
-- Method: tracking stickers, slow-motion filming, motion-tracking software (name to confirm) to extract position against time. Tom did the motion tracking and data processing (confirmed September 2026). The site doesn't describe what the other two did.
+- Method: tracking stickers, slow-motion filming, motion-tracking software (Tracker) to extract position against time. Two runs for each parameter. Frame rate unknown. About 40 hours: 20 in school, 20 at home (Tom, September 2026). Tom did the motion tracking and data processing (confirmed September 2026). The site doesn't describe what the other two did.
 - Assets held: slow-mo clips, tracking data and plots, build photos. No report or slides.
-- To confirm: software name, runs per parameter, which term, headline finding, main limitation.
+- To confirm: which term, headline finding, main limitation.
 
 ### epq
 - Will happen. Not started. Topic unknown. Not on the site until it exists.
@@ -139,7 +139,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - TechAssist: which year at 13, lines of Python and the modules used.
-- Cradle: software name, runs per parameter, term, headline finding, limitation.
+- Cradle: term, headline finding, limitation.
 - TEDx organising: rehearsal dates; confirm when speakers were chosen.
 - LinkedIn URL when created.
 - CV: school, A level subjects, predicted grades, GCSE results.
