@@ -921,6 +921,19 @@ hr {
   transform: rotate(2deg);
 }
 
+.image-frame--offset img {
+  border-radius: var(--radius-medium);
+}
+
+.image-frame--offset:has(figcaption) img {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.image-frame--offset figcaption {
+  border-radius: 0 0 var(--radius-medium) var(--radius-medium);
+}
+
 .caption,
 figcaption {
   padding: 0.9rem 1rem;
