@@ -14,7 +14,8 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Email now: `thomasawhite321@gmail.com`. Domain mailbox on Zoho Mail (free plan), unused; planned public address `tom@thomaswhite.me`. No LinkedIn yet.
 
 ### education
-- Year 12 from September 2026. School name, A level subjects, predicted grades and GCSE results (summer 2026): to confirm. Needed for the CV (`cv.html`).
+- Year 12 at Dulwich College from September 2026. A levels: Physics, Further Maths, German (Tom, September 2026; confirm whether Maths is also taken, since Further Maths is normally taken alongside it). No predicted grades yet.
+- GCSEs, summer 2026: grade 9 in Physics, Biology, Chemistry, English Language, German, French, Geography, Design and Technology and Maths; grade 8 in English Literature; Additional Maths B (graded up to A, no A*). School for GCSEs not stated. On the CV (`cv.html`), which is public.
 
 ## Physics and ideas
 
@@ -142,5 +143,5 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Cradle: term, headline finding, limitation.
 - TEDx organising: rehearsal dates; confirm when speakers were chosen.
 - LinkedIn URL when created.
-- CV: school, A level subjects, predicted grades, GCSE results.
+- CV: predicted grades; whether Maths is an A level.
 - Reading reactions, papers, and the five "Questions I'm stuck on".
