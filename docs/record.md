@@ -57,14 +57,21 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
   - #735, 27 Jul 2026: `prepare` script so `simple-git-hooks` installs on install; ImageMagick added to the setup guide. Tooling.
 - #753, 11 Sep 2026, by the maintainer: download a blank PDF packet from the form title view (689 lines). Tom raised issue #722 and led the idea and suggestions. Claim as "proposed and specified", never "built".
 - Current: non-code research for the project. Described publicly only as "research, in progress".
+- The map fix (#717) took a lot of debugging: running scripts in the browser to work out why clicking had broken. A real problem-solving fix, not a typo (Tom, September 2026).
+- What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; got him further invested in the cause (Tom, September 2026).
 - Note: PR descriptions and review threads were not readable from the planning session; the notes above come from the merged commits and diffs.
 
 ### this-website
 - `thomaswhite.me`, hand-written HTML/CSS/JS, no framework. Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
 - Pinned blog post "How this site works" (`/blog/how-this-site-works/`): drafted in September 2026 from what the repository does, for Tom to rewrite. The commit history shows AI coding tools (Claude) wrote part of the site; the site now says so.
+- Tom on AI (September 2026): the initial site was all hand-coded, before AI was big. He now hands AI the more tedious jobs, like design and CSS; his favourite code is the backend.
+- Hardest part: learning the best practices, because the site is where he experiments with new features (status page, visual regression, accessibility checks, consent-gated analytics).
+- Automated test suite added 31 Aug 2026 (age 16), from the full repository history (unshallowed September 2026; history starts 16 Aug 2025). Total hours: unknown.
+- What Tom took from it: many features, most of them invisible; coding techniques and third-party integration; a test of keeping a project up to date over a long period.
 
 ### techassist
-- Built for grandparents, age 14 (drafted; confirm). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Massive time investment.
+- Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter, about three months of work. His biggest project at the time; keeping it consistent as the codebase grew was hard. Massive time investment.
+- Repository public (September 2026): `github.com/ThomasWCode/techassist`. It holds the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source, so the app's line count and modules are still to confirm.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
 - Dates from `ThomasWCode/techassist` (the TechAssist website and installer): first commit 4 Feb 2025 (age 14), most commits February and April 2025, last 20 Aug 2025. The first commit already uploads setup version 1.4.5, so the app itself is older than the repository.
 
@@ -127,7 +134,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - Ages or years: St John's Garden site, Parks events, Mind shop, LSHTM calls start.
-- Drafted from repository dates, marked `data-draft="check"` on the site: TechAssist.
+- TechAssist: which year at 13, lines of Python and the modules used.
 - Cradle: software name, runs per parameter, term, headline finding, limitation.
 - TEDx organising milestones.
 - Islington Life and Gazette links.
