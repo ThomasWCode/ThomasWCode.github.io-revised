@@ -33,7 +33,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - IYPT in-school project, Year 11 (2025 to 2026, age 15 to 16). Not the national competition. Team of three.
 - Question: factors affecting a magnetic Newton's cradle. Magnetic cradles are rare and could not be sourced, so the team built one from scratch.
 - Parameters varied, in order of how thoroughly they were tested: initial release angle; number of magnets (3 or 5); separation between magnets at equilibrium; friction between wires and frame; magnet strength; mass of each magnet.
-- Method: tracking stickers, slow-motion filming, motion-tracking software (name to confirm) to extract position against time. Tom did the motion tracking and data processing (confirm exact role split).
+- Method: tracking stickers, slow-motion filming, motion-tracking software (name to confirm) to extract position against time. Tom did the motion tracking and data processing (confirmed September 2026). The site doesn't describe what the other two did.
 - Assets held: slow-mo clips, tracking data and plots, build photos. No report or slides.
 - To confirm: software name, runs per parameter, which term, headline finding, main limitation.
 
@@ -41,7 +41,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Will happen. Not started. Topic unknown. Not on the site until it exists.
 
 ### reading
-- Books: almost all of Stephen Hawking; *Why Does E=mc²?* (Cox and Forshaw); *Immune* (Dettmer); *If Anyone Builds It, Everyone Dies* (Yudkowsky and Soares); *The Anxious Generation* (Haidt); *This Mortal Coil* (Doig); all of Dennis E. Taylor (Bobiverse); a lot of science fiction.
+- Books: almost all of Stephen Hawking; *Why Does E=mc²?* (Cox and Forshaw); *Immune* (Dettmer); *If Anyone Builds It, Everyone Dies* (Yudkowsky and Soares); *The Anxious Generation* (Haidt); *This Mortal Coil: A History of Death* (Andrew Doig; confirmed September 2026); all of Dennis E. Taylor (Bobiverse); a lot of science fiction.
 - Papers: Tom can list papers read, related and unrelated to the talk, across physics, philosophy, psychology and AI. Titles to add here as he writes the reactions.
 - Planned: "Questions I'm stuck on", five items.
 
@@ -78,10 +78,10 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Age 14 (Tom, September 2026). Repository uploaded 20 Aug 2025 (age 15).
 - SplitMate: first mobile app, splitting shared expenses. Age 14 (Tom, September 2026). Repository uploaded 17 Aug 2025 (age 15).
 - All five repositories were uploaded through GitHub's web "Add files via upload" between 16 and 20 August 2025, so their dates are when they went online, not when they were written. The site uses the ages Tom gave.
-- Thomas Tutoring (`ThomasWCode/thomas-tutoring`, private): a tutoring website with sign-up and log-in pages, first commit 9 Jun 2024 (age 14), with Python projects (bouncing balls, speed typing) as downloads. Its projects page says "I have made many projects in Python, HTML and Lua". Earliest web development found; source of "since age 14" on the This website block. Not on the site.
+- Thomas Tutoring (`ThomasWCode/thomas-tutoring`, private): a tutoring website with sign-up and log-in pages, first commit 9 Jun 2024 (age 14), with Python projects (bouncing balls, speed typing) as downloads. Its projects page says "I have made many projects in Python, HTML and Lua". Earliest web development found; source of "since age 14" on the This website block (confirmed by Tom, September 2026). Not on the site.
 
 ### youtube
-- Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Channel joined 29 Nov 2020 (age 10); 30 videos, the oldest Roblox tutorials about five years old, Advent of Code videos December 2022 (age 12), last upload 1 Sep 2023 (age 13). Site shows ages 10 to 13 and "learning Lua, at 10"; confirm.
+- Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Channel joined 29 Nov 2020 (age 10); 30 videos, the oldest Roblox tutorials about five years old, Advent of Code videos December 2022 (age 12), last upload 1 Sep 2023 (age 13). Site shows ages 10 to 13 and "learning Lua, at 10"; confirmed by Tom (September 2026).
 
 ### st-johns-garden
 - Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). Date to confirm: the domain was registered 8 Aug 2025 (age 15) and the Wayback Machine first saved it 15 Apr 2026, but neither shows when Tom built it.
@@ -127,11 +127,10 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - Ages or years: St John's Garden site, Parks events, Mind shop, LSHTM calls start.
-- Drafted from repository and channel dates, marked `data-draft="check"` on the site: YouTube channel, TechAssist, web development "since age 14".
-- Cradle: software name, runs per parameter, term, headline finding, limitation, exact role.
+- Drafted from repository dates, marked `data-draft="check"` on the site: TechAssist.
+- Cradle: software name, runs per parameter, term, headline finding, limitation.
 - TEDx organising milestones.
 - Islington Life and Gazette links.
 - LinkedIn URL when created.
 - CV: school, A level subjects, predicted grades, GCSE results.
-- Author of *This Mortal Coil* (assumed Andrew Doig's history of death; confirm).
 - Reading reactions, papers, and the five "Questions I'm stuck on".
