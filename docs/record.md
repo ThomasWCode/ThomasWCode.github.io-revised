@@ -91,22 +91,24 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Channel joined 29 Nov 2020 (age 10); 30 videos, the oldest Roblox tutorials about five years old, Advent of Code videos December 2022 (age 12), last upload 1 Sep 2023 (age 13). Site shows ages 10 to 13 and "learning Lua, at 10"; confirmed by Tom (September 2026).
 
 ### st-johns-garden
-- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). Date to confirm: the domain was registered 8 Aug 2025 (age 15) and the Wayback Machine first saved it 15 Apr 2026, but neither shows when Tom built it.
+- Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). The domain was registered 8 Aug 2025 (age 15) and the Wayback Machine first saved it 15 Apr 2026. Tom (September 2026): the domain was bought at about the same time as the site went live, so the site dates it August 2025, age 15.
 
 ## Advising
 
 ### lshtm-advising
 - Weekly calls with a TB vaccine mathematical modelling team at LSHTM (the team Tom's dad works in; the same team VAXTB is for). Advising on incorporating AI into the workflow for building the model's backend: AI practice, GitHub practice, prompts.
-- Start month to confirm. Age 16.
+- Started September 2026 (Tom, September 2026). Age 16.
 - Public treatment: short claim, no evidence for now. A testimonial from the team may come later. Planned later post: "Using AI in a small research team".
 
 ## Volunteering, hands-on
 
 ### islington-parks
-- Islington Council Parks: Grow Show (catalogued entries), Apple Day (made apple juice), Spring Festival at Gillespie Park (welcomed visitors). Appeared in Islington Life and the Islington Gazette. Dates and links to confirm.
+- Islington Council Parks: Grow Show (catalogued entries), Apple Day (made apple juice), Spring Festival at Gillespie Park (welcomed visitors). Appeared in Islington Life and the Islington Gazette.
+- Dates (Tom, September 2026): Apple Day every autumn since about age 6 (autumn 2016). Spring Festival every spring since it was introduced, when Tom was about 13 (spring 2024). Grow Show once, in 2025 (age 15), the year its photo was added to the site (September 2025); the Islington Gazette reported the 2025 show as the second annual one, on Sunday 7 September.
+- Press: searched September 2026 for Islington Life and Islington Gazette pieces naming Tom, Apple Day, the Grow Show and Gillespie Park. None names him; the Gazette's Apple Day 2019 photos of the apple press carry no names. Treated as not online.
 
 ### mind-shop
-- Local Mind charity shop: till, sorting donations, helping other volunteers. Dates to confirm.
+- Local Mind charity shop: till, sorting donations, helping other volunteers. From about August 2025, for six months, two hours every weekend (Tom, September 2026). Age 15.
 
 ## Sport, music and drama
 
@@ -133,11 +135,9 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ## To confirm (fill in and copy to the site's Details lines)
 
-- Ages or years: St John's Garden site, Parks events, Mind shop, LSHTM calls start.
 - TechAssist: which year at 13, lines of Python and the modules used.
 - Cradle: software name, runs per parameter, term, headline finding, limitation.
 - TEDx organising milestones.
-- Islington Life and Gazette links.
 - LinkedIn URL when created.
 - CV: school, A level subjects, predicted grades, GCSE results.
 - Reading reactions, papers, and the five "Questions I'm stuck on".
