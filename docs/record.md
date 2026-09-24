@@ -27,6 +27,9 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - TEDxDulwich Youth, 28 February 2027. Year 12, age 16. One of three student organisers. Licence held by an adult (never "licensee").
 - Tom drives it: the applicant information site (`sites.google.com/view/tedxdulwich`, Google Sites), posters, application forms, PowerPoints and scripts for advertising, all technical work. Coordinates the drama department (event is in the theatre), marketing and its posting rules, a sister school, and school staff.
 - Milestone dates for the Details line: to fill in as they happen (applications open, speakers chosen, rehearsals, event).
+  - Applications opened in mid-September 2026, the week of 14 September (Tom, 24 September 2026: "last week").
+  - Speakers to be chosen by the end of October 2026.
+  - Rehearsals: dates to confirm.
 - Planned: proof block on `/tedx/` now; full blog post after the event.
 
 ### cradle
@@ -137,7 +140,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 - TechAssist: which year at 13, lines of Python and the modules used.
 - Cradle: software name, runs per parameter, term, headline finding, limitation.
-- TEDx organising milestones.
+- TEDx organising: rehearsal dates; confirm when speakers were chosen.
 - LinkedIn URL when created.
 - CV: school, A level subjects, predicted grades, GCSE results.
 - Reading reactions, papers, and the five "Questions I'm stuck on".
