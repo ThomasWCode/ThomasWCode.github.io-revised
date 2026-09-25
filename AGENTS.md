@@ -16,7 +16,7 @@ This repository contains the source for `thomaswhite.me`. The published site is 
 - `_config.yml` excludes `docs/`, `tests/`, `scripts/`, `AGENTS.md` and the tooling from the published site. Jekyll renders Markdown even without front matter, so anything not excluded is public. Never remove the `docs/` exclusion: `docs/record.md` is private.
 - `scripts/` holds the content review (`content-review.mjs`) and the CV build (`build-cv.mjs`).
 - `tests/` contains static, browser, visual, Lighthouse and deployed-site checks.
-- `docs/content-strategy.md` is the content, structure and voice plan; `docs/record.md` is Tom's private record of facts, dates and decisions; `docs/blog-sources/` holds post sources; `docs/implementation-notes.md` records what the strategy implementation changed and what is still to write. `docs/testing.md`, `docs/updating-tests-and-baselines.md` and `docs/status-page-operations.md` cover tests, baselines and monitoring.
+- `docs/content-strategy.md` is the content, structure and voice plan; `docs/record.md` is Tom's private record of facts, dates and decisions; `docs/blog-sources/` holds post sources; `docs/implementation-notes.md` records what the strategy implementation changed and what is still to write. `docs/testing.md`, `docs/updating-tests-and-baselines.md` and `docs/status-page-operations.md` cover tests, baselines and monitoring. The plan for the editor site is in the editor repository (§ Editor).
 
 ## Page map
 
@@ -219,3 +219,11 @@ For relevant changes:
 6. Preview manually when visual or interaction risk remains. `node tests/support/clean-url-server.mjs` serves clean paths at `http://127.0.0.1:4173`; unlike `python -m http.server`, it strips YAML front matter in memory and models GitHub Pages clean URLs and folder index pages.
 7. Check affected pages at wide desktop, tablet and phone widths. Navigate without a mouse; verify focus, tab order, Escape behaviour, the browser console, reduced motion and basic no-JavaScript usability as applicable.
 8. Test Formspree, reCAPTCHA, CookieYes and canonical-domain behaviour on the deployed domain when those integrations change; deterministic tests stub third-party services and do not prove their live behavior.
+
+## Editor
+
+A browser editor for the site's text is planned at `https://edit.thomaswhite.me`, built in the private repository `ThomasWCode/edit.thomaswhite.me`. Its plan (`docs/plan.md` there) records the decisions of 25 September 2026: it edits this preview repository first and moves to the main repository after the content-strategy merge (`docs/implementation-notes.md` §6). When it is running:
+
+- Its edits arrive as one commit per Save on the `edits` branch and, at Publish, as a pull request titled "Text edits from the editor". Do not hand-edit `edits` while that pull request is open; merge or close it first.
+- It writes minimal diffs (only the changed text nodes, with `&`, `<` and `>` escaped) and mirrors the content contracts before saving, but CI remains the gate.
+- It dispatches **Update visual baselines** and then **Test suite** on `edits` when the homepage, Programming or Gallery changed.

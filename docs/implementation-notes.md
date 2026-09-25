@@ -242,5 +242,6 @@ This repository shares its history with the main one up to `49b9582`. Its first 
    - run `npm run test:production`;
    - run the **Content review** workflow once from the Actions tab.
 5. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
+6. Repoint the editor. The editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`, plan in its `docs/plan.md`) edits this preview repository until the merge. Afterwards, install the GitHub App "Tom's site editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main`, and publish a one-word test edit through it.
 
 If the main repository has not changed since `49b9582`, the merge commit is optional. Once the revert is in, `main` can fast-forward to `content-strategy`, and the history is identical either way.
