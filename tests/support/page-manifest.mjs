@@ -131,6 +131,15 @@ export const redirects = [
   },
 ];
 
+export const externalRedirects = [
+  {
+    source: "gravatar.html",
+    path: "/gravatar/",
+    target: "https://gravatar.com/thomaswhiteuk",
+    heading: "Redirecting…",
+  },
+];
+
 export const documents = [
   {
     source: "cv.html",
@@ -145,4 +154,6 @@ export const documents = [
   canonical: `${productionBaseUrl}${printDocument.path}`,
 }));
 
-export const publishedSources = [...pages, ...documents, ...redirects].map((entry) => entry.source);
+export const publishedSources = [...pages, ...documents, ...redirects, ...externalRedirects].map(
+  (entry) => entry.source,
+);

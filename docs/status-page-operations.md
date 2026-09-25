@@ -47,7 +47,7 @@
 | Contact | `https://thomaswhite.me/contact/` | `Contact me` |
 
 - The same routes and keywords live in `tests/support/page-manifest.mjs`; the monitored pages are the ones with `monitored: true` (every page in the navigation). Update the monitor, manifest and relevant page metadata together when a page moves or its identifying text changes.
-- Ten monitors use the complete planned free allowance. Deep pages, blog posts, `/youtube/`, the CV and the two redirects are deliberately not monitored; `npm run test:production` still checks all of them daily. Before adding an eleventh monitor, either consolidate components or obtain approval for a paid plan.
+- Ten monitors use the complete planned free allowance. Deep pages, blog posts, `/youtube/`, the CV, the two redirects and `/gravatar/` are deliberately not monitored; `npm run test:production` still checks all of them daily. Before adding an eleventh monitor, either consolidate components or obtain approval for a paid plan.
 
 ### Changing the monitors for the content-strategy pages
 

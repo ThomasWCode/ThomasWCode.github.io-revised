@@ -6,6 +6,7 @@ import { HtmlValidate } from "html-validate";
 import { listPublishedHtml } from "../../scripts/content-review.mjs";
 import {
   documents,
+  externalRedirects,
   pages,
   publishedSources,
   redirects,
@@ -154,6 +155,26 @@ for (const redirect of redirects) {
   });
 }
 
+for (const redirect of externalRedirects) {
+  test(`${redirect.source} forwards its short URL to ${redirect.target}`, async () => {
+    const source = await readSiteFile(redirect.source);
+    const html = stripFrontMatter(source);
+    const report = await validator.validateString(html);
+    const messages = report.results.flatMap((result) =>
+      result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
+    );
+
+    assert.match(redirect.target, /^https:\/\//, `${redirect.target} is not an external HTTPS URL`);
+    assert.ok(source.startsWith(`---\npermalink: ${redirect.path}\n---\n`));
+    assert.ok(html.includes(`<meta http-equiv="refresh" content="0; url=${redirect.target}" />`));
+    assert.ok(html.includes(`<link rel="canonical" href="${redirect.target}" />`));
+    assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
+    assert.ok(html.includes(`<a href="${redirect.target}">`), "no-refresh fallback link");
+    assert.equal(textContent(html.match(/<h1>([\s\S]*?)<\/h1>/)?.[1] || ""), redirect.heading);
+    assert.equal(messages.join("\n"), "");
+  });
+}
+
 test("structured data parses and describes the same Person everywhere", async () => {
   const people = [];
 
@@ -216,7 +237,7 @@ test("all local site references resolve to files or clean page routes", async ()
   const pagePaths = new Set([...pages, ...documents].map((page) => page.path));
   const missing = [];
 
-  for (const page of [...pages, ...documents, ...redirects]) {
+  for (const page of [...pages, ...documents, ...redirects, ...externalRedirects]) {
     const html = stripFrontMatter(await readSiteFile(page.source));
     const attributes = matches(
       html,

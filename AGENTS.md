@@ -39,7 +39,9 @@ This repository contains the source for `thomaswhite.me`. The published site is 
 
 Redirects: `sport.html` (`/sport/`) and `music&drama.html` (`/music&drama/`) are `noindex` pages with a meta refresh to `/sport-music-and-drama/#sport` and `#music`, a canonical link to the new page and a plain fallback link. Keep them while inbound links and old monitors may use the old URLs.
 
-`tests/support/page-manifest.mjs` lists every published HTML file as a page, a document (`cv.html`) or a redirect. A static contract fails if a published HTML file is missing from it.
+External redirect: `gravatar.html` (`/gravatar/`) is a `noindex` short link with a meta refresh, a canonical link and a plain fallback link to Tom's Gravatar profile, `https://gravatar.com/thomaswhiteuk`. If the profile URL changes, change all three and the manifest's `target` together.
+
+`tests/support/page-manifest.mjs` lists every published HTML file as a page, a document (`cv.html`), a redirect or an external redirect (`gravatar.html`). A static contract fails if a published HTML file is missing from it.
 
 ## Editing HTML
 
