@@ -75,7 +75,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ### techassist
 - Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter, about three months of work. His biggest project at the time; keeping it consistent as the codebase grew was hard. Massive time investment.
-- Repository public (September 2026): `github.com/ThomasWCode/techassist`. It holds the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source, so the app's line count and modules are still to confirm.
+- Repository `ThomasWCode/techassist` holds only the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source. Briefly public in September 2026, then made private again by Tom; the site no longer links it. The app's line count and modules are still to confirm.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
 - Dates from `ThomasWCode/techassist` (the TechAssist website and installer): first commit 4 Feb 2025 (age 14), most commits February and April 2025, last 20 Aug 2025. The first commit already uploads setup version 1.4.5, so the app itself is older than the repository.
 
