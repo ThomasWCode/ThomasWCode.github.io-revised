@@ -31,23 +31,24 @@
 
 `npm run test:visual`
 
-Seven baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suffixed `-visual-chromium-win32`.
+Eight baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suffixed `-visual-chromium-win32`.
 
 | Baseline | What it captures |
 | --- | --- |
 | `home-desktop.png` | `/`, full page, 1440x900 |
 | `home-phone-navigation.png` | `/`, viewport at 390x844 with the mobile menu open |
 | `programming-desktop.png` | `/programming/`, full page, 1440x900 |
+| `phone-compact-header.png` | `/programming/`, viewport at 390x844 after scrolling to `#projects`, with the compact corner menu button |
 | `gallery-dialog.png` | `/gallery/`, viewport with the expanded-image dialog open |
 | `contact-phone-validation.png` | the `.contact-form` element alone, at 390x844, after a rejected submit |
 | `footer-status-desktop.png` | the `.footer-bottom` element, 1440x900 |
 | `footer-status-phone.png` | the `.footer-bottom` element at 390x844 |
 
 - A baseline needs regenerating only when the change alters pixels inside one of these regions.
-- Three of the seven are clipped to a single element and ignore everything outside it. Contact page copy outside `.contact-form`, for example, is not captured by any baseline.
+- Three of the eight are clipped to a single element and ignore everything outside it. Contact page copy outside `.contact-form`, for example, is not captured by any baseline.
 - `/` and `/programming/` are full-page captures, so any visible content change on those two pages requires a new baseline.
-- A change to `CSS/general.css`, the header, navigation, footer, fonts or design tokens affects all seven.
-- Which phases changed which baselines: every navigation or footer change touches all seven; homepage and Programming copy changes touch the two full-page captures; Contact copy outside the form touches none.
+- A change to `CSS/general.css`, the header, navigation, footer, fonts or design tokens affects all eight.
+- Which phases changed which baselines: every navigation or footer change touches all eight; homepage and Programming copy changes touch the two full-page captures; Contact copy outside the form touches none.
 - Regenerate with `npm run test:visual:update` on Windows. The committed files carry the `win32` platform suffix, so a Linux or macOS run neither validates nor reproduces them; it looks for baselines that do not exist. CI runs this job on `windows-latest`.
 - Without Windows, dispatch the **Update visual baselines** workflow on your branch. It runs the same command on `windows-latest` and commits changed baselines to that branch; pull and inspect them like any other baseline change.
 - Inspect every changed PNG, commit only intended differences, and commit them alongside the change that caused them.
