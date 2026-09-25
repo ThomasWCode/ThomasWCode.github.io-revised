@@ -312,7 +312,7 @@ Stays in More with the one quote. Add "I'll add more as I collect them." Collect
 
 ### 7.9 Contact
 
-- H2 "Email is best". Address: `thomasawhite321@gmail.com` now. Switch to `tom@thomaswhite.me` when the domain mailbox is set up (§12 triggers). Then "Or use the form", then GitHub, LinkedIn (when it exists) and the CV PDF.
+- H2 "Email is best". Address: `tom@thomaswhite.me` (switched from `thomasawhite321@gmail.com` in September 2026). Then "Or use the form", then GitHub, LinkedIn (when it exists) and the CV PDF.
 - Replace "I don't put my email address on the site because bots will scrape it".
 - Keep the CTA block. Keep "Contact :)" as the nav label.
 
@@ -436,7 +436,7 @@ Visible copy still shows ages and school years only.
 **Triggers (not phases)**
 - **Eleventy migration**: when the Blog passes about eight posts or the site about fifteen pages, move to Eleventy so the header lives in one file and posts are Markdown. The Markdown sources in `docs/blog-sources/` are the migration input. Not before.
 - **Game of Life embed**: if the project is pygame, `pygbag` can compile it to run in the page at a path or subdomain without a JavaScript rewrite. Otherwise a small JavaScript version. Until then, link the repo and say it's playable.
-- **Domain email**: switch Contact to `tom@thomaswhite.me` once mail is set up. Free Zoho does not (as far as known) allow IMAP or POP, so either Zoho Mail Lite (adds IMAP so Gmail can fetch and send through it) or Cloudflare Email Routing to Gmail with Gmail "send mail as", keeping DMARC at monitoring. Check the Zoho plan page first.
+- **Domain email**: done in September 2026; the site uses `tom@thomaswhite.me`. Setup notes kept for reference: Free Zoho does not (as far as known) allow IMAP or POP, so either Zoho Mail Lite (adds IMAP so Gmail can fetch and send through it) or Cloudflare Email Routing to Gmail with Gmail "send mail as", keeping DMARC at monitoring. Check the Zoho plan page first.
 - **Testimonials**: promote the page at three quotes.
 
 Each implementation phase follows the repository instructions as rewritten in §13: update desktop nav, mobile nav and footer on every page; set metadata per page; keep `aria-current` correct; add redirects and update the Better Stack keyword manifest when URLs change; run `npm run check` and regenerate visual baselines where layout changes.

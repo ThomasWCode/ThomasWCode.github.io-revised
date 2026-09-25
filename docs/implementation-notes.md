@@ -159,7 +159,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
   - You can copy `_config.yml` into the main repository on its own today, before the rest of this work is ready.
   - If the GitHub repository is public, the record is also readable there. Consider keeping it somewhere private.
 - **Better Stack:** when this reaches thomaswhite.me, edit three monitors and rename one component. The exact steps are in `docs/status-page-operations.md` under "Changing the monitors for the content-strategy pages". The ten monitored pages are the ten in the navigation; `/youtube/` is no longer monitored.
-- **Domain email:** still a trigger. When `tom@thomaswhite.me` works, change every `mailto:` link and the CV together.
+- **Domain email:** done in September 2026. Every `mailto:`, the Contact page and the CV use `tom@thomaswhite.me`.
 - **Namesake research:** the site says only "research, still in progress", as agreed.
 
 ---

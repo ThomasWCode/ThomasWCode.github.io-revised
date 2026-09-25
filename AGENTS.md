@@ -195,7 +195,7 @@ For gallery entries:
 
 - The contact form uses Formspree and Google reCAPTCHA. Keep field `id`, `name`, `label for`, required state, autocomplete values, and JavaScript validation aligned. Private configuration is not in this repository.
 - Keep `formStatus`, `thankYouMessage`, `spamBlockedMessage`, `sendAnotherBtn`, and `tryAgainBtn` aligned with `initialiseContactForm()`.
-- The public email address is `thomasawhite321@gmail.com` (Contact, the call to action and the CV). When the `tom@thomaswhite.me` mailbox works, change every `mailto:` and the CV together.
+- The public email address is `tom@thomaswhite.me` (Contact, the call to action and the CV). If it changes, change every `mailto:`, the Contact page's meta description and the CV together, and rebuild the CV PDF.
 - YouTube facades require `class="youtube-facade"`, a bare `data-videoid`, `data-video-title`, a thumbnail, and accessible button text.
 - Local videos belong in `Images/`; use optimized versions for normal playback when available.
 - No page currently ships audio and there is no `Music/` directory. If audio returns, put released songs in `Music/Songs/` and unfinished clips in `Music/Previews/`, and use MP3, `type="audio/mpeg"`, `preload="metadata"`, and `class="track-audio"` so `initialiseTrackAudio()` applies.
