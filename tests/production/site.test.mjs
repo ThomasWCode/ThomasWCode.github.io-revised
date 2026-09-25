@@ -1,6 +1,12 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { pages, productionBaseUrl, redirects, statusPageUrl } from "../support/page-manifest.mjs";
+import {
+  externalRedirects,
+  pages,
+  productionBaseUrl,
+  redirects,
+  statusPageUrl,
+} from "../support/page-manifest.mjs";
 import { readSiteFile, textContent } from "../support/site-files.mjs";
 
 const deployedHost = (await readSiteFile("CNAME")).trim();
@@ -47,7 +53,7 @@ for (const page of pages) {
   });
 }
 
-for (const redirect of redirects) {
+for (const redirect of [...redirects, ...externalRedirects]) {
   test(`production ${redirect.path} still answers and forwards to ${redirect.target}`, async () => {
     const response = await fetchWithRetries(`${baseUrl}${redirect.path}`);
     const html = await response.text();

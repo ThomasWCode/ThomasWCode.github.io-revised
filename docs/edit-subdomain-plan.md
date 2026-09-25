@@ -68,7 +68,7 @@
   - the `h1`, which is pinned in `tests/support/page-manifest.mjs` and the Better Stack monitor keyword;
   - Analisa's quote, which has an exact-wording contract;
   - the contact form's buttons (`JS/script.js` hard-codes "Send message");
-  - `cv.html` (needs a PDF rebuild) and the two redirect pages.
+  - `cv.html` (needs a PDF rebuild), the two redirect pages and `gravatar.html`.
 - **Typing rules:** handled through `beforeinput`.
   - Enter, bold/italic and drag-drop are blocked.
   - Paste becomes plain text.

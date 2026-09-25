@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { pages } from "../support/page-manifest.mjs";
+import { externalRedirects, pages } from "../support/page-manifest.mjs";
 import { readSiteFile, stripFrontMatter } from "../support/site-files.mjs";
 
 const acceptedRestrictedStatuses = new Set([401, 403, 405, 429]);
@@ -45,6 +45,10 @@ test("published external links remain reachable", async () => {
     for (const match of html.matchAll(/href="(https:\/\/[^"#]+)"/g)) {
       urls.add(match[1]);
     }
+  }
+
+  for (const redirect of externalRedirects) {
+    urls.add(redirect.target);
   }
 
   const failures = [];
