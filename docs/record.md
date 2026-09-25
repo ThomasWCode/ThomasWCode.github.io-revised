@@ -11,7 +11,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Started programming at 7 (2017). Lua on Roblox first, then Python (favourite), JavaScript/HTML/CSS, some C++. Lots of web development.
 - Interests: programming, astrophysics, particle physics, AI and AI safety, drumming, hiking, science fiction.
 - Cat: Dusty, `dusty.thomaswhite.me`.
-- Email now: `thomasawhite321@gmail.com`. Domain mailbox on Zoho Mail (free plan), unused; planned public address `tom@thomaswhite.me`. No LinkedIn yet.
+- Public email: `tom@thomaswhite.me` (switched on the site and CV in September 2026; previously `thomasawhite321@gmail.com`). Domain mailbox on Zoho Mail. No LinkedIn yet.
 
 ### education
 - Year 12 at Dulwich College from September 2026. A levels: Physics, Further Maths, German (Tom, September 2026; confirm whether Maths is also taken, since Further Maths is normally taken alongside it). No predicted grades yet.
