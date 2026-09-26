@@ -71,7 +71,7 @@ Eight baselines live in `tests/visual/site.visual.spec.mjs-snapshots/`, each suf
 
 1. Search the test tree for the strings on both sides of the change: `rg -n "old wording|new wording" tests/`.
 2. Check whether the page's manifest entry (path, title, heading, keyword) still holds.
-3. Ask whether the changed pixels fall inside one of the seven baseline regions listed above.
+3. Ask whether the changed pixels fall inside one of the eight baseline regions listed above.
 4. Run the affected suites before concluding anything. `npm run check` covers every deterministic suite; the production and external-link checks run separately.
 5. Only then decide that an expectation itself is out of date.
 

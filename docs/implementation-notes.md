@@ -221,7 +221,8 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 This repository shares its history with the main one up to `49b9582`. Its first own commit, `f2e3fc3 Update CNAME`, points the domain at `new.thomaswhite.me`. That commit must not reach production.
 
 1. Finish section 2 first. With `CNAME` set to `thomaswhite.me`, the content contract fails while any draft remains, so CI in the main repository stays red until `npm run list:drafts` prints nothing. You can do the writing here in the preview repository first and check it on new.thomaswhite.me.
-2. In a local clone of the main repository:
+2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch or open pull request "Text edits from the editor" here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
+3. In a local clone of the main repository:
 
    ```bash
    git switch main
@@ -238,12 +239,12 @@ This repository shares its history with the main one up to `49b9582`. Its first 
    git push -u origin content-strategy
    ```
 
-3. Open a pull request from `content-strategy` to `main` in the main repository. When CI is green, merge with **Create a merge commit**. Do not use Squash or Rebase: a merge commit keeps every commit and every PR merge from this repository, with their authors and dates.
-4. Straight after the deploy:
+4. Open a pull request from `content-strategy` to `main` in the main repository. When CI is green, merge with **Create a merge commit**. Do not use Squash or Rebase: a merge commit keeps every commit and every PR merge from this repository, with their authors and dates.
+5. Straight after the deploy:
    - make the Better Stack edits (section 3);
    - run `npm run test:production`;
    - run the **Content review** workflow once from the Actions tab.
-5. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
-6. Repoint the editor. The editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`; `docs/how-it-works.md` there, "Switching targets") edits this preview repository until the merge. Before step 2, publish or discard anything pending in it, so no `edits` branch is left here. Afterwards, install the GitHub App "Homepage Site Editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
+6. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
+7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"): install the GitHub App "Homepage Site Editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
 
 If the main repository has not changed since `49b9582`, the merge commit is optional. Once the revert is in, `main` can fast-forward to `content-strategy`, and the history is identical either way.
