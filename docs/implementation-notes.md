@@ -72,6 +72,8 @@ Nothing on the site is invented. Anything the record did not cover is marked one
 - **Write:** a visible dashed box labelled "Draft: Tom to write", or a dashed inline slot (`data-draft`). Replace it with your text and delete the element's `draft-note`/`draft-inline` class and `data-draft` attribute.
 - **Check:** a sentence I drafted from the record, marked with an invisible `data-draft="check"`. Read it, rewrite it if it doesn't sound like you or isn't accurate, then delete the attribute.
 
+The editor at `https://edit.thomaswhite.me` does both in place: type over a placeholder and press **Done**, or read a checked sentence and press **Approve**, then Save and Publish (`AGENTS.md`, § Editor).
+
 Run `npm run list:drafts` for the live list with file and line numbers. On 23 September 2026 there were 77: 63 to write and 14 to check. **CI in the main repository will fail until the list is empty.** That is deliberate, so a placeholder can't reach thomaswhite.me.
 
 ### Home (`index.html`)
