@@ -1,6 +1,6 @@
 # Blog sources
 
-Write each post here in Markdown as `<slug>.md`, in your own voice. A later session converts it into `blog/<slug>.html` using the post template (page hero, prose column, Related block) and adds it to `/blog/`, the parent page and `docs/record.md`.
+Write each post here in Markdown as `<slug>.md`, in your own voice. The editor at `https://edit.thomaswhite.me` opens these files as plain text under Blog sources, and its **New post source** starts one with the lines below. A later session converts it into `blog/<slug>.html` using the post template (page hero, prose column, Related block) and adds it to `/blog/`, the parent page and `docs/record.md`.
 
 - These files are not published: `_config.yml` excludes `docs/`.
 - Start the file with the eyebrow line (month, year and age), the title and a one- or two-sentence lede.
