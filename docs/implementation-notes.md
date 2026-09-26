@@ -221,7 +221,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 This repository shares its history with the main one up to `49b9582`. Its first own commit, `f2e3fc3 Update CNAME`, points the domain at `new.thomaswhite.me`. That commit must not reach production.
 
 1. Finish section 2 first. With `CNAME` set to `thomaswhite.me`, the content contract fails while any draft remains, so CI in the main repository stays red until `npm run list:drafts` prints nothing. You can do the writing here in the preview repository first and check it on new.thomaswhite.me.
-2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch or open pull request "Text edits from the editor" here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
+2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch, or open pull request from it, here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
 3. In a local clone of the main repository:
 
    ```bash
