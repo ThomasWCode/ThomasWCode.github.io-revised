@@ -101,6 +101,7 @@ A draft is saved in this repository but not published on thomaswhite.me: any ele
 - `npm run review:content` (add `-- --today=YYYY-MM-DD` to simulate a date) lists passed review dates, `data-updated` older than 60 days and uncovered school years. `.github/workflows/content-review.yml` runs it at 07:00 UTC on the 1st of each month and opens or updates one "Content review: <Month Year>" issue.
 - Each September, bump school years and ages, move review dates forward, rebuild the CV and close the review issue.
 - Update `docs/record.md` whenever a fact enters the site or a decision is made not to publish something.
+- Around the content-strategy merge into the main repository, remind Tom to add the Claude routine in `docs/implementation-notes.md` §6 step 5. It is a scheduled Claude agent that checks recent additions for anything to add or question, anything inconsistent, and facts added only to the site that belong in `docs/record.md` or the CV.
 
 ## Adding pages and posts
 

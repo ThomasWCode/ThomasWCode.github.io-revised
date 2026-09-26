@@ -243,7 +243,11 @@ This repository shares its history with the main one up to `49b9582`. Its first 
 5. Straight after the deploy:
    - make the Better Stack edits (section 3);
    - run `npm run test:production` (it also fails if a live page holds a draft);
-   - run the **Content review** workflow once from the Actions tab.
+   - run the **Content review** workflow once from the Actions tab;
+   - around now (just before or just after the merge is fine), add a **Claude routine** to check what is added from then on. This is a scheduled Claude Code agent (`/schedule` in a Claude session sets one up) working on the main repository. Each run reads the commits since the one before and reports, in a GitHub issue say, for you to act on:
+     - anything that should be added, or questioned;
+     - anything inconsistent, between pages or with `docs/record.md` and the CV;
+     - anything added only to the website (through the editor, say) that also belongs in `docs/record.md` or the CV (`cv.html`, then `npm run build:cv`).
 6. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
 7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"): install the GitHub App "Homepage Site Editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
 
