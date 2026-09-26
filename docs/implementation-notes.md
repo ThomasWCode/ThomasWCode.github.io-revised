@@ -59,8 +59,8 @@ Behind the pages:
   - banned words and at most one "passionate";
   - one consistent JSON-LD Person;
   - the redirects;
-  - no draft placeholders once `CNAME` is `thomaswhite.me`.
-- `npm run list:drafts` lists every placeholder still to fill.
+  - well-formed drafts, which thomaswhite.me leaves out (on it, every check reads the pages without them).
+- `npm run list:drafts` lists every draft still to write, check or publish.
 - Only links to the site's own pages (and same-page anchors) open in the same tab. Everything else (other sites, the CV PDF, `mailto:`) has `target="_blank" rel="noopener noreferrer"`, and a contract fails if a link breaks this. New-tab text links show ↗; the "Email me" buttons keep →.
 
 ---
@@ -74,7 +74,7 @@ Nothing on the site is invented. Anything the record did not cover is marked one
 
 The editor at `https://edit.thomaswhite.me` does both in place: type over a placeholder and press **Done**, or read a checked sentence and press **Approve**, then Save and Publish (`AGENTS.md`, § Editor).
 
-Run `npm run list:drafts` for the live list with file and line numbers. On 23 September 2026 there were 77: 63 to write and 14 to check. **CI in the main repository will fail until the list is empty.** That is deliberate, so a placeholder can't reach thomaswhite.me.
+Run `npm run list:drafts` for the live list with file and line numbers. On 23 September 2026 there were 77: 63 to write and 14 to check. thomaswhite.me's build leaves every draft out (`AGENTS.md`, § Drafts), so a placeholder can't reach it; the plan is still to finish them all before the merge (section 6).
 
 ### Home (`index.html`)
 - Check the hero follow-on sentence: "This is where I keep the physics I'm working on, the things I've built for people, and some of the other stuff I get up to." The plan marks it for your approval.
@@ -172,7 +172,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - **Tooling added to make the plan workable:**
   - the Windows baseline workflow (the baselines are Windows-only);
   - production checks that follow `CNAME`;
-  - the drafts guard tied to `CNAME`;
+  - the drafts rule (drafts left out of thomaswhite.me by its build, `.github/workflows/pages.yml`);
   - `npm run list:drafts`;
   - `unknown` and open ranges (`2026-07/`) allowed in `data-when`;
   - `data-review` allowed on its own for plain school-year copy.
@@ -220,8 +220,8 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 
 This repository shares its history with the main one up to `49b9582`. Its first own commit, `f2e3fc3 Update CNAME`, points the domain at `new.thomaswhite.me`. That commit must not reach production.
 
-1. Finish section 2 first. With `CNAME` set to `thomaswhite.me`, the content contract fails while any draft remains, so CI in the main repository stays red until `npm run list:drafts` prints nothing. You can do the writing here in the preview repository first and check it on new.thomaswhite.me.
-2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch or open pull request "Text edits from the editor" here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
+1. Finish section 2 first, so the pages go live complete. (A draft left over would not break anything: thomaswhite.me’s build leaves drafts out.) You can do the writing here in the preview repository first and check it on new.thomaswhite.me.
+2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch, or open pull request from it, here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
 3. In a local clone of the main repository:
 
    ```bash
@@ -234,15 +234,15 @@ This repository shares its history with the main one up to `49b9582`. Its first 
    cat CNAME                      # must print thomaswhite.me
    git merge main                 # only needed if the main repository has moved on since the split
    npm ci
-   npm run list:drafts            # must print nothing
+   npm run list:drafts            # should print nothing (section 2)
    npm run check                  # on Windows, or rely on CI
    git push -u origin content-strategy
    ```
 
-4. Open a pull request from `content-strategy` to `main` in the main repository. When CI is green, merge with **Create a merge commit**. Do not use Squash or Rebase: a merge commit keeps every commit and every PR merge from this repository, with their authors and dates.
+4. Open a pull request from `content-strategy` to `main` in the main repository. Before merging, set the main repository’s Settings → Pages → Source to **GitHub Actions**, so thomaswhite.me is built by `.github/workflows/pages.yml`, which leaves drafts out, instead of GitHub’s automatic build, which would serve them. When CI is green, merge with **Create a merge commit**. Do not use Squash or Rebase: a merge commit keeps every commit and every PR merge from this repository, with their authors and dates.
 5. Straight after the deploy:
    - make the Better Stack edits (section 3);
-   - run `npm run test:production`;
+   - run `npm run test:production` (it also fails if a live page holds a draft);
    - run the **Content review** workflow once from the Actions tab.
 6. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
 7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"): install the GitHub App "Homepage Site Editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.

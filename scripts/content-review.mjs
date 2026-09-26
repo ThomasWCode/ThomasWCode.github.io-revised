@@ -234,7 +234,8 @@ export async function reviewContent({ root = repositoryRoot, today = new Date() 
   return results;
 }
 
-// List every draft placeholder (data-draft) with the text Tom still has to replace.
+// List every draft (data-draft) with its text: placeholders to write, sentences
+// to check, and content not yet published (new, replace, remove; scripts/drafts.mjs).
 export async function listDrafts(root = repositoryRoot) {
   const drafts = [];
 
@@ -247,7 +248,8 @@ export async function listDrafts(root = repositoryRoot) {
           .map((element) => element.attributes["data-record"])
           .filter(Boolean)
           .pop();
-        const kind = token.element.attributes["data-draft"] === "check" ? "check" : "write";
+        const value = token.element.attributes["data-draft"];
+        const kind = value === "" ? "write" : value;
         const draft = { file, line: token.element.line, kind, record, text: "" };
         open.set(token.element, draft);
         drafts.push(draft);

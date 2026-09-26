@@ -15,7 +15,7 @@ import {
 import {
   readSiteFile,
   repositoryRoot,
-  stripFrontMatter,
+  servedHtml,
   textContent,
 } from "../support/site-files.mjs";
 
@@ -47,7 +47,7 @@ test("the page manifest covers every published HTML file", async () => {
 for (const page of pages) {
   test(`${page.source} preserves the GitHub Pages and metadata contracts`, async () => {
     const source = await readSiteFile(page.source);
-    const html = stripFrontMatter(source);
+    const html = servedHtml(source);
 
     assert.match(
       source,
@@ -65,7 +65,7 @@ for (const page of pages) {
   });
 
   test(`${page.source} keeps the shared shell consistent`, async () => {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     const generalStyleIndex = html.indexOf('href="/CSS/general.css"');
     const pageStyleIndex = html.indexOf(`href="${page.stylesheet}"`);
     const sharedScriptIndex = html.indexOf('<script defer src="/JS/script.js"></script>');
@@ -84,7 +84,7 @@ for (const page of pages) {
   });
 
   test(`${page.source} links to the public status page beside Last updated`, async () => {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     const footerBottom = html.match(/<div class="footer-bottom">([\s\S]*?)<\/div>/)?.[1] || "";
     const lastUpdatedParagraph = footerBottom.match(/<p>\s*Last updated[\s\S]*?<\/p>/)?.[0] || "";
 
@@ -103,7 +103,7 @@ for (const page of pages) {
   });
 
   test(`${page.source} is valid HTML after front matter processing`, async () => {
-    const report = await validator.validateString(stripFrontMatter(await readSiteFile(page.source)));
+    const report = await validator.validateString(servedHtml(await readSiteFile(page.source)));
     const messages = report.results.flatMap((result) =>
       result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
     );
@@ -115,7 +115,7 @@ for (const page of pages) {
 for (const printDocument of documents) {
   test(`${printDocument.source} is an unlinked, unindexed print document`, async () => {
     const source = await readSiteFile(printDocument.source);
-    const html = stripFrontMatter(source);
+    const html = servedHtml(source);
     const report = await validator.validateString(html);
     const messages = report.results.flatMap((result) =>
       result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
@@ -136,7 +136,7 @@ for (const printDocument of documents) {
 for (const redirect of redirects) {
   test(`${redirect.source} redirects its old URL to a published page`, async () => {
     const source = await readSiteFile(redirect.source);
-    const html = stripFrontMatter(source);
+    const html = servedHtml(source);
     const targetPath = redirect.target.split("#")[0];
     const target = pages.find((page) => page.path === targetPath);
     const report = await validator.validateString(html);
@@ -158,7 +158,7 @@ for (const redirect of redirects) {
 for (const redirect of externalRedirects) {
   test(`${redirect.source} forwards its short URL to ${redirect.target}`, async () => {
     const source = await readSiteFile(redirect.source);
-    const html = stripFrontMatter(source);
+    const html = servedHtml(source);
     const report = await validator.validateString(html);
     const messages = report.results.flatMap((result) =>
       result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
@@ -190,7 +190,7 @@ test("structured data parses and describes the same Person everywhere", async ()
   }
 
   for (const page of [...pages, ...documents]) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     for (const match of matches(html, /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
       collectPeople(JSON.parse(match[1]), page.source);
     }
@@ -238,7 +238,7 @@ test("all local site references resolve to files or clean page routes", async ()
   const missing = [];
 
   for (const page of [...pages, ...documents, ...redirects, ...externalRedirects]) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     const attributes = matches(
       html,
       /(?:href|src|poster|data-full-src)="(\/[^"]+)"|srcset="([^"]+)"/g,
@@ -272,7 +272,7 @@ test("only links to the site's own pages open in the same tab", async () => {
   const wrong = [];
 
   for (const page of [...pages, ...documents, ...redirects]) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
 
     for (const [tag] of matches(html, /<a\s[^>]*>/g)) {
       const href = tag.match(/\shref="([^"]*)"/)?.[1] ?? "";

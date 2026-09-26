@@ -4,7 +4,7 @@ import path from "node:path";
 import test from "node:test";
 import { pages } from "../support/page-manifest.mjs";
 import { readImageDimensions } from "../support/image-dimensions.mjs";
-import { readSiteFile, repositoryRoot, stripFrontMatter } from "../support/site-files.mjs";
+import { readSiteFile, repositoryRoot, servedHtml } from "../support/site-files.mjs";
 
 function imageTags(html) {
   return Array.from(html.matchAll(/<img\s[\s\S]*?>/gi), (match) => match[0]);
@@ -18,7 +18,7 @@ test("responsive image descriptors match intrinsic widths", async () => {
   const errors = [];
 
   for (const page of pages) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     for (const srcset of Array.from(html.matchAll(/srcset="([^"]+)"/g), (match) => match[1])) {
       for (const candidate of srcset.split(",")) {
         const [source, descriptor] = candidate.trim().split(/\s+/);
@@ -43,7 +43,7 @@ test("image dimensions and deferred-loading attributes are internally consistent
   const errors = [];
 
   for (const page of pages) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     for (const markup of imageTags(html)) {
       const source = attribute(markup, "src");
       if (!source?.startsWith("/") || source.endsWith(".svg")) {
@@ -71,7 +71,7 @@ test("image dimensions and deferred-loading attributes are internally consistent
 });
 
 test("gallery expansion sources stay below one megabyte", async () => {
-  const html = stripFrontMatter(await readSiteFile("gallery.html"));
+  const html = servedHtml(await readSiteFile("gallery.html"));
   const sources = Array.from(html.matchAll(/data-full-src="([^"]+)"/g), (match) => match[1]);
 
   assert.ok(sources.length > 0);
@@ -82,7 +82,7 @@ test("gallery expansion sources stay below one megabyte", async () => {
 });
 
 test("the above-the-fold gallery image is eagerly prioritised", async () => {
-  const html = stripFrontMatter(await readSiteFile("gallery.html"));
+  const html = servedHtml(await readSiteFile("gallery.html"));
   const firstGalleryImage = html.match(
     /<figure class="gallery-item gallery-item--wide">[\s\S]*?<img([\s\S]*?)\/>/,
   )?.[1];
@@ -94,7 +94,7 @@ test("the above-the-fold gallery image is eagerly prioritised", async () => {
 
 test("every picture has responsive sources and an image fallback", async () => {
   for (const page of pages) {
-    const html = stripFrontMatter(await readSiteFile(page.source));
+    const html = servedHtml(await readSiteFile(page.source));
     for (const picture of Array.from(html.matchAll(/<picture>([\s\S]*?)<\/picture>/gi), (match) => match[1])) {
       assert.match(picture, /<source\s[^>]*srcset="[^"]+"[^>]*>/i, page.source);
       assert.match(picture, /<img\s[^>]*src="[^"]+"[^>]*>/i, page.source);
