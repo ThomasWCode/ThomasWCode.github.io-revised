@@ -86,7 +86,8 @@ A draft is saved in this repository but not published on thomaswhite.me: any ele
 - A new version of a live element is a copy straight after it, with `data-draft="replace"`. Publishing it deletes the live element and removes the marker from the copy; until then the live one stays live.
 - Content to remove carries `data-draft="remove"`: it stays live until the removal is published, and only its marker is left out.
 - The editor at `https://edit.thomaswhite.me` writes and publishes all of these (§ Editor).
-- A draft needs an explicit end tag. A `new` draft must not be all its `<li>` or `<p>` holds, which would leave it empty on thomaswhite.me: mark the element itself. `tests/static/content-contracts.test.mjs` checks both.
+- A draft needs an explicit end tag. No `<p>` or `<li>` may have only drafts for words (one draft, even inside an `<em>`, or several between them), which would leave it empty on thomaswhite.me: mark the element itself. On the preview only `new` drafts count, since the placeholders and checks are resolved before the merge; in the main repository every kind does. `tests/static/content-contracts.test.mjs` checks both.
+- `Tom-White-CV.pdf` is printed from the CV as this repository's site shows it, so on the preview it can hold drafts. thomaswhite.me's build prints its own copy from the page without them (§ CV).
 - `npm run list:drafts` lists every draft with its file, line, kind and record slug.
 - Once drafts can reach the main repository, thomaswhite.me must never be published by GitHub's automatic Pages build, which would serve them. Its Settings → Pages → Source stays "GitHub Actions", and `npm run test:production` fails if a live page holds a draft.
 - Tom resolves the placeholders and checks from the content-strategy work before merging into the main repository.
@@ -172,6 +173,7 @@ Extend the relevant initializer when possible. A new initializer must be called 
 
 - Edit `cv.html`; every fact must come from `docs/record.md`. Entries carry the date attributes.
 - Run `npm run build:cv` to print `/cv/` with Playwright Chromium to `Tom-White-CV.pdf`, then commit both. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` only if Playwright's own Chromium is unavailable.
+- The PDF is printed as this checkout's site serves the CV. thomaswhite.me's build (`.github/workflows/pages.yml`) prints it again with `--live`, from the page with its drafts left out, and deploys that copy instead.
 - The PDF is linked from the footer, About and Contact. It is public and will be indexed; that is accepted.
 
 ## Images
@@ -215,7 +217,7 @@ For gallery entries:
 
 ## Verification
 
-The repository has a development-only npm test toolchain. The only production build is thomaswhite.me's `.github/workflows/pages.yml`: GitHub's Jekyll build, then drafts left out. Install Node.js 24, run `npm ci`, then install the Playwright browsers with `npx playwright install chromium firefox webkit`. On Linux, use `npx playwright install --with-deps chromium firefox webkit`. See `docs/testing.md` for the full command and scope reference.
+The repository has a development-only npm test toolchain. The only production build is thomaswhite.me's `.github/workflows/pages.yml`: GitHub's Jekyll build, then drafts left out and the CV's PDF printed again without them. Install Node.js 24, run `npm ci`, then install the Playwright browsers with `npx playwright install chromium firefox webkit`. On Linux, use `npx playwright install --with-deps chromium firefox webkit`. See `docs/testing.md` for the full command and scope reference.
 
 For relevant changes:
 

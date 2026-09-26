@@ -7,7 +7,7 @@
 - Install the browsers once:
   - Windows: `npx playwright install chromium firefox webkit`
   - Linux: `npx playwright install --with-deps chromium firefox webkit`
-- The published site remains plain HTML, CSS and JavaScript. None of these packages are served to visitors. The only production build is thomaswhite.me's `.github/workflows/pages.yml`: GitHub's Jekyll build, then drafts left out (`scripts/drafts.mjs`).
+- The published site remains plain HTML, CSS and JavaScript. None of these packages are served to visitors. The only production build is thomaswhite.me's `.github/workflows/pages.yml`: GitHub's Jekyll build, then drafts left out (`scripts/drafts.mjs`) and the CV's PDF printed again without them.
 
 ## Commands
 
@@ -17,11 +17,11 @@
 - `npm run test:visual` compares the eight committed Win32 visual baselines.
 - `npm run test:visual:update` deliberately replaces those baselines after a reviewed visual change. Run this on Windows, inspect every changed PNG and commit only intended differences. Without a Windows machine, run the **Update visual baselines** workflow from the Actions tab on your branch (never `main`); it runs the same command on `windows-latest` and commits any changed baselines back to that branch.
 - `npm run test:lighthouse` runs three local audits each for the homepage, Programming, Physics & Ideas, Blog, Gallery and Contact. The median gates are 85 performance, 95 accessibility, 90 best practices and 95 SEO.
-- `npm run test:production` makes read-only checks against every published page, the two redirects, the `/gravatar/` short link and `https://status.thomaswhite.me/`. It checks the host named in `CNAME` (`thomaswhite.me` in the main repository, `new.thomaswhite.me` in the preview clone); set `PRODUCTION_BASE_URL` to check another host. On thomaswhite.me it also fails if a page holds a draft, which would mean the site was built without leaving them out.
+- `npm run test:production` makes read-only checks against every published page, the two redirects, the `/gravatar/` short link and `https://status.thomaswhite.me/`. It checks the host named in `CNAME` (`thomaswhite.me` in the main repository, `new.thomaswhite.me` in the preview clone); set `PRODUCTION_BASE_URL` to check another host. When the host checked is thomaswhite.me it also fails if a page holds a draft, which would mean the site was built without leaving them out.
 - `npm run test:external-links` makes read-only reachability checks against published external links and the `/gravatar/` target.
 - `npm run review:content` lists copy due for a re-read (see `AGENTS.md`, date attributes). Add `-- --today=YYYY-MM-DD` to simulate a date. It prints nothing when nothing is due.
 - `npm run list:drafts` lists every draft (`data-draft`: placeholders to write, sentences to check, and `new`, `replace` and `remove` drafts) with its file, line, kind and record slug. Everything it lists stays off thomaswhite.me.
-- `npm run build:cv` prints `/cv/` to `Tom-White-CV.pdf` with Playwright Chromium. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to use a different Chromium.
+- `npm run build:cv` prints `/cv/` to `Tom-White-CV.pdf` with Playwright Chromium, as this checkout's site serves the page. `-- --live` prints it as thomaswhite.me serves it, drafts left out, and `-- --out <file>` writes somewhere else; the live site's build uses both. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to use a different Chromium.
 - `npm test` runs lint, static checks and the deterministic browser suite.
 - `npm run check` adds visual regression and Lighthouse checks to `npm test`.
 - `npm audit --audit-level=high` checks the development toolchain for known high or critical advisories.
@@ -30,14 +30,14 @@
 
 - Deterministic browser tests replace CookieYes, Formspree, reCAPTCHA, Google Analytics and YouTube network requests, and pin the `Last-Modified` header of every page response so the footer date is fixed. They do not send contact messages or analytics events.
 - The contact form suite tests local validation, spam handling, success, failure, reset and retry views with a stubbed Formspree response. A real Formspree or reCAPTCHA submission remains a deployed-site manual check.
-- The clean-URL server strips the three-line YAML front matter in memory and maps `/example/` to `example.html`. It models GitHub Pages routing and contains no Vercel behavior. When `CNAME` is `thomaswhite.me` it also leaves drafts out, so the browser, visual and Lighthouse tests, and the CV's PDF, see the live pages.
+- The clean-URL server strips the three-line YAML front matter in memory and maps `/example/` to `example.html`. It models GitHub Pages routing and contains no Vercel behavior. When `CNAME` is `thomaswhite.me` it also leaves drafts out, so the browser, visual and Lighthouse tests see the live pages; `startServer({ servedAs })` serves another site's view.
 - Production and external-link checks require internet access and can fail because of DNS, provider downtime, bot blocking or rate limits. They retry transient failures and never submit forms or mutate remote state.
 - Browser failure videos, screenshots and traces are local artefacts under `test-results/`; CI retains failure artefacts for seven days.
 
 ## CI policy
 
 - `.github/workflows/ci.yml` runs on pull requests, pushes to `main` and manual dispatch. It does not deploy or mutate the site.
-- `.github/workflows/pages.yml` publishes thomaswhite.me on every push to `main` in the main repository. It runs GitHub's Jekyll build, leaves drafts out, and deploys, in about two Linux minutes. It needs Settings → Pages → Source set to "GitHub Actions" there. In the preview repository it runs only by hand, and then builds without deploying, as a check.
+- `.github/workflows/pages.yml` publishes thomaswhite.me on every push to `main` in the main repository. It runs GitHub's Jekyll build, leaves drafts out, prints the CV's PDF again from the page without them, and deploys, in about four Linux minutes. It needs Settings → Pages → Source set to "GitHub Actions" there. In the preview repository it runs only by hand, and then builds without deploying, as a check.
 - `.github/workflows/production-checks.yml` runs daily at approximately 06:15 UTC. External links run on Monday and on manual dispatch.
 - `.github/workflows/content-review.yml` runs at 07:00 UTC on the 1st of each month and on manual dispatch (optionally with a simulated date). It needs `issues: write` and opens one “Content review: <Month Year>” issue, or updates the open one; it does nothing when nothing is due.
 - `.github/workflows/update-visual-baselines.yml` runs only on manual dispatch, refuses to run on `main`, and pushes a commit to the dispatched branch when baselines change. A commit pushed by the workflow does not start the test suite by itself; dispatch **Test suite** on the branch, or push the next change, so the new baselines are checked. Pull the commit and inspect every changed PNG before merging.
