@@ -54,6 +54,26 @@ test("emptiedByDrafts: a paragraph or item whose words are all drafts, through w
   assert.equal(newOnly('<li><span class="draft-inline" data-draft>Which term</span></li>'), 0, "other kinds can be left uncounted");
 });
 
+test("findDrafts reads quoted attributes whole, and scripts and styles can be drafts", () => {
+  const quoted = '<p title="1 > 0" data-draft="new">x</p><p>y</p>';
+  assert.deepEqual(findDrafts(quoted).map(({ tag, kind }) => ({ tag, kind })), [{ tag: "p", kind: "new" }]);
+  assert.equal(stripDrafts(quoted), "<p>y</p>");
+  const styled = '<style data-draft="new">p { color: red; }</style><p>y</p>';
+  assert.deepEqual(findDrafts(styled).map(({ tag, kind }) => ({ tag, kind })), [{ tag: "style", kind: "new" }]);
+  assert.equal(stripDrafts(styled), "<p>y</p>");
+  assert.deepEqual(findDrafts(`<script>const x = '<p data-draft="new">';</script>`), [], "a script's content is not markup");
+});
+
+test("stripDrafts leaves no space before punctuation or at a line's end, nor after an opening bracket", () => {
+  assert.equal(stripDrafts('<p>A bit <span data-draft="new">interesting</span>.</p>'), "<p>A bit.</p>");
+  assert.equal(stripDrafts('<p>Kept\n  <span data-draft="new">and new</span>, then more.</p>'), "<p>Kept, then more.</p>");
+  assert.equal(stripDrafts('<p>A bit <span data-draft="new">more</span>\n  words.</p>'), "<p>A bit\n  words.</p>");
+  assert.equal(stripDrafts('<p>(<span data-draft="new">aside</span> text)</p>'), "<p>(text)</p>");
+  assert.equal(stripDrafts('<p>A <span data-draft="new">b</span> <span data-draft="new">c</span> d.</p>'), "<p>A d.</p>", "neighbours count as one");
+  assert.equal(stripDrafts('<p>A <span data-draft="new">b</span> <span data-draft="new">c</span>.</p>'), "<p>A.</p>");
+  assert.equal(stripDrafts('<p>(<span data-draft="new">b</span> <span data-draft="new">c</span> d)</p>'), "<p>(d)</p>");
+});
+
 test("findDrafts refuses a draft without an explicit end tag", () => {
   assert.throws(() => findDrafts("<ul>\n<li data-draft=\"new\">Open\n<li>Next</li>\n</ul>"), DraftMarkupError);
   assert.throws(() => findDrafts('<p data-draft="new">Never closed'), /line 1 has no <\/p> end tag/);

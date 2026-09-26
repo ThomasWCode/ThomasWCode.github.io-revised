@@ -1,10 +1,11 @@
 // Drafts: content saved in this repository but not published on thomaswhite.me.
 //
 // An element marked data-draft is a draft. The preview site (new.thomaswhite.me)
-// publishes drafts as written, marked by CSS (CSS/general.css). The live site's
-// build (.github/workflows/pages.yml) runs stripDrafts() over every built page,
-// and CI checks the pages as they will be live (liveView()), so a draft is never
-// served, and never breaks the live site's checks, until it is published.
+// publishes drafts as written, most marked by CSS (CSS/general.css; checks read
+// as plain text). The live site's build (.github/workflows/pages.yml) runs
+// stripDrafts() over every built page, and CI checks the pages as they will be
+// live (liveView()), so a draft is never served, and never breaks the live
+// site's checks, until it is published.
 //
 // The kinds, by the attribute's value:
 //   data-draft          a placeholder still to write (class draft-note or draft-inline)
@@ -24,7 +25,15 @@ export const LIVE_HOST = "thomaswhite.me";
 export const DRAFT_KINDS = new Set(["", "check", "new", "replace", "remove"]);
 
 const voidElements = new Set(["area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"]);
-const tokenPattern = /<!--[\s\S]*?-->|<(script|style)\b[^>]*>[\s\S]*?<\/\1\s*>|<(\/?)([a-zA-Z][\w-]*)([^>]*)>/g;
+// A start tag's attributes: a quoted value may hold ">".
+const attributes = String.raw`((?:[^>"']|"[^"]*"|'[^']*')*)`;
+// Comments; script and style elements whole (their start tags are read, their
+// content is opaque); then any other start or end tag. Groups: 1 script or
+// style, 2 its attributes; 3 "/" for an end tag, 4 the tag name, 5 attributes.
+const tokenPattern = new RegExp(
+  String.raw`<!--[\s\S]*?-->|<(script|style)\b${attributes}>[\s\S]*?<\/\1\s*>|<(\/?)([a-zA-Z][\w-]*)${attributes}>`,
+  "g",
+);
 const draftAttribute = /\sdata-draft(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?(?=[\s/>]|$)/i;
 const removeMarker = /\s+data-draft\s*=\s*(?:"remove"|'remove'|remove)(?=[\s/>]|$)/i;
 
@@ -63,10 +72,29 @@ export function findDrafts(html) {
       drafts.push(draft);
     }
   };
+  const opened = (tag, attrs, start, startTagEnd) => {
+    const marker = draftAttribute.exec(` ${attrs}`);
+    const parent = stack[stack.length - 1];
+    const previous = parent.lastChild && !html.slice(parent.lastChild.end, start).trim() ? parent.lastChild : null;
+    return {
+      tag,
+      kind: marker ? (marker[1] ?? marker[2] ?? marker[3] ?? "") : null,
+      start,
+      startTagEnd,
+      previous: previous ? { tag: previous.tag, kind: previous.kind } : null,
+      lastChild: null,
+    };
+  };
   for (const match of html.matchAll(tokenPattern)) {
-    if (match[0].startsWith("<!--") || match[1]) continue;
-    const tag = match[3].toLowerCase();
-    if (match[2]) {
+    if (match[0].startsWith("<!--")) continue;
+    if (match[1]) {
+      // A script or style element, whole: it can be a draft like any other.
+      const startTagEnd = match.index + `<${match[1]}${match[2]}>`.length;
+      close(opened(match[1].toLowerCase(), match[2], match.index, startTagEnd), match.index + match[0].length);
+      continue;
+    }
+    const tag = match[4].toLowerCase();
+    if (match[3]) {
       const open = stack.map((entry) => entry.tag).lastIndexOf(tag);
       if (open < 1) continue;
       for (const entry of stack.slice(open + 1)) if (entry.kind !== null) fail(entry, `has no </${entry.tag}> end tag`);
@@ -75,25 +103,16 @@ export function findDrafts(html) {
       close(entry, match.index + match[0].length);
       continue;
     }
-    const marker = draftAttribute.exec(` ${match[4]}`);
-    const parent = stack[stack.length - 1];
-    const previous = parent.lastChild && !html.slice(parent.lastChild.end, match.index).trim() ? parent.lastChild : null;
-    const entry = {
-      tag,
-      kind: marker ? (marker[1] ?? marker[2] ?? marker[3] ?? "") : null,
-      start: match.index,
-      startTagEnd: match.index + match[0].length,
-      previous: previous ? { tag: previous.tag, kind: previous.kind } : null,
-      lastChild: null,
-    };
-    if (voidElements.has(tag) || match[4].trim().endsWith("/")) close(entry, entry.startTagEnd);
+    const entry = opened(tag, match[5], match.index, match.index + match[0].length);
+    if (voidElements.has(tag) || match[5].trim().endsWith("/")) close(entry, entry.startTagEnd);
     else stack.push(entry);
   }
   for (const entry of stack.slice(1)) if (entry.kind !== null) fail(entry, `has no </${entry.tag}> end tag`);
   return drafts.sort((a, b) => a.start - b.start);
 }
 
-const hasText = (html) => /\S/.test(html.replace(/<[^>]*>/g, ""));
+const anyTag = new RegExp(String.raw`<!--[\s\S]*?-->|<\/?[a-zA-Z][\w-]*${attributes}>`, "g");
+const hasText = (html) => /\S/.test(html.replace(anyTag, ""));
 
 // Paragraphs and list items that have words but would be served with none once
 // the drafts `counted` picks are left out (every kind thomaswhite.me leaves out,
@@ -106,9 +125,9 @@ export function emptiedByDrafts(html, counted = (draft) => draft.kind !== "remov
   const open = [];
   for (const match of html.matchAll(tokenPattern)) {
     if (match[0].startsWith("<!--") || match[1]) continue;
-    const tag = match[3].toLowerCase();
+    const tag = match[4].toLowerCase();
     if (tag !== "p" && tag !== "li") continue;
-    if (!match[2]) {
+    if (!match[3]) {
       open.push({ tag, start: match.index, innerStart: match.index + match[0].length });
       continue;
     }
@@ -132,16 +151,45 @@ export function emptiedByDrafts(html, counted = (draft) => draft.kind !== "remov
   return found;
 }
 
-// A removal range, widened to whole lines when the element has its lines to
-// itself, or by one space when it sits between two (so no double space is left).
-function removalRange(html, draft) {
+const closing = /[.,;:!?)\]}’”»…%]/;
+const opening = /[([{‘“«]/;
+
+// A removal range: whole lines when the element has its lines to itself.
+// Otherwise the element and the spacing it would leave wrong: the whitespace
+// before it when closing punctuation or the end of a line follows (no "a bit ."
+// and no trailing spaces), one of the two spaces around it, or the space after
+// an opening bracket or quote. `last` is the removal before it ({ range, floor },
+// or null): a range never reaches back into it, and straight after it the two
+// count as one (its range may grow back). The editor's drafting.js
+// (removalSplice) does exactly the same.
+function removalRange(html, draft, last) {
+  const floor = last ? last.range[1] : 0;
   const lineStart = html.lastIndexOf("\n", draft.start - 1) + 1;
   const lineEnd = html.indexOf("\n", draft.end);
-  const after = lineEnd === -1 ? html.length : lineEnd + 1;
-  if (!html.slice(lineStart, draft.start).trim() && !html.slice(draft.end, lineEnd === -1 ? html.length : lineEnd).trim()) {
-    return [lineStart, after];
+  const lineFinish = lineEnd === -1 ? html.length : lineEnd;
+  if (lineStart >= floor && !html.slice(lineStart, draft.start).trim() && !html.slice(draft.end, lineFinish).trim()) {
+    return [lineStart, lineEnd === -1 ? html.length : lineEnd + 1];
   }
-  if (html[draft.start - 1] === " " && html[draft.end] === " ") return [draft.start, draft.end + 1];
+  const joined = last && draft.start === floor;
+  const before = joined ? (last.range[0] > last.floor ? html[last.range[0] - 1] : "") : draft.start > floor ? html[draft.start - 1] : "";
+  const next = html[draft.end] ?? "";
+  const back = (from, limit, pattern) => {
+    let start = from;
+    while (start > limit && pattern.test(html[start - 1])) start -= 1;
+    return start;
+  };
+  const closeUp = (pattern) => {
+    if (joined) last.range[0] = back(last.range[0], last.floor, pattern);
+    return [back(draft.start, floor, pattern), draft.end];
+  };
+  if (closing.test(next)) return closeUp(/\s/);
+  if (next === "" || next === "\n" || next === "\r") return closeUp(/[ \t]/);
+  if (before === " " && next === " ") return [draft.start, draft.end + 1];
+  if (opening.test(before) && (next === " " || next === "\t")) {
+    let end = draft.end;
+    while (end < html.length && (html[end] === " " || html[end] === "\t")) end += 1;
+    return [draft.start, end];
+  }
   return [draft.start, draft.end];
 }
 
@@ -151,9 +199,9 @@ function removalRange(html, draft) {
 export function stripDrafts(html) {
   const drafts = findDrafts(html);
   const edits = [];
-  let coveredUntil = -1;
+  let last = null;
   for (const draft of drafts) {
-    if (draft.start < coveredUntil) continue;
+    if (last && draft.start < last.range[1]) continue;
     if (draft.kind === "remove") {
       const startTag = html.slice(draft.start, draft.startTagEnd);
       if (draft.tag === "span" && /^<span\s+data-draft\s*=\s*(["']?)remove\1\s*>$/i.test(startTag)) {
@@ -168,12 +216,12 @@ export function stripDrafts(html) {
       edits.push([draft.start + marker.index, draft.start + marker.index + marker[0].length, ""]);
       continue;
     }
-    const [start, end] = removalRange(html, draft);
-    edits.push([start, end, ""]);
-    coveredUntil = draft.end;
+    const range = removalRange(html, draft, last);
+    edits.push(range);
+    last = { range, floor: last ? last.range[1] : 0 };
   }
   let result = html;
-  for (const [start, end, text] of edits.sort((a, b) => b[0] - a[0])) result = result.slice(0, start) + text + result.slice(end);
+  for (const [start, end, text = ""] of edits.sort((a, b) => b[0] - a[0])) result = result.slice(0, start) + text + result.slice(end);
   return result;
 }
 
