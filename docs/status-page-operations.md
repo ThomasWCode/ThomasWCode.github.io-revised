@@ -67,7 +67,7 @@ Editing rather than deleting keeps each component's history. `/sport/` and `/mus
 
 - In Better Stack, set the custom status-page domain to `status.thomaswhite.me`.
 - Keep a DNS-only CNAME for host `status` pointing to `statuspage.betteruptime.com`. Preserve that record when changing DNS provider; do not proxy or flatten it unless Better Stack's current custom-domain instructions explicitly require it.
-- The planned editor site uses `CNAME edit` → `thomaswcode.github.io` (see the `ThomasWCode/edit.thomaswhite.me` repository). Once that record exists, preserve it too when changing provider, together with the `new` CNAME for the preview site.
+- The editor site (`https://edit.thomaswhite.me`, repository `ThomasWCode/edit.thomaswhite.me`) uses `CNAME edit` → `thomaswcode.github.io`. Preserve it too when changing provider, together with the `new` CNAME for the preview site. Its sign-in Worker is on Cloudflare's `workers.dev` and needs no DNS record here.
 - Better Stack has verified the custom domain and HTTPS is active. If the DNS provider changes again, confirm public resolution and HTTPS before treating the migration as complete.
 - Check all ten components, the 90-day history, branding, mobile layout and HTTPS at the custom domain.
 - Run `npm run test:production` after any DNS or status-page change. The scheduled workflow enforces the same contract after merge.
