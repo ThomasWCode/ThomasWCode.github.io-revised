@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { listPublishedHtml, reviewMarkup, scanHtml } from "../../scripts/content-review.mjs";
-import { DRAFT_KINDS, DraftMarkupError, findDrafts, LIVE_HOST, liveView } from "../../scripts/drafts.mjs";
+import { DRAFT_KINDS, DraftMarkupError, emptiedByDrafts, findDrafts, LIVE_HOST, liveView } from "../../scripts/drafts.mjs";
 import { readSiteFile, repositoryRoot, siteHost, textContent } from "../support/site-files.mjs";
 
 const whenPattern = /^(?:unknown|\d{4}(?:-\d{2})?(?:\/(?:\d{4}(?:-\d{2})?)?)?)$/;
@@ -231,15 +231,19 @@ test("drafts are well-formed, so the live build can leave them out cleanly", (co
       if (draft.kind === "replace" && (!draft.previous || draft.previous.tag !== draft.tag || draft.previous.kind !== null)) {
         errors.push(`${where}: a new version must come straight after the live <${draft.tag}> it replaces`);
       }
-      if (draft.kind === "new" && draft.alone && ["li", "p"].includes(draft.parentTag)) {
-        errors.push(`${where}: is all its <${draft.parentTag}> holds, which would stay empty on ${LIVE_HOST}; mark the <${draft.parentTag}> itself`);
-      }
+    }
+    // No paragraph or list item is served empty because its words are all
+    // drafts. Here every kind counts; on the preview only `new` drafts do, since
+    // the placeholders and checks are resolved before the content-strategy merge.
+    const counted = siteHost === LIVE_HOST ? undefined : (draft) => draft.kind === "new";
+    for (const { tag, line } of emptiedByDrafts(source, counted)) {
+      errors.push(`${file}:${line} <${tag}>: its words are all drafts, so it would be empty on ${LIVE_HOST}; mark the <${tag}> itself`);
     }
   }
 
   assert.deepEqual(errors, []);
   if (siteHost === LIVE_HOST) {
-    const left = [...sources].filter(([, html]) => /\sdata-draft\b/.test(html)).map(([file]) => file);
+    const left = [...sources].filter(([, html]) => findDrafts(html).length).map(([file]) => file);
     assert.deepEqual(left, [], "the live view still holds drafts");
   }
   context.diagnostic(`${count} drafts, ${siteHost === LIVE_HOST ? `left out of ${LIVE_HOST}` : `shown on the ${siteHost} preview`}`);

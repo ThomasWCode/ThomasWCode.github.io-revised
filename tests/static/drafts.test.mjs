@@ -1,12 +1,15 @@
 import assert from "node:assert/strict";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import path from "node:path";
 import test from "node:test";
 import { listPublishedHtml } from "../../scripts/content-review.mjs";
-import { DraftMarkupError, findDrafts, LIVE_HOST, liveView, stripDrafts } from "../../scripts/drafts.mjs";
+import { DraftMarkupError, emptiedByDrafts, findDrafts, LIVE_HOST, liveView, stripDirectory, stripDrafts } from "../../scripts/drafts.mjs";
 import { readSiteFile, repositoryRoot } from "../support/site-files.mjs";
 
 const page = (body) => `<main>\n${body}</main>\n`;
 
-test("findDrafts: every kind, with offsets, the element before it and whether it is alone", () => {
+test("findDrafts: every kind, with offsets and the element before it", () => {
   const html = page(
     [
       "  <p>Live.</p>",
@@ -22,18 +25,33 @@ test("findDrafts: every kind, with offsets, the element before it and whether it
   );
   const drafts = findDrafts(html);
   assert.deepEqual(
-    drafts.map(({ tag, kind, previous, alone, parentTag }) => ({ tag, kind, previous, alone, parentTag })),
+    drafts.map(({ tag, kind, previous }) => ({ tag, kind, previous })),
     [
-      { tag: "p", kind: "replace", previous: { tag: "p", kind: null }, alone: false, parentTag: "main" },
-      { tag: "span", kind: "new", previous: null, alone: true, parentTag: "li" },
-      { tag: "span", kind: "", previous: null, alone: false, parentTag: "li" },
-      { tag: "p", kind: "check", previous: { tag: "ul", kind: null }, alone: false, parentTag: "main" },
-      { tag: "img", kind: "new", previous: { tag: "p", kind: "check" }, alone: false, parentTag: "main" },
+      { tag: "p", kind: "replace", previous: { tag: "p", kind: null } },
+      { tag: "span", kind: "new", previous: null },
+      { tag: "span", kind: "", previous: null },
+      { tag: "p", kind: "check", previous: { tag: "ul", kind: null } },
+      { tag: "img", kind: "new", previous: { tag: "p", kind: "check" } },
     ],
   );
   assert.equal(html.slice(drafts[0].start, drafts[0].end), '<p data-draft="replace">Live, reworded.</p>');
   assert.equal(drafts[0].line, 3);
   assert.deepEqual(findDrafts('<p data-drafted="x">No.</p><p data-draft-note>No.</p>'), [], "only the data-draft attribute itself");
+});
+
+test("emptiedByDrafts: a paragraph or item whose words are all drafts, through wrappers and across siblings", () => {
+  const lines = (html) => emptiedByDrafts(html).map(({ tag, line }) => `${tag}:${line}`);
+  assert.deepEqual(lines('<ul>\n<li><span data-draft="new">Only this</span></li>\n</ul>'), ["li:2"]);
+  assert.deepEqual(lines('<p><em><span data-draft="new">Only text</span></em></p>'), ["p:1"], "inside a wrapper");
+  assert.deepEqual(lines('<p><span data-draft="new">One</span> <span data-draft>two</span></p>'), ["p:1"], "several between them");
+  assert.deepEqual(lines('<p>Kept <span data-draft="new">and new</span>.</p>'), [], "words left");
+  assert.deepEqual(lines('<p><span data-draft="remove">Stays live</span></p>'), [], "a removal keeps its words");
+  assert.deepEqual(lines('<p><a href="/">Live</a><a data-draft="replace" href="/x">Live</a></p>'), [], "the live version stays");
+  assert.deepEqual(lines('<section data-draft="new"><p><span data-draft="new">All</span></p></section>'), [], "left out whole");
+  assert.deepEqual(lines('<p data-draft="new">Itself a draft</p>'), []);
+  assert.deepEqual(lines("<p></p>"), [], "empty to begin with");
+  const newOnly = (html) => emptiedByDrafts(html, (draft) => draft.kind === "new").length;
+  assert.equal(newOnly('<li><span class="draft-inline" data-draft>Which term</span></li>'), 0, "other kinds can be left uncounted");
 });
 
 test("findDrafts refuses a draft without an explicit end tag", () => {
@@ -97,9 +115,18 @@ test("liveView leaves drafts out on thomaswhite.me only", () => {
   assert.equal(liveView(html, "new.thomaswhite.me"), html);
 });
 
+test("stripDirectory rewrites built pages, and prose that names the attribute is not a draft", async (context) => {
+  const directory = await mkdtemp(path.join(tmpdir(), "drafts-"));
+  context.after(() => rm(directory, { recursive: true, force: true }));
+  await writeFile(path.join(directory, "index.html"), '<p>The data-draft attribute marks drafts.</p>\n<p data-draft="new">x</p>\n');
+  await writeFile(path.join(directory, "plain.html"), "<p>No drafts.</p>\n");
+  assert.deepEqual(await stripDirectory(directory), ["index.html"]);
+  assert.equal(await readFile(path.join(directory, "index.html"), "utf8"), "<p>The data-draft attribute marks drafts.</p>\n");
+});
+
 test("every published page's drafts can be left out cleanly", async () => {
   for (const file of await listPublishedHtml(repositoryRoot)) {
     const live = stripDrafts(await readSiteFile(file));
-    assert.ok(!/\sdata-draft\b/.test(live), `${file} still holds a draft`);
+    assert.deepEqual(findDrafts(live), [], `${file} still holds a draft`);
   }
 });

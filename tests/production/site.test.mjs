@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { findDrafts, LIVE_HOST } from "../../scripts/drafts.mjs";
 import {
   externalRedirects,
   pages,
@@ -50,10 +51,10 @@ for (const page of pages) {
     );
     assert.ok(html.includes(`<link rel="canonical" href="${page.canonical}"`));
     assert.ok(html.includes(`href="${publicStatusUrl}"`));
-    if (deployedHost === "thomaswhite.me") {
+    if (new URL(baseUrl).hostname === LIVE_HOST) {
       // The live build leaves drafts out (scripts/drafts.mjs). A draft here means
       // the site was built some other way, such as GitHub's automatic build.
-      assert.ok(!/\sdata-draft\b/.test(html), `${page.path} is serving drafts: check the Pages source is GitHub Actions`);
+      assert.deepEqual(findDrafts(html), [], `${page.path} is serving drafts: check the Pages source is GitHub Actions`);
     }
   });
 }

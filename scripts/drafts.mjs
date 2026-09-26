@@ -42,32 +42,25 @@ function lineAt(html, offset) {
 }
 
 // Every element marked data-draft, in source order:
-//   { tag, kind, start, end, startTagEnd, line, parentTag, alone, previous }
-// with source offsets (the whole element is html.slice(start, end)). `alone`
-// says the draft is all its parent holds; `previous` is the element just
-// before it ({ tag, kind }, or null when text or nothing comes first). A draft
-// must have an explicit end tag (or be a void element): anything else throws,
-// so a build fails rather than publish a page cut in the wrong place.
+//   { tag, kind, start, end, startTagEnd, line, previous }
+// with source offsets (the whole element is html.slice(start, end)). `previous`
+// is the element just before it ({ tag, kind }, or null when text or nothing
+// comes first). A draft must have an explicit end tag (or be a void element):
+// anything else throws, so a build fails rather than publish a page cut in the
+// wrong place.
 export function findDrafts(html) {
   const drafts = [];
-  const stack = [{ tag: "#root", children: [], lastChild: null, startTagEnd: 0 }];
+  const stack = [{ tag: "#root", lastChild: null }];
   const fail = (entry, reason) => {
     throw new DraftMarkupError(`The draft <${entry.tag}> on line ${lineAt(html, entry.start)} ${reason}.`);
   };
-  const close = (entry, end, endTagStart) => {
+  const close = (entry, end) => {
     const parent = stack[stack.length - 1];
     parent.lastChild = { tag: entry.tag, kind: entry.kind, end };
     if (entry.kind !== null) {
-      const draft = { ...entry, end, line: lineAt(html, entry.start), parentTag: parent.tag, alone: false };
-      delete draft.children;
+      const draft = { ...entry, end, line: lineAt(html, entry.start) };
       delete draft.lastChild;
-      delete draft.endTagStart;
       drafts.push(draft);
-      parent.children.push(draft);
-    }
-    // The parent's own drafts can be judged once its content is complete.
-    for (const draft of entry.children || []) {
-      draft.alone = !(html.slice(entry.startTagEnd, draft.start) + html.slice(draft.end, endTagStart)).trim();
     }
   };
   for (const match of html.matchAll(tokenPattern)) {
@@ -79,7 +72,7 @@ export function findDrafts(html) {
       for (const entry of stack.slice(open + 1)) if (entry.kind !== null) fail(entry, `has no </${entry.tag}> end tag`);
       const [entry] = stack.splice(open, 1);
       stack.length = open;
-      close(entry, match.index + match[0].length, match.index);
+      close(entry, match.index + match[0].length);
       continue;
     }
     const marker = draftAttribute.exec(` ${match[4]}`);
@@ -91,14 +84,52 @@ export function findDrafts(html) {
       start: match.index,
       startTagEnd: match.index + match[0].length,
       previous: previous ? { tag: previous.tag, kind: previous.kind } : null,
-      children: [],
       lastChild: null,
     };
-    if (voidElements.has(tag) || match[4].trim().endsWith("/")) close(entry, entry.startTagEnd, entry.startTagEnd);
+    if (voidElements.has(tag) || match[4].trim().endsWith("/")) close(entry, entry.startTagEnd);
     else stack.push(entry);
   }
   for (const entry of stack.slice(1)) if (entry.kind !== null) fail(entry, `has no </${entry.tag}> end tag`);
   return drafts.sort((a, b) => a.start - b.start);
+}
+
+const hasText = (html) => /\S/.test(html.replace(/<[^>]*>/g, ""));
+
+// Paragraphs and list items that have words but would be served with none once
+// the drafts `counted` picks are left out (every kind thomaswhite.me leaves out,
+// by default): a draft that is all a <p> or <li> holds, even inside an <em>, or
+// several that fill it between them. [{ tag, line }]; mark the element itself.
+export function emptiedByDrafts(html, counted = (draft) => draft.kind !== "remove") {
+  const drafts = findDrafts(html).filter(counted);
+  const found = [];
+  if (!drafts.length) return found;
+  const open = [];
+  for (const match of html.matchAll(tokenPattern)) {
+    if (match[0].startsWith("<!--") || match[1]) continue;
+    const tag = match[3].toLowerCase();
+    if (tag !== "p" && tag !== "li") continue;
+    if (!match[2]) {
+      open.push({ tag, start: match.index, innerStart: match.index + match[0].length });
+      continue;
+    }
+    const index = open.map((item) => item.tag).lastIndexOf(tag);
+    if (index === -1) continue;
+    const [item] = open.splice(index, 1);
+    const [innerEnd, end] = [match.index, match.index + match[0].length];
+    // Inside a draft (or one itself), it is left out whole.
+    if (drafts.some((draft) => draft.start <= item.start && end <= draft.end)) continue;
+    let left = "";
+    let at = item.innerStart;
+    for (const draft of drafts) {
+      if (draft.start < at || draft.end > innerEnd) continue;
+      left += html.slice(at, draft.start);
+      at = draft.end;
+    }
+    if (at === item.innerStart) continue;
+    left += html.slice(at, innerEnd);
+    if (hasText(html.slice(item.innerStart, innerEnd)) && !hasText(left)) found.push({ tag, line: lineAt(html, item.start) });
+  }
+  return found;
 }
 
 // A removal range, widened to whole lines when the element has its lines to
@@ -164,7 +195,8 @@ export async function stripDirectory(directory) {
       else if (entry.name.endsWith(".html")) {
         const html = await readFile(file, "utf8");
         const live = stripDrafts(html);
-        if (/\sdata-draft\b/.test(live)) throw new DraftMarkupError(`${file} still holds a draft after stripping.`);
+        // Start tags only: prose that names the attribute is not a draft.
+        if (findDrafts(live).length) throw new DraftMarkupError(`${file} still holds a draft after stripping.`);
         if (live !== html) {
           await writeFile(file, live);
           changed.push(path.relative(directory, file));
