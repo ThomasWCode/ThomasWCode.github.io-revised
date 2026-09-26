@@ -74,6 +74,8 @@ test("stripDrafts: a new version goes and the live element stays; a removal keep
   const replaced = page('  <p>Live.</p>\n  <p data-draft="replace">Reworded.</p>\n');
   assert.equal(stripDrafts(replaced), page("  <p>Live.</p>\n"));
   assert.equal(stripDrafts('<ul><li data-draft="remove" class="x">Going</li></ul>'), '<ul><li class="x">Going</li></ul>');
+  assert.equal(stripDrafts('<p>A <span data-draft="remove">very</span> good day.</p>'), "<p>A very good day.</p>", "a phrase's bare span unwraps");
+  assert.equal(stripDrafts('<p>A <span class="x" data-draft="remove">very</span> day.</p>'), '<p>A <span class="x">very</span> day.</p>');
   const multiLine = '<li\n  data-draft="remove"\n  data-record="x"\n>Going</li>';
   assert.equal(stripDrafts(multiLine), '<li\n  data-record="x"\n>Going</li>');
   const nested = '<section data-draft="remove">\n  <p>Old.</p>\n  <p data-draft="new">New.</p>\n</section>\n';

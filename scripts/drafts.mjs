@@ -124,9 +124,16 @@ export function stripDrafts(html) {
   for (const draft of drafts) {
     if (draft.start < coveredUntil) continue;
     if (draft.kind === "remove") {
+      const startTag = html.slice(draft.start, draft.startTagEnd);
+      if (draft.tag === "span" && /^<span\s+data-draft\s*=\s*(["']?)remove\1\s*>$/i.test(startTag)) {
+        // A phrase's span has nothing but its marker: its tags go, its words stay.
+        const endTagStart = html.lastIndexOf("</", draft.end - 1);
+        edits.push([draft.start, draft.startTagEnd, ""], [endTagStart, draft.end, ""]);
+        continue;
+      }
       // All the whitespace before the marker goes too, so a start tag written
       // one attribute per line keeps its shape.
-      const marker = removeMarker.exec(html.slice(draft.start, draft.startTagEnd));
+      const marker = removeMarker.exec(startTag);
       edits.push([draft.start + marker.index, draft.start + marker.index + marker[0].length, ""]);
       continue;
     }
