@@ -24,7 +24,7 @@ jobs:
     name: Build without drafts
     if: github.repository == 'ThomasWCode/ThomasWCode.github.io' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
       - uses: actions/jekyll-build-pages@v1
@@ -34,11 +34,21 @@ jobs:
       - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
+          cache: npm
       # The Jekyll action runs in a container, which leaves _site owned by root.
       - name: Take ownership of the built site
         run: sudo chown -R "$(id -u):$(id -g)" _site
       - name: Leave drafts out
         run: node scripts/drafts.mjs --strip _site
+      # The committed PDF is printed from the CV as the preview shows it, drafts
+      # included, and a PDF can't be stripped like a page. So it is printed
+      # again from the page as thomaswhite.me serves it.
+      - name: Install the CV printer
+        run: |
+          npm ci
+          npx playwright install --with-deps --only-shell chromium
+      - name: Print the CV without drafts
+        run: node scripts/build-cv.mjs --live --out _site/Tom-White-CV.pdf
       - uses: actions/upload-pages-artifact@v5
         with:
           path: _site

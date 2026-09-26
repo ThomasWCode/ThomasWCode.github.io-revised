@@ -19,10 +19,11 @@ export function stripFrontMatter(source) {
 // The site this checkout publishes (CNAME). thomaswhite.me leaves drafts out.
 export const siteHost = (await readSiteFile("CNAME")).trim();
 
-// A page as its site serves it: front matter processed and, on thomaswhite.me,
-// drafts left out (scripts/drafts.mjs), so the checks see the live pages.
-export function servedHtml(source) {
-  return liveView(stripFrontMatter(source), siteHost);
+// A page as a site serves it (this checkout's, unless `host` names another):
+// front matter processed and, on thomaswhite.me, drafts left out
+// (scripts/drafts.mjs), so the checks see the live pages.
+export function servedHtml(source, host = siteHost) {
+  return liveView(stripFrontMatter(source), host);
 }
 
 export function decodeHtml(value) {
