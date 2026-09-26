@@ -1470,7 +1470,8 @@ figcaption {
 }
 
 /* Drafts (data-draft) are saved but not published: this preview shows them,
-   marked; thomaswhite.me's build leaves them out (scripts/drafts.mjs). */
+   marked below (data-draft="check" deliberately unmarked: those read as the
+   final text); thomaswhite.me's build leaves them out (scripts/drafts.mjs). */
 
 /* Draft note: content Tom still has to write. */
 .draft-note {

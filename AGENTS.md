@@ -78,10 +78,10 @@ External redirect: `gravatar.html` (`/gravatar/`) is a `noindex` short link with
 
 ## Drafts
 
-A draft is saved in this repository but not published on thomaswhite.me: any element marked `data-draft`. The preview (new.thomaswhite.me) shows drafts, marked by CSS. thomaswhite.me is built by `.github/workflows/pages.yml`, which leaves them out before anything is served (`scripts/drafts.mjs`), and when `CNAME` is `thomaswhite.me` the tests check the pages as they will be live.
+A draft is saved in this repository but not published on thomaswhite.me: any element marked `data-draft`. The preview (new.thomaswhite.me) shows drafts: placeholders and the editor's kinds marked by CSS, `check` drafts as plain text. thomaswhite.me is built by `.github/workflows/pages.yml`, which leaves them out before anything is served (`scripts/drafts.mjs`), and when `CNAME` is `thomaswhite.me` the tests check the pages as they will be live.
 
 - Text Tom must write is a visible dashed box: `<p class="draft-note" data-draft>What to write</p>`, or inline `<span class="draft-inline" data-draft>…</span>`.
-- Text drafted from `docs/record.md` for Tom to confirm carries `data-draft="check"`; remove the attribute once Tom approves it.
+- Text drafted from `docs/record.md` for Tom to confirm carries an invisible `data-draft="check"`: the preview shows it as plain text, the editor outlines it and `npm run list:drafts` lists it. Remove the attribute once Tom approves it.
 - Content not yet published carries `data-draft="new"`.
 - A new version of a live element is a copy straight after it, with `data-draft="replace"`. Publishing it deletes the live element and removes the marker from the copy; until then the live one stays live.
 - Content to remove carries `data-draft="remove"`: it stays live until the removal is published, and only its marker is left out.
