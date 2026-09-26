@@ -3,7 +3,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { stripFrontMatter } from "./site-files.mjs";
+import { servedHtml } from "./site-files.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const mimeTypes = new Map([
@@ -66,7 +66,9 @@ async function requestHandler(request, response) {
     response.setHeader("Content-Type", mimeTypes.get(extension) || "application/octet-stream");
 
     if (extension === ".html") {
-      const html = stripFrontMatter(await readFile(filePath, "utf8"));
+      // As the site serves it: on thomaswhite.me drafts are left out, so the
+      // browser, visual and Lighthouse tests (and the CV's PDF) see the live pages.
+      const html = servedHtml(await readFile(filePath, "utf8"));
       response.writeHead(200).end(request.method === "HEAD" ? undefined : html);
       return;
     }

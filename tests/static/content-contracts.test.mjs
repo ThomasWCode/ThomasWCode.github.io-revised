@@ -1,7 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { listPublishedHtml, reviewMarkup, scanHtml } from "../../scripts/content-review.mjs";
-import { readSiteFile, repositoryRoot, textContent } from "../support/site-files.mjs";
+import { DRAFT_KINDS, DraftMarkupError, findDrafts, LIVE_HOST, liveView } from "../../scripts/drafts.mjs";
+import { readSiteFile, repositoryRoot, siteHost, textContent } from "../support/site-files.mjs";
 
 const whenPattern = /^(?:unknown|\d{4}(?:-\d{2})?(?:\/(?:\d{4}(?:-\d{2})?)?)?)$/;
 const reviewPattern = /^\d{4}-\d{2}-\d{2}$/;
@@ -28,9 +29,12 @@ const recordSlugs = new Set(
   Array.from((await readSiteFile("docs/record.md")).matchAll(/^### ([a-z0-9-]+)\s*$/gm), (match) => match[1]),
 );
 const publishedFiles = await listPublishedHtml(repositoryRoot);
-const sources = new Map(
+const rawSources = new Map(
   await Promise.all(publishedFiles.map(async (file) => [file, await readSiteFile(file)])),
 );
+// The contracts judge the pages as their site serves them: on thomaswhite.me
+// drafts are left out, so a draft never breaks the live site's checks.
+const sources = new Map([...rawSources].map(([file, source]) => [file, liveView(source, siteHost)]));
 
 function isValidDay(value) {
   const date = new Date(`${value}T00:00:00Z`);
@@ -202,22 +206,41 @@ test("Analisa’s testimonial is quoted word for word wherever it appears", () =
   assert.ok(quoted.includes("testimonials.html"), "the testimonial is missing from testimonials.html");
 });
 
-test("draft placeholders never ship to thomaswhite.me", async (context) => {
-  const host = (await readSiteFile("CNAME")).trim();
-  const drafts = [];
+test("drafts are well-formed, so the live build can leave them out cleanly", (context) => {
+  const errors = [];
+  let count = 0;
 
-  for (const [file, { elements }] of scanned) {
-    for (const element of elements) {
-      if ("data-draft" in element.attributes || /\bdraft-(?:note|inline)\b/.test(element.attributes.class || "")) {
-        drafts.push(`${file}:${element.line}`);
+  for (const [file, source] of rawSources) {
+    let drafts;
+    try {
+      drafts = findDrafts(source);
+    } catch (error) {
+      if (!(error instanceof DraftMarkupError)) throw error;
+      errors.push(`${file}: ${error.message}`);
+      continue;
+    }
+    count += drafts.length;
+    for (const draft of drafts) {
+      const where = `${file}:${draft.line} <${draft.tag}>`;
+      if (!DRAFT_KINDS.has(draft.kind)) {
+        errors.push(`${where}: data-draft="${draft.kind}" is not a draft kind (see scripts/drafts.mjs)`);
+      }
+      if (draft.kind === "" && !/\bdraft-(?:note|inline)\b/.test(source.slice(draft.start, draft.startTagEnd))) {
+        errors.push(`${where}: a placeholder needs the draft-note or draft-inline class`);
+      }
+      if (draft.kind === "replace" && (!draft.previous || draft.previous.tag !== draft.tag || draft.previous.kind !== null)) {
+        errors.push(`${where}: a new version must come straight after the live <${draft.tag}> it replaces`);
+      }
+      if (draft.kind === "new" && draft.alone && ["li", "p"].includes(draft.parentTag)) {
+        errors.push(`${where}: is all its <${draft.parentTag}> holds, which would stay empty on ${LIVE_HOST}; mark the <${draft.parentTag}> itself`);
       }
     }
   }
 
-  if (host !== "thomaswhite.me") {
-    context.diagnostic(`${drafts.length} draft placeholders allowed on the ${host} preview`);
-    return;
+  assert.deepEqual(errors, []);
+  if (siteHost === LIVE_HOST) {
+    const left = [...sources].filter(([, html]) => /\sdata-draft\b/.test(html)).map(([file]) => file);
+    assert.deepEqual(left, [], "the live view still holds drafts");
   }
-
-  assert.deepEqual(drafts, [], "Replace every data-draft placeholder before publishing to thomaswhite.me");
+  context.diagnostic(`${count} drafts, ${siteHost === LIVE_HOST ? `left out of ${LIVE_HOST}` : `shown on the ${siteHost} preview`}`);
 });
