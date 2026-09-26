@@ -1469,7 +1469,10 @@ figcaption {
   font-size: 0.92rem;
 }
 
-/* Draft note: content Tom still has to write. Must not reach thomaswhite.me. */
+/* Drafts (data-draft) are saved but not published: this preview shows them,
+   marked; thomaswhite.me's build leaves them out (scripts/drafts.mjs). */
+
+/* Draft note: content Tom still has to write. */
 .draft-note {
   margin: 1rem 0;
   padding: 0.9rem 1.1rem;
@@ -1493,6 +1496,45 @@ figcaption {
   border-bottom: 2px dashed var(--terracotta);
   background: #fbefe9;
   color: #6f2f1f;
+}
+
+/* New content, and new versions of live content, not published yet. */
+[data-draft="new"],
+[data-draft="replace"] {
+  outline: 2px dashed var(--terracotta);
+  outline-offset: 0.3rem;
+  background: #fbefe9;
+}
+
+:is(p, section, article, div, figure, blockquote)[data-draft="new"]::before,
+:is(p, section, article, div, figure, blockquote)[data-draft="replace"]::before {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: #6f2f1f;
+  font-size: 0.8rem;
+  font-weight: 800;
+  content: "Draft: not published yet";
+}
+
+:is(p, section, article, div, figure, blockquote)[data-draft="replace"]::before {
+  content: "Draft: replaces the live version";
+}
+
+span[data-draft="new"] {
+  outline: none;
+  border-bottom: 2px dashed var(--terracotta);
+}
+
+/* On this preview a new version stands in for the live one. The editor's own
+   preview marks its frame data-editor, and shows both. */
+:root:not([data-editor]) :has(+ [data-draft="replace"]) {
+  display: none;
+}
+
+/* Content that stays live until its removal is published. */
+[data-draft="remove"] {
+  opacity: 0.55;
+  text-decoration: line-through;
 }
 
 .external-link::after {
