@@ -39,9 +39,10 @@ jobs:
             node scripts/content-review.mjs > report.md
           fi
           cat report.md
-      # A new issue each time something is due. The earlier review issues still
-      # open are closed with a link to it, their bodies and ticked boxes as
-      # they were; they are closed only once the new one exists.
+      # A new issue each month something is due. A second run in the same month
+      # leaves that month's issue as it is (its report stays in the run's log).
+      # The other review issues still open are closed with a link to it, their
+      # bodies and ticked boxes as they were, and only once it exists.
       - name: Open this month's content review issue and close the previous one
         env:
           GH_TOKEN: ${{ github.token }}
@@ -54,11 +55,16 @@ jobs:
           fi
           month=$(date -u -d "${REVIEW_DATE:-now}" +'%B %Y')
           title="Content review: $month"
-          earlier=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title \
-            --jq '.[] | select(.title | startswith("Content review:")) | .number')
-          url=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md)
-          echo "Opened $url"
-          for number in $earlier; do
+          open=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title,url \
+            --jq '[.[] | select(.title | startswith("Content review:"))] | sort_by(.number)')
+          url=$(jq -r --arg title "$title" '[.[] | select(.title == $title)][0].url // empty' <<< "$open")
+          if [ -n "$url" ]; then
+            echo "This month's review issue is open already, and left as it is: $url"
+          else
+            url=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md)
+            echo "Opened $url"
+          fi
+          for number in $(jq -r --arg url "$url" '.[] | select(.url != $url) | .number' <<< "$open"); do
             gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment "Replaced by $url, this month's review. This issue is left as it was."
             echo "Closed issue #$number"
           done

@@ -194,7 +194,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - **Rabbit strip:** "A few other bits" now has two cards in a two-column grid.
 - **Email links open in a new tab:** you asked for only site pages to open in the same tab, so `mailto:` links have `target="_blank"` too. If a webmail handler such as Gmail is set up, that keeps the site open. With a desktop mail app, some browsers may briefly open (or leave) an empty tab. Remove the attribute from the `mailto:` links if that bothers you; the contract would need the same exception.
 - **CV link:** the plan calls the PDF "download only". It now opens in the browser's PDF viewer in a new tab, from which it can be downloaded.
-- **Content review issue:** the plan's rot check opens one issue or updates the open one. Updating replaced the whole body, so boxes ticked on an issue left open were reset. Since 27 September the workflow opens a new issue each month and closes the previous one with a link to it, its body untouched (the editor audit's finding 8, `docs/audits/2026-09-27-editor-merge-safety.md`).
+- **Content review issue:** the plan's rot check opens one issue or updates the open one. Updating replaced the whole body, so boxes ticked on an issue left open were reset. Since 27 September the workflow opens a new issue each month (a second run in the same month leaves that month's issue as it is) and closes the previous one with a link to it, its body untouched (the editor audit's finding 8, `docs/audits/2026-09-27-editor-merge-safety.md`).
 - **Unused files:** the early-project screenshots (`chrome-dino.png`, `minesweeper.png` and others) are no longer shown on Programming. I kept the files.
 
 ---
