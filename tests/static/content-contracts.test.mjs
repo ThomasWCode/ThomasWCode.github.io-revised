@@ -237,7 +237,7 @@ test("drafts are well-formed, so the live build can leave them out cleanly", (co
     // the placeholders and checks are resolved before the content-strategy merge.
     const counted = siteHost === LIVE_HOST ? undefined : (draft) => draft.kind === "new";
     for (const { tag, line } of emptiedByDrafts(source, counted)) {
-      errors.push(`${file}:${line} <${tag}>: its words are all drafts, so it would be empty on ${LIVE_HOST}; mark the <${tag}> itself`);
+      errors.push(`${file}:${line} <${tag}>: its words are all drafts, so it would be empty on ${LIVE_HOST}; mark the <${tag}> itself (a placeholder with class="draft-note")`);
     }
   }
 
