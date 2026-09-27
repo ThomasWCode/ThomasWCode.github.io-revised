@@ -47,12 +47,12 @@ How each is to be fixed was decided on 27 September (see [Decisions](#decisions-
 Commits here, on `claude/editor-data-safety-fixes-xe1fd6`; the editor's commits are in the full report. Each finding was reproduced first.
 
 - **2.** `205ca31`: `scripts/drafts.mjs` never takes the editor's `data-draft-of` for the marker (a new test), and the contracts accept it as they stand; § Drafts describes the record and has the rule for Claude sessions. The editor records the live element and refuses to publish a new version once it has changed, showing both.
-- **4.** `1c83c80`: § Editor says squash and rebase merging must stay off. **Not done: the setting**, which is Tom's. Read from the API after the fixes, it still allows squash and rebase merging here and in `ThomasWCode/ThomasWCode.github.io`.
+- **4.** `1c83c80`: § Editor says squash and rebase merging must stay off. **The setting: done** by Tom on 27 September, here and in `ThomasWCode/ThomasWCode.github.io`. Read back from the API, both allow merge commits only.
 - **5.** `1c83c80`: § Editor says the editor never deletes `edits`: it moves it up to `main` by fast-forwards GitHub refuses once a save has landed on it.
 - **6.** `5c1377f`: `scripts/drafts.mjs` reads a start tag's attribute names only, for the marker and for `remove`; new cases in `tests/static/drafts.test.mjs`. `733c9f5`: `docs/testing.md` says so.
 - **8.** `a6e25cd`: `content-review.yml` opens a new issue each month and then closes any earlier open review issue with a link to it, never touching its body. `7d382cf`, after Codex's review: a second run in the same month leaves that month's issue as it is, instead of opening another and closing the one with the ticks. Checked with a stub `gh`; not run against the live repository. `AGENTS.md`, `docs/testing.md` and `docs/implementation-notes.md` §4 say so.
 - **10.** `2a86b4e`: `docs/implementation-notes.md` §6 step 2 (steps 2 to 7 in one go; the Claude session tells Tom at step 2 that the editor's changes are no longer read) and step 6 (the commands that keep this repository's `CNAME`, checked with git on a local simulation); the reminder in `AGENTS.md`.
-- **11.** `2a86b4e`: §6 step 7 adds the main repository to the App's installation. `85ecb2c`, after Codex's review: step 7 first checks that the Workflows permission is granted and accepted, rather than saying it is. **Not done: granting it**, which is Tom's (the editor's `docs/setup.md` has the steps).
+- **11.** `2a86b4e`: §6 step 7 adds the main repository to the App's installation. `85ecb2c`, after Codex's review: step 7 first checks that the Workflows permission is granted and accepted, rather than saying it is. **Granted** by Tom on 27 September. The editor's next load then merged `main` into `edits` (`18cfe58`), over both workflow files `edits` lacked.
 
 ### Still to test
 
@@ -62,7 +62,7 @@ What couldn't be run here, to do later:
   - opens this month's issue, or leaves it as it is when it is open already;
   - closes the other open review issues, each with a link to it, their bodies untouched.
 
-  Nothing is due on 1 October 2026, so that run opens nothing. The first to open an issue is 1 November 2026, when the homepage's Now section passes 60 days. On 27 September the step's issue query ran read-only against this repository with the real `gh`: it returns the number, title and URL the step compares, in the form `gh issue create` prints.
+  Nothing is due on 1 October 2026, so that run opens nothing. The first to open an issue is 1 November 2026, when the homepage's Now section passes 60 days and the TEDx line "Speakers chosen: by the end of October 2026" reaches its review date. On 27 September the step's issue query ran read-only against this repository with the real `gh`: it returns the number, title and URL the step compares, in the form `gh issue create` prints.
 - **§6 step 6, for real.** Its commands ran only on a local simulation of the two repositories. When they run at the merge, `cat CNAME` must print `new.thomaswhite.me` before the commit.
 - **Run here or in CI:** lint and the static tests (98 of 98) locally. The browser, visual and Lighthouse suites weren't run locally, but passed in CI on #37.
 - **Run on Windows 11** (Tom's machine, 27 September): lint clean; the static tests 98 of 98 with LF files. In this Windows checkout, CRLF (`core.autocrlf`), three redirect-page tests fail, on `main` too: they compare the front matter with `\n` endings. Not part of these fixes.
@@ -73,3 +73,4 @@ What couldn't be run here, to do later:
 - Simulated with git, that merge is clean. The 6 pages edited come out byte for byte as on `edits`, and the result passes all 96 static contracts.
 - `main`'s side adds `.github/workflows/pages.yml`, and the editor's GitHub App has no Workflows permission yet. Whether GitHub refuses the merge without it is undocumented and unverified (full report, finding 11); it would lose nothing. The permission is to be granted.
 - Rehearsed again with the fixes (27 September, locally, never pushed): `edits` merged with `main` plus #37 is clean, the 6 pages come out byte for byte as on `edits`, and the result passes all 98 static tests. #37 also changes `.github/workflows/content-review.yml`, a second workflow change for that merge to carry.
+- Done for real the same day, at 17:05 UTC, once Tom had granted the Workflows permission: the editor's first load after the fixes merged `main` into `edits` (`18cfe58`). It leaves the 6 pages as they were, and differs from the rehearsal only in two documents added to #37 after it. `edits` is now 9 ahead of `main` (the 8 saves and the merge) and 0 behind. Whether GitHub would have refused the merge without the permission stays unverified: it was granted first.
