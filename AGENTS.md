@@ -103,6 +103,7 @@ A draft is saved in this repository but not published on thomaswhite.me: any ele
 - Each September, bump school years and ages, move review dates forward, rebuild the CV and close the review issue.
 - Update `docs/record.md` whenever a fact enters the site or a decision is made not to publish something.
 - Around the content-strategy merge into the main repository, remind Tom to add the Claude routine in `docs/implementation-notes.md` §6 step 5. It is a scheduled Claude agent that checks recent additions for anything to add or question, anything inconsistent, and facts added only to the site that belong in `docs/record.md` or the CV.
+- A Claude session running that merge tells Tom at §6 step 2, once nothing is pending in the editor, that from then on changes made in the editor are no longer read: anything saved there would miss the merge, until step 7 points the editor at the main repository. Tom runs steps 2 to 7 in one go.
 
 ## Adding pages and posts
 

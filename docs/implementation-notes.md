@@ -222,7 +222,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 This repository shares its history with the main one up to `49b9582`. Its first own commit, `f2e3fc3 Update CNAME`, points the domain at `new.thomaswhite.me`. That commit must not reach production.
 
 1. Finish section 2 first, so the pages go live complete. You can do the writing here in the preview repository first and check it on new.thomaswhite.me. A draft left over stays off thomaswhite.me (its build leaves drafts out), with one exception that fails the main repository's CI instead: a placeholder or check that is all its list item or paragraph holds, which would leave it empty. Five do today: the "Which term" items on Physics & Ideas and Magnetic Newton's cradle, two on Programming, and "Rehearsals" on TEDx. Finishing them clears it. So does marking the `<li>` itself: `class="draft-note" data-draft` for the three placeholders (the contract needs a placeholder's class), `data-draft="check"` for the two on Programming. `npm run check` in step 3 names any left.
-2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, and any `edits` branch, or open pull request from it, here. Anything left there would miss the merge. Save nothing through the editor again until step 7.
+2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, saves on the `edits` branch here that `main` lacks, and any open pull request from it. The branch itself stays: the editor never deletes it, and with nothing pending it equals `main` or trails it. Anything left there would miss the merge. Nothing in the editor stops a save from here on, so run steps 2 to 7 in one go. Once nothing is pending, the Claude session running the merge tells you that from then on changes made in the editor are no longer read: anything saved there would miss the merge, until step 7 points the editor at the main repository. Save nothing through the editor again until step 7.
 3. In a local clone of the main repository:
 
    ```bash
@@ -249,7 +249,19 @@ This repository shares its history with the main one up to `49b9582`. Its first 
      - anything that should be added, or questioned;
      - anything inconsistent, between pages or with `docs/record.md` and the CV;
      - anything added only to the website (through the editor, say) that also belongs in `docs/record.md` or the CV (`cv.html`, then `npm run build:cv`).
-6. Keep or delete the preview repository afterwards. If you keep using it for previews, pull `main` from the main repository into it (and keep its own `CNAME`).
-7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"): install the GitHub App "Homepage Site Editor" on the main repository, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
+6. Keep or delete the preview repository afterwards. If you keep using it for previews, bring the main repository's `main` into it and keep its own `CNAME`. A plain pull would not keep it: the revert of `f2e3fc3` is the only change to `CNAME` on either side, so git merges it without a conflict, and the preview's `CNAME` would become `thomaswhite.me`. In a local clone of this repository:
+
+   ```bash
+   git switch main
+   git fetch https://github.com/ThomasWCode/ThomasWCode.github.io.git main
+   git merge --no-commit --no-ff FETCH_HEAD
+   git checkout HEAD -- CNAME   # keep the preview's own domain
+   cat CNAME                    # must print new.thomaswhite.me
+   git commit --no-edit
+   git push
+   ```
+
+   `--no-commit` holds the merge open, so `CNAME` is restored before anything is committed, and this repository's `main`, which its Pages build reads, never points at a commit with the wrong domain. The main repository's revert commit still arrives, as an ancestor.
+7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"): add the main repository to the GitHub App "Homepage Site Editor"'s installation, which already holds the Workflows permission (the editor's `docs/setup.md`; it moves `edits` up to `main` over changes to workflow files), switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
 
 If the main repository has not changed since `49b9582`, the merge commit is optional. Once the revert is in, `main` can fast-forward to `content-strategy`, and the history is identical either way.
