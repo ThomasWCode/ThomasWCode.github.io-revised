@@ -39,7 +39,10 @@ jobs:
             node scripts/content-review.mjs > report.md
           fi
           cat report.md
-      - name: Open or update the content review issue
+      # A new issue each time something is due. The earlier review issues still
+      # open are closed with a link to it, their bodies and ticked boxes as
+      # they were; they are closed only once the new one exists.
+      - name: Open this month's content review issue and close the previous one
         env:
           GH_TOKEN: ${{ github.token }}
           REVIEW_DATE: ${{ inputs.today }}
@@ -51,11 +54,11 @@ jobs:
           fi
           month=$(date -u -d "${REVIEW_DATE:-now}" +'%B %Y')
           title="Content review: $month"
-          number=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title \
-            --jq '[.[] | select(.title | startswith("Content review:"))][0].number // empty')
-          if [ -n "$number" ]; then
-            gh issue edit "$number" --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md
-            echo "Updated issue #$number"
-          else
-            gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md
-          fi
+          earlier=$(gh issue list --repo "$GITHUB_REPOSITORY" --state open --limit 100 --json number,title \
+            --jq '.[] | select(.title | startswith("Content review:")) | .number')
+          url=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$title" --body-file report.md)
+          echo "Opened $url"
+          for number in $earlier; do
+            gh issue close "$number" --repo "$GITHUB_REPOSITORY" --comment "Replaced by $url, this month's review. This issue is left as it was."
+            echo "Closed issue #$number"
+          done
