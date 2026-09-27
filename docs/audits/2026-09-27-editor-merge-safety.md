@@ -2,9 +2,9 @@
 
 From an audit on 27 September 2026 of the editor's merge feature (bringing `main` into `edits`) and every other path that could delete, corrupt or overwrite edits. The full report, with every finding, the evidence and scripts that reproduce each one, is in `ThomasWCode/edit.thomaswhite.me` on the branch `claude/merge-feature-safety-audit-mhz5e9`: `docs/audits/2026-09-27-merge-safety.md`.
 
-Nothing was fixed, and nothing was written to `main` or `edits` here; the repository was only read. The numbers are the full report's.
+The audit itself fixed nothing, and wrote nothing to `main` or `edits` here; the repository was only read. The numbers are the full report's.
 
-How each is to be fixed was decided on 27 September (see [Decisions](#decisions-27-september)). The full report has the plan, and the docs to update when the fixes are made; this repository's other docs are not changed until then.
+How each is to be fixed was decided on 27 September (see [Decisions](#decisions-27-september)). The fixes followed the same day, on the branch `claude/editor-data-safety-fixes-xe1fd6` here and in the editor's repository, in pull requests not yet merged: see [Fixed](#fixed-27-september). The full report marks every finding, with its commits and evidence.
 
 ## Findings here
 
@@ -41,6 +41,18 @@ How each is to be fixed was decided on 27 September (see [Decisions](#decisions-
   - The Claude session running it tells him at step 2 that, from then on, changes made in the editor are no longer read, until step 7.
   - Step 6 gets exact commands that keep this repository's `CNAME` (in the full report, finding 10).
 - **11.** The editor's GitHub App is granted the Workflows permission; at step 7 the main repository joins the same installation.
+
+## Fixed (27 September)
+
+Commits here, on `claude/editor-data-safety-fixes-xe1fd6`; the editor's commits are in the full report. Each finding was reproduced first.
+
+- **2.** `205ca31`: `scripts/drafts.mjs` never takes the editor's `data-draft-of` for the marker (a new test), and the contracts accept it as they stand; § Drafts describes the record and has the rule for Claude sessions. The editor records the live element and refuses to publish a new version once it has changed, showing both.
+- **4.** `1c83c80`: § Editor says squash and rebase merging must stay off. **Not done: the setting**, which is Tom's. Read from the API after the fixes, it still allows squash and rebase merging here and in `ThomasWCode/ThomasWCode.github.io`.
+- **5.** `1c83c80`: § Editor says the editor never deletes `edits`: it moves it up to `main` by fast-forwards GitHub refuses once a save has landed on it.
+- **6.** `5c1377f`: `scripts/drafts.mjs` reads a start tag's attribute names only, for the marker and for `remove`; new cases in `tests/static/drafts.test.mjs`. `733c9f5`: `docs/testing.md` says so.
+- **8.** `a6e25cd`: `content-review.yml` opens a new issue each month and then closes any earlier open review issue with a link to it, never touching its body. Checked with a stub `gh`; not run against the live repository. `AGENTS.md`, `docs/testing.md` and `docs/implementation-notes.md` §4 say so.
+- **10.** `2a86b4e`: `docs/implementation-notes.md` §6 step 2 (steps 2 to 7 in one go; the Claude session tells Tom at step 2 that the editor's changes are no longer read) and step 6 (the commands that keep this repository's `CNAME`, checked with git on a local simulation); the reminder in `AGENTS.md`.
+- **11.** `2a86b4e`: §6 step 7 adds the main repository to the App's installation, which holds the Workflows permission. **Not done: granting it**, which is Tom's (the editor's `docs/setup.md` has the steps).
 
 ## The live `edits` branch (27 September, read only)
 
