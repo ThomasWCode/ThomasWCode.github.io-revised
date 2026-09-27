@@ -1,10 +1,10 @@
 # Editor merge feature: data-safety findings that concern this repository
 
-From an audit on 27 September 2026 of the editor's merge feature (bringing `main` into `edits`) and every other path that could delete, corrupt or overwrite edits. The full report, with every finding, the evidence and scripts that reproduce each one, is in `ThomasWCode/edit.thomaswhite.me` on the branch `claude/merge-feature-safety-audit-mhz5e9`: `docs/audits/2026-09-27-merge-safety.md`.
+From an audit on 27 September 2026 of the editor's merge feature (bringing `main` into `edits`) and every other path that could delete, corrupt or overwrite edits. The full report, with every finding, the evidence and scripts that reproduce each one, is `docs/audits/2026-09-27-merge-safety.md` in `ThomasWCode/edit.thomaswhite.me`, which gained it with the editor's fixes (its pull request #5).
 
 The audit itself fixed nothing, and wrote nothing to `main` or `edits` here; the repository was only read. The numbers are the full report's.
 
-How each is to be fixed was decided on 27 September (see [Decisions](#decisions-27-september)). The fixes followed the same day, on the branch `claude/editor-data-safety-fixes-xe1fd6` here and in the editor's repository, in pull requests not yet merged: see [Fixed](#fixed-27-september). The full report marks every finding, with its commits and evidence.
+How each is to be fixed was decided on 27 September (see [Decisions](#decisions-27-september)). The fixes followed the same day, on the branch `claude/editor-data-safety-fixes-xe1fd6` here and in the editor's repository, in pull requests #37 here and #5 there: see [Fixed](#fixed-27-september). The full report marks every finding, with its commits and evidence.
 
 ## Findings here
 
@@ -61,11 +61,15 @@ What couldn't be run here, to do later:
 - **The content review, for real.** Its new step ran only with a stub `gh`. At its first real run, the scheduled one on the 1st or a dispatch from the Actions tab, check that it:
   - opens this month's issue, or leaves it as it is when it is open already;
   - closes the other open review issues, each with a link to it, their bodies untouched.
+
+  Nothing is due on 1 October 2026, so that run opens nothing. The first to open an issue is 1 November 2026, when the homepage's Now section passes 60 days. On 27 September the step's issue query ran read-only against this repository with the real `gh`: it returns the number, title and URL the step compares, in the form `gh issue create` prints.
 - **§6 step 6, for real.** Its commands ran only on a local simulation of the two repositories. When they run at the merge, `cat CNAME` must print `new.thomaswhite.me` before the commit.
 - **Run here or in CI:** lint and the static tests (98 of 98) locally. The browser, visual and Lighthouse suites weren't run locally, but passed in CI on #37.
+- **Run on Windows 11** (Tom's machine, 27 September): lint clean; the static tests 98 of 98 with LF files. In this Windows checkout, CRLF (`core.autocrlf`), three redirect-page tests fail, on `main` too: they compare the front matter with `\n` endings. Not part of these fixes.
 
 ## The live `edits` branch (27 September, read only)
 
 - 8 saves from 26 September, 19 commits behind `main`, no open pull request. The editor's next load with nothing unsaved will try to merge `main` in.
 - Simulated with git, that merge is clean. The 6 pages edited come out byte for byte as on `edits`, and the result passes all 96 static contracts.
 - `main`'s side adds `.github/workflows/pages.yml`, and the editor's GitHub App has no Workflows permission yet. Whether GitHub refuses the merge without it is undocumented and unverified (full report, finding 11); it would lose nothing. The permission is to be granted.
+- Rehearsed again with the fixes (27 September, locally, never pushed): `edits` merged with `main` plus #37 is clean, the 6 pages come out byte for byte as on `edits`, and the result passes all 98 static tests. #37 also changes `.github/workflows/content-review.yml`, a second workflow change for that merge to carry.
