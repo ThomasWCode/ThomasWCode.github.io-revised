@@ -245,7 +245,7 @@ This repository shares its history with the main one up to `49b9582`. Its first 
    - make the Better Stack edits (section 3);
    - run `npm run test:production` (it also fails if a live page holds a draft);
    - run the **Content review** workflow once from the Actions tab;
-   - around now (just before or just after the merge is fine), add a **Claude routine** to check what is added from then on. This is a scheduled Claude Code agent (`/schedule` in a Claude session sets one up) working on the main repository. Each run reads the commits since the one before and reports, in a GitHub issue say, for you to act on:
+   - add a **Claude routine** to check what is added from then on. You decided on 27 September that it starts with the merge, not before. This is a scheduled Claude Code agent (`/schedule` in a Claude session sets one up) working on the main repository. Each run reads the commits since the one before and reports, in a GitHub issue say, for you to act on:
      - anything that should be added, or questioned;
      - anything inconsistent, between pages or with `docs/record.md` and the CV;
      - anything added only to the website (through the editor, say) that also belongs in `docs/record.md` or the CV (`cv.html`, then `npm run build:cv`).
@@ -262,6 +262,6 @@ This repository shares its history with the main one up to `49b9582`. Its first 
    ```
 
    `--no-commit` holds the merge open, so `CNAME` is restored before anything is committed, and this repository's `main`, which its Pages build reads, never points at a commit with the wrong domain. The main repository's revert commit still arrives, as an ancestor.
-7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"). First check that the GitHub App "Homepage Site Editor" holds the Workflows permission (read and write), granted in the App's settings and accepted on its installation, with no request left waiting there (the editor's `docs/setup.md`, "Still to do", has the steps). The editor needs it to move `edits` up to `main` over changes to workflow files; without it, the test edit below may fail to save. Then add the main repository to that installation, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
+7. Repoint the editor (`docs/how-it-works.md` in its repository, "Switching targets"). First check that the GitHub App "Homepage Site Editor" still holds the Workflows permission (read and write), granted on 27 September, with no request left waiting on its installation (the editor's `docs/setup.md` lists the App's permissions). The editor needs it to move `edits` up to `main` over changes to workflow files; without it, the test edit below may fail to save. Then add the main repository to that installation, switch `active` in the editor's `src/config.js` from `preview` to `main` (a pull request in that repository), and publish a one-word test edit through it.
 
 If the main repository has not changed since `49b9582`, the merge commit is optional. Once the revert is in, `main` can fast-forward to `content-strategy`, and the history is identical either way.
