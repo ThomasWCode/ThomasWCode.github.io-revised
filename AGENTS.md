@@ -78,10 +78,20 @@ External redirect: `gravatar.html` (`/gravatar/`) is a `noindex` short link with
 
 ## Drafts
 
+A draft is saved in this repository but not published on thomaswhite.me: any element marked `data-draft`. The preview (new.thomaswhite.me) shows drafts: placeholders and the editor's kinds marked by CSS, `check` drafts as plain text. thomaswhite.me is built by `.github/workflows/pages.yml`, which leaves them out before anything is served (`scripts/drafts.mjs`), and when `CNAME` is `thomaswhite.me` the tests check the pages as they will be live.
+
 - Text Tom must write is a visible dashed box: `<p class="draft-note" data-draft>What to write</p>`, or inline `<span class="draft-inline" data-draft>…</span>`.
-- Text drafted from `docs/record.md` for Tom to confirm carries an invisible `data-draft="check"`; remove the attribute once Tom approves it.
-- `npm run list:drafts` lists every draft with its file, line and record slug.
-- A static contract allows drafts only while `CNAME` is not `thomaswhite.me`. Resolve every draft before merging into the main repository.
+- Text drafted from `docs/record.md` for Tom to confirm carries an invisible `data-draft="check"`: the preview shows it as plain text, the editor outlines it and `npm run list:drafts` lists it. Remove the attribute once Tom approves it.
+- Content not yet published carries `data-draft="new"`.
+- A new version of a live element is a copy straight after it, with `data-draft="replace"`. Publishing it deletes the live element and removes the marker from the copy; until then the live one stays live. The editor records on the copy what the live element was, as `data-draft-of` (a short hash of its source), and publishes nothing once the live element has changed: it shows Tom both, for him to carry the change over and record the live element as it is now.
+- A Claude session that changes a live element with a new version waiting (the next element, marked `replace`) makes the same change in the new version, and leaves its `data-draft-of` as it is. The editor then shows Tom both before publishing.
+- Content to remove carries `data-draft="remove"`: it stays live until the removal is published, and only its marker is left out.
+- The editor at `https://edit.thomaswhite.me` writes and publishes all of these (§ Editor).
+- A draft needs an explicit end tag. No `<p>` or `<li>` may have only drafts for words (one draft, even inside an `<em>`, or several between them), which would leave it empty on thomaswhite.me: mark the element itself (a placeholder with its `draft-note` class). On the preview only `new` drafts count, since the placeholders and checks are resolved before the merge; in the main repository every kind does. `tests/static/content-contracts.test.mjs` checks both.
+- `Tom-White-CV.pdf` is printed from the CV as this repository's site shows it, so on the preview it can hold drafts. thomaswhite.me's build prints its own copy from the page without them (§ CV).
+- `npm run list:drafts` lists every draft with its file, line, kind and record slug.
+- Once drafts can reach the main repository, thomaswhite.me must never be published by GitHub's automatic Pages build, which would serve them. Its Settings → Pages → Source stays "GitHub Actions", and `npm run test:production` fails if a live page holds a draft.
+- Tom resolves the placeholders and checks from the content-strategy work before merging into the main repository.
 
 ## Date attributes and the content review
 
@@ -89,9 +99,11 @@ External redirect: `gravatar.html` (`/gravatar/`) is a `noindex` short link with
 - Choose `data-review` as: the next 1 September for school-year mentions and anything that ages; 90 days out for "currently" and "this year" lines; the day after an event for copy written before it.
 - Any element whose text or attributes mention "Year 10" to "Year 13" needs a `data-review` on itself or an ancestor; a contract enforces it.
 - The homepage Now section uses `data-updated="YYYY-MM"` and a visible "Updated Month Year" line that must match. Update both whenever a Now line changes.
-- `npm run review:content` (add `-- --today=YYYY-MM-DD` to simulate a date) lists passed review dates, `data-updated` older than 60 days and uncovered school years. `.github/workflows/content-review.yml` runs it at 07:00 UTC on the 1st of each month and opens or updates one "Content review: <Month Year>" issue.
+- `npm run review:content` (add `-- --today=YYYY-MM-DD` to simulate a date) lists passed review dates, `data-updated` older than 60 days and uncovered school years. `.github/workflows/content-review.yml` runs it at 07:00 UTC on the 1st of each month. When something is due it opens a new "Content review: <Month Year>" issue (a second run in the same month leaves that month's issue as it is), then closes any other open review issue with a comment linking it, leaving its body and ticked boxes as they were. When nothing is due it opens and closes nothing.
 - Each September, bump school years and ages, move review dates forward, rebuild the CV and close the review issue.
 - Update `docs/record.md` whenever a fact enters the site or a decision is made not to publish something.
+- Around the content-strategy merge into the main repository, remind Tom to add the Claude routine in `docs/implementation-notes.md` §6 step 5. It is a scheduled Claude agent that checks recent additions for anything to add or question, anything inconsistent, and facts added only to the site that belong in `docs/record.md` or the CV.
+- A Claude session running that merge tells Tom at §6 step 2, once nothing is pending in the editor, that from then on changes made in the editor are no longer read: anything saved there would miss the merge, until step 7 points the editor at the main repository. Tom runs steps 2 to 7 in one go.
 
 ## Adding pages and posts
 
@@ -137,7 +149,7 @@ Home, Programming, Volunteering and Contact end with the same block (`id="tech-p
   - `.compact-list` with `.compact-list-label`, `.compact-list-text` and an optional `.link-arrow`.
   - `.post-list`, `.post-body`, `.related-list`.
   - `.path-grid` / `.path-card` (home grid and the Blog's `.path-grid--three` pinned strip; `.path-card--plain` has no image). The image, or the plain card's rings, zooms on hover; reduced motion removes the zoom.
-  - `.draft-note` and `.draft-inline`.
+  - `.draft-note` and `.draft-inline`, and the `[data-draft]` kinds `new`, `replace` and `remove`.
 - Reuse existing custom properties in `:root`. Follow the 1024, 768 and 480 pixel breakpoints unless a component requires otherwise.
 - Preserve visible focus, contrast, reduced-motion support, and touch-device behaviour.
 - Preserve the warm editorial design: cream backgrounds, deep green, warm accents, Fraunces headings, and Inter body text. Alternate paper and plain sections down a page.
@@ -164,6 +176,7 @@ Extend the relevant initializer when possible. A new initializer must be called 
 
 - Edit `cv.html`; every fact must come from `docs/record.md`. Entries carry the date attributes.
 - Run `npm run build:cv` to print `/cv/` with Playwright Chromium to `Tom-White-CV.pdf`, then commit both. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` only if Playwright's own Chromium is unavailable.
+- The PDF is printed as this checkout's site serves the CV. thomaswhite.me's build (`.github/workflows/pages.yml`) prints it again with `--live`, from the page with its drafts left out, and deploys that copy instead.
 - The PDF is linked from the footer, About and Contact. It is public and will be indexed; that is accepted.
 
 ## Images
@@ -207,7 +220,7 @@ For gallery entries:
 
 ## Verification
 
-The repository has a development-only npm test toolchain and no production build step. Install Node.js 24, run `npm ci`, then install the Playwright browsers with `npx playwright install chromium firefox webkit`. On Linux, use `npx playwright install --with-deps chromium firefox webkit`. See `docs/testing.md` for the full command and scope reference.
+The repository has a development-only npm test toolchain. The only production build is thomaswhite.me's `.github/workflows/pages.yml`: GitHub's Jekyll build, then drafts left out and the CV's PDF printed again without them. Install Node.js 24, run `npm ci`, then install the Playwright browsers with `npx playwright install chromium firefox webkit`. On Linux, use `npx playwright install --with-deps chromium firefox webkit`. See `docs/testing.md` for the full command and scope reference.
 
 For relevant changes:
 
@@ -215,17 +228,20 @@ For relevant changes:
 2. Run `npm run check` for the full deterministic suite: lint, static and content contracts, Playwright browser coverage, committed visual baselines and Lighthouse budgets.
 3. Run `npm audit --audit-level=high` after dependency changes.
 4. Run `npm run test:production` when the deployed site, routing, redirects, DNS or status-page integration changes. Run `npm run test:external-links` when link destinations change or as a periodic maintenance check.
-5. Run `npm run list:drafts` before merging into the main repository; it must print nothing.
+5. Run `npm run list:drafts` to see what is still a draft. Everything it lists stays off thomaswhite.me.
 6. Preview manually when visual or interaction risk remains. `node tests/support/clean-url-server.mjs` serves clean paths at `http://127.0.0.1:4173`; unlike `python -m http.server`, it strips YAML front matter in memory and models GitHub Pages clean URLs and folder index pages.
 7. Check affected pages at wide desktop, tablet and phone widths. Navigate without a mouse; verify focus, tab order, Escape behaviour, the browser console, reduced motion and basic no-JavaScript usability as applicable.
 8. Test Formspree, reCAPTCHA, CookieYes and canonical-domain behaviour on the deployed domain when those integrations change; deterministic tests stub third-party services and do not prove their live behavior.
+
+Codex reviews a pull request here when a comment asks for it, and the comment must be exactly `@codex review`, with nothing else. It ignores one with anything more, such as the "Generated by Claude Code" footer on a cloud Claude session's GitHub comments, so a cloud session asks Tom to post it; a local session posts it itself with `gh pr comment <number> --body "@codex review"`, which adds nothing.
 
 ## Editor
 
 The site's text can also be edited in the browser at `https://edit.thomaswhite.me`, a separate site built in the private repository `ThomasWCode/edit.thomaswhite.me` (`docs/how-it-works.md` there). It edits this preview repository until the content-strategy merge, then the main repository (`docs/implementation-notes.md` §6). What it does to this repository:
 
-- **Edits arrive on the `edits` branch.** Each Save is one commit of every changed file ("Edit N files in the editor"). Publish opens a pull request titled "Text edits from the editor", waits for CI, merges it with a merge commit and deletes `edits` (keeping it if a newer save landed on it meanwhile). A pull request merged or closed on GitHub instead is followed too, and a merged `edits` left behind is deleted the next time the editor loads. Do not hand-edit `edits` while that pull request is open; merge or close it first. A file changed elsewhere (in a Claude session, say) while the editor has it open shows there as a conflict, never as an overwrite.
+- **Edits arrive on the `edits` branch.** Each Save is one commit of every changed file, with a message describing the change (for example "Physics & Ideas: “see” → “watch”"). Publish opens a pull request from `edits`, titled and described from the changes (both editable in the editor, which can also suggest them with AI), waits for CI, merges it with a merge commit and moves `edits` up to the merge (a newer save landed on it meanwhile stays, for the next Publish). A pull request merged or closed on GitHub instead is followed too. `edits` is never deleted: between publishes it equals `main`, or trails it until the editor next loads and moves it up, always by a fast-forward, which GitHub refuses if a save has landed on it, so no save is lost. Squash and rebase merging must stay off here (Settings → General → Pull Requests, "Allow merge commits" only): after either, `edits` would still hold commits `main` lacks, and bringing `main` back into it could undo a later revert on `main`. So merge the editor's pull requests with a merge commit, on GitHub too. Do not hand-edit `edits` while that pull request is open; merge or close it first. When the editor opens with saves on `edits`, no pull request and nothing unsaved, it merges `main` into `edits` first (a merge commit; nothing runs), so saves are made on the current site. If both changed the same lines it says so and leaves `edits` as it was. **Update from main** in its Publish dialog does the same on request; with a pull request open, the checks then run again. A file changed elsewhere (in a Claude session, say) while the editor has it open shows there as a conflict, never as an overwrite; one renamed or deleted elsewhere keeps the editor's unsaved edits to it aside, under "No longer on GitHub", and is never recreated.
 - **It changes as little as possible.** Only the changed words are rewritten, with `&`, `<` and `>` escaped; entities, line wraps and indentation elsewhere stay byte for byte. It also adds and removes paragraphs and list items, marks drafts done (removing `data-draft` and the `draft-note` class, or an inline slot's `<span>` tags) or approved (removing `data-draft="check"`), sets link targets, alt text and gallery captions, and changes the Now section's `data-updated` and its "Updated Month Year" line together.
+- **It can save any of those changes as a draft** (§ Drafts): new content as `data-draft="new"`, a changed paragraph, list item, section, link, image or caption as a `replace` copy after the live element, a removal as `remove`, a phrase as a `new` span. Its Publish button on a draft makes it live on the next Publish.
 - **It locks what the contracts pin:** everything outside `main`, each page's `h1`, Analisa's words, the Updated line, proof-block labels, forms and buttons, and the whole of `cv.html` and the redirect pages. `docs/record.md` and the blog sources are edited as plain text.
 - **Its pre-save checks mirror `tests/static/content-contracts.test.mjs` and `site-contracts.test.mjs`:** Liquid markers, banned words, "passionate" once, school years without `data-review`, the Updated line, the new-tab rule, local references and record slugs. It adds its own: no relative links (links here are written from the root), anchors that exist, no emptied headings, and nothing changed outside `main` or in a locked part. When a contract here changes, change `src/checks.js` in the editor repository too. CI here remains the gate.
 - **CI and baselines:** a save runs nothing until a pull request is open; after that, every save runs CI. At Publish it first dispatches **Update visual baselines** on `edits` when the homepage, Programming or Gallery changed, and it dispatches **Test suite** itself only when that workflow's commit moved an already-open pull request (a push made with `GITHUB_TOKEN` starts no workflow).

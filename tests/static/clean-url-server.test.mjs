@@ -2,8 +2,9 @@ import assert from "node:assert/strict";
 import { readdir } from "node:fs/promises";
 import path from "node:path";
 import test from "node:test";
+import { LIVE_HOST, stripDrafts } from "../../scripts/drafts.mjs";
 import { startServer } from "../support/clean-url-server.mjs";
-import { repositoryRoot } from "../support/site-files.mjs";
+import { readSiteFile, repositoryRoot, stripFrontMatter } from "../support/site-files.mjs";
 
 test("the local server models clean GitHub Pages routes without exposing front matter", async (context) => {
   const server = await startServer({ port: 0 });
@@ -67,4 +68,17 @@ test("the local server returns real 404 responses for missing routes and travers
 
   assert.equal(missing.status, 404);
   assert.equal(traversal.status, 404);
+});
+
+test("the local server serves a page as either site does: drafts left out as thomaswhite.me", async (context) => {
+  const source = stripFrontMatter(await readSiteFile("cv.html"));
+  for (const [servedAs, expected] of [
+    [LIVE_HOST, stripDrafts(source)],
+    ["new.thomaswhite.me", source],
+  ]) {
+    const server = await startServer({ port: 0, servedAs });
+    context.after(() => new Promise((resolve) => server.close(resolve)));
+    const response = await fetch(`http://127.0.0.1:${server.address().port}/cv/`);
+    assert.equal(await response.text(), expected, servedAs);
+  }
 });

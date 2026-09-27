@@ -3,7 +3,7 @@ import { access, readFile, stat } from "node:fs/promises";
 import { createServer } from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { stripFrontMatter } from "./site-files.mjs";
+import { servedHtml, siteHost } from "./site-files.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const mimeTypes = new Map([
@@ -45,7 +45,7 @@ async function resolveRequestPath(requestUrl) {
   return path.join(root, pathname.slice(1));
 }
 
-async function requestHandler(request, response) {
+async function requestHandler(request, response, servedAs) {
   const filePath = await resolveRequestPath(request.url || "/");
   const relativePath = path.relative(root, filePath);
 
@@ -66,7 +66,9 @@ async function requestHandler(request, response) {
     response.setHeader("Content-Type", mimeTypes.get(extension) || "application/octet-stream");
 
     if (extension === ".html") {
-      const html = stripFrontMatter(await readFile(filePath, "utf8"));
+      // As the site serves it: on thomaswhite.me drafts are left out, so the
+      // browser, visual and Lighthouse tests see the live pages.
+      const html = servedHtml(await readFile(filePath, "utf8"), servedAs);
       response.writeHead(200).end(request.method === "HEAD" ? undefined : html);
       return;
     }
@@ -83,8 +85,10 @@ async function requestHandler(request, response) {
   }
 }
 
-export function startServer({ host = "127.0.0.1", port = 4173 } = {}) {
-  const server = createServer(requestHandler);
+// `servedAs` is the site whose pages it serves: this checkout's (CNAME) unless
+// set, as the CV's PDF for thomaswhite.me is printed (scripts/build-cv.mjs --live).
+export function startServer({ host = "127.0.0.1", port = 4173, servedAs = siteHost } = {}) {
+  const server = createServer((request, response) => requestHandler(request, response, servedAs));
   return new Promise((resolve, reject) => {
     server.once("error", reject);
     server.listen(port, host, () => resolve(server));

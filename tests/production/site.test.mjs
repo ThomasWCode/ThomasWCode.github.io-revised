@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { findDrafts, LIVE_HOST } from "../../scripts/drafts.mjs";
 import {
+  documents,
   externalRedirects,
   pages,
   productionBaseUrl,
@@ -14,6 +16,15 @@ const baseUrl = (
   process.env.PRODUCTION_BASE_URL || (deployedHost ? `https://${deployedHost}` : productionBaseUrl)
 ).replace(/\/$/, "");
 const publicStatusUrl = process.env.STATUS_PAGE_URL || statusPageUrl;
+
+// The live build leaves drafts out (scripts/drafts.mjs), on every published
+// route. A draft on thomaswhite.me means the site was built some other way,
+// such as GitHub's automatic build.
+function assertNoDrafts(path, html) {
+  if (new URL(baseUrl).hostname === LIVE_HOST) {
+    assert.deepEqual(findDrafts(html), [], `${path} is serving drafts: check the Pages source is GitHub Actions`);
+  }
+}
 
 async function fetchWithRetries(url, attempts = 3) {
   let lastError;
@@ -50,6 +61,18 @@ for (const page of pages) {
     );
     assert.ok(html.includes(`<link rel="canonical" href="${page.canonical}"`));
     assert.ok(html.includes(`href="${publicStatusUrl}"`));
+    assertNoDrafts(page.path, html);
+  });
+}
+
+for (const printDocument of documents) {
+  test(`production ${printDocument.path} serves the document`, async () => {
+    const response = await fetchWithRetries(`${baseUrl}${printDocument.path}`);
+    const html = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.ok(html.includes(`<link rel="canonical" href="${printDocument.canonical}"`));
+    assertNoDrafts(printDocument.path, html);
   });
 }
 
@@ -60,6 +83,7 @@ for (const redirect of [...redirects, ...externalRedirects]) {
 
     assert.equal(response.status, 200);
     assert.ok(html.includes(`url=${redirect.target}`), `${redirect.path} does not forward to ${redirect.target}`);
+    assertNoDrafts(redirect.path, html);
   });
 }
 
