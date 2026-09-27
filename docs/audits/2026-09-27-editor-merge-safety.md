@@ -50,9 +50,19 @@ Commits here, on `claude/editor-data-safety-fixes-xe1fd6`; the editor's commits 
 - **4.** `1c83c80`: § Editor says squash and rebase merging must stay off. **Not done: the setting**, which is Tom's. Read from the API after the fixes, it still allows squash and rebase merging here and in `ThomasWCode/ThomasWCode.github.io`.
 - **5.** `1c83c80`: § Editor says the editor never deletes `edits`: it moves it up to `main` by fast-forwards GitHub refuses once a save has landed on it.
 - **6.** `5c1377f`: `scripts/drafts.mjs` reads a start tag's attribute names only, for the marker and for `remove`; new cases in `tests/static/drafts.test.mjs`. `733c9f5`: `docs/testing.md` says so.
-- **8.** `a6e25cd`: `content-review.yml` opens a new issue each month and then closes any earlier open review issue with a link to it, never touching its body. Checked with a stub `gh`; not run against the live repository. `AGENTS.md`, `docs/testing.md` and `docs/implementation-notes.md` §4 say so.
+- **8.** `a6e25cd`: `content-review.yml` opens a new issue each month and then closes any earlier open review issue with a link to it, never touching its body. `7d382cf`, after Codex's review: a second run in the same month leaves that month's issue as it is, instead of opening another and closing the one with the ticks. Checked with a stub `gh`; not run against the live repository. `AGENTS.md`, `docs/testing.md` and `docs/implementation-notes.md` §4 say so.
 - **10.** `2a86b4e`: `docs/implementation-notes.md` §6 step 2 (steps 2 to 7 in one go; the Claude session tells Tom at step 2 that the editor's changes are no longer read) and step 6 (the commands that keep this repository's `CNAME`, checked with git on a local simulation); the reminder in `AGENTS.md`.
-- **11.** `2a86b4e`: §6 step 7 adds the main repository to the App's installation, which holds the Workflows permission. **Not done: granting it**, which is Tom's (the editor's `docs/setup.md` has the steps).
+- **11.** `2a86b4e`: §6 step 7 adds the main repository to the App's installation. `85ecb2c`, after Codex's review: step 7 first checks that the Workflows permission is granted and accepted, rather than saying it is. **Not done: granting it**, which is Tom's (the editor's `docs/setup.md` has the steps).
+
+### Still to test
+
+What couldn't be run here, to do later:
+
+- **The content review, for real.** Its new step ran only with a stub `gh`. At its first real run, the scheduled one on the 1st or a dispatch from the Actions tab, check that it:
+  - opens this month's issue, or leaves it as it is when it is open already;
+  - closes the other open review issues, each with a link to it, their bodies untouched.
+- **§6 step 6, for real.** Its commands ran only on a local simulation of the two repositories. When they run at the merge, `cat CNAME` must print `new.thomaswhite.me` before the commit.
+- **Run here or in CI:** lint and the static tests (98 of 98) locally. The browser, visual and Lighthouse suites weren't run locally, but passed in CI on #37.
 
 ## The live `edits` branch (27 September, read only)
 
