@@ -12,7 +12,9 @@
 //   data-draft="check"  a sentence drafted from the record, waiting for approval
 //   data-draft="new"    content not published yet
 //   data-draft="replace"  a new version of the element just before it, which
-//                       stays live until the draft is published
+//                       stays live until the draft is published; the editor
+//                       records the live element as it was on it, in
+//                       data-draft-of (a short hash of its source)
 //   data-draft="remove" content that stays live until its removal is published
 // Every kind but "remove" is left out of the live site; "remove" loses only its
 // marker there. The editor at edit.thomaswhite.me writes and publishes them.
