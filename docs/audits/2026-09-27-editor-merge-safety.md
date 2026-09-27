@@ -4,6 +4,8 @@ From an audit on 27 September 2026 of the editor's merge feature (bringing `main
 
 Nothing was fixed, and nothing was written to `main` or `edits` here; the repository was only read. The numbers are the full report's.
 
+How each is to be fixed was decided on 27 September (see [Decisions](#decisions-27-september)). The full report has the plan, and the docs to update when the fixes are made; this repository's other docs are not changed until then.
+
 ## Findings here
 
 - **2 (High). Publishing a `replace` draft undoes changes made to its live element on `main`.**
@@ -26,8 +28,22 @@ Nothing was fixed, and nothing was written to `main` or `edits` here; the reposi
     - `f2e3fc3` touches only `CNAME`;
     - the main repository is still at the fork point `49b9582`, so the merge overwrites nothing there.
 
+## Decisions (27 September)
+
+- **2.** "Publish new version" is refused when the live element has changed since its new version was made, and both are shown for Tom to merge by hand.
+  - The draft copy records what the live element was, in a new attribute (such as `data-draft-of`). `scripts/drafts.mjs` and the contracts here must accept it.
+  - § Drafts gains a rule: a Claude session that changes a live element with a new version waiting makes the same change in the new version.
+- **4.** Squash and rebase merging are turned off, here and in `ThomasWCode/ThomasWCode.github.io`: Settings → General → Pull Requests, leaving "Allow merge commits". Tom can do this now.
+- **6.** The build is fixed: `scripts/drafts.mjs` reads attribute names only, never their values, with new cases in `tests/static/drafts.test.mjs`.
+  - Visible text on a page was never affected. Only an attribute's text (alt text, a label, a hover title) with "data-draft" mid-text is.
+- **8.** `content-review.yml` opens a new issue each month and closes the previous one with a link to it, without touching its body or ticks.
+- **10.** No read-only switch in the editor: Tom runs the merge from step 2 to step 7 in one go.
+  - The Claude session running it tells him at step 2 that, from then on, changes made in the editor are no longer read, until step 7.
+  - Step 6 gets exact commands that keep this repository's `CNAME` (in the full report, finding 10).
+- **11.** The editor's GitHub App is granted the Workflows permission; at step 7 the main repository joins the same installation.
+
 ## The live `edits` branch (27 September, read only)
 
 - 8 saves from 26 September, 19 commits behind `main`, no open pull request. The editor's next load with nothing unsaved will try to merge `main` in.
 - Simulated with git, that merge is clean. The 6 pages edited come out byte for byte as on `edits`, and the result passes all 96 static contracts.
-- `main`'s side adds `.github/workflows/pages.yml`, and the editor's GitHub App has no Workflows permission. Whether GitHub then refuses the merge is undocumented and unverified (full report, finding 11); it would lose nothing.
+- `main`'s side adds `.github/workflows/pages.yml`, and the editor's GitHub App has no Workflows permission yet. Whether GitHub refuses the merge without it is undocumented and unverified (full report, finding 11); it would lose nothing. The permission is to be granted.
