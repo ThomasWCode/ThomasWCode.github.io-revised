@@ -12,10 +12,14 @@
 //   data-draft="check"  a sentence drafted from the record, waiting for approval
 //   data-draft="new"    content not published yet
 //   data-draft="replace"  a new version of the element just before it, which
-//                       stays live until the draft is published
+//                       stays live until the draft is published; the editor
+//                       records the live element as it was on it, in
+//                       data-draft-of (a short hash of its source)
 //   data-draft="remove" content that stays live until its removal is published
 // Every kind but "remove" is left out of the live site; "remove" loses only its
 // marker there. The editor at edit.thomaswhite.me writes and publishes them.
+// Only an attribute named data-draft marks a draft: text that mentions it, on
+// the page or in an attribute's value (alt text, a title), never does.
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
@@ -34,8 +38,24 @@ const tokenPattern = new RegExp(
   String.raw`<!--[\s\S]*?-->|<(script|style)\b${attributes}>[\s\S]*?<\/\1\s*>|<(\/?)([a-zA-Z][\w-]*)${attributes}>`,
   "g",
 );
-const draftAttribute = /\sdata-draft(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?(?=[\s/>]|$)/i;
-const removeMarker = /\s+data-draft\s*=\s*(?:"remove"|'remove'|remove)(?=[\s/>]|$)/i;
+// One attribute of a start tag, as HTML reads it: a name, then an optional
+// value, quoted or bare. Groups: 1 the name, 2 to 4 the value.
+const attributePattern = /([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s>]+)))?/g;
+
+// A start tag's attributes, one by one, from the text after its tag name:
+// [{ name (lower case), value (null when there is none), start, end }], with
+// offsets into `text`. A value is read whole, so what it says is never a name.
+function readAttributes(text) {
+  return Array.from(text.matchAll(attributePattern), (match) => ({
+    name: match[1].toLowerCase(),
+    value: match[2] ?? match[3] ?? match[4] ?? null,
+    start: match.index,
+    end: match.index + match[0].length,
+  }));
+}
+
+// The data-draft attribute among a start tag's attributes, or undefined.
+const draftMarker = (text) => readAttributes(text).find((attribute) => attribute.name === "data-draft");
 
 export class DraftMarkupError extends Error {
   constructor(message) {
@@ -73,12 +93,12 @@ export function findDrafts(html) {
     }
   };
   const opened = (tag, attrs, start, startTagEnd) => {
-    const marker = draftAttribute.exec(` ${attrs}`);
+    const marker = draftMarker(attrs);
     const parent = stack[stack.length - 1];
     const previous = parent.lastChild && !html.slice(parent.lastChild.end, start).trim() ? parent.lastChild : null;
     return {
       tag,
-      kind: marker ? (marker[1] ?? marker[2] ?? marker[3] ?? "") : null,
+      kind: marker ? (marker.value ?? "") : null,
       start,
       startTagEnd,
       previous: previous ? { tag: previous.tag, kind: previous.kind } : null,
@@ -203,8 +223,10 @@ export function stripDrafts(html) {
   for (const draft of drafts) {
     if (last && draft.start < last.range[1]) continue;
     if (draft.kind === "remove") {
-      const startTag = html.slice(draft.start, draft.startTagEnd);
-      if (draft.tag === "span" && /^<span\s+data-draft\s*=\s*(["']?)remove\1\s*>$/i.test(startTag)) {
+      // The start tag's attributes, after "<" and its name, before its ">".
+      const nameEnd = draft.start + 1 + draft.tag.length;
+      const attributes = readAttributes(html.slice(nameEnd, draft.startTagEnd - 1));
+      if (draft.tag === "span" && attributes.length === 1) {
         // A phrase's span has nothing but its marker: its tags go, its words stay.
         const endTagStart = html.lastIndexOf("</", draft.end - 1);
         edits.push([draft.start, draft.startTagEnd, ""], [endTagStart, draft.end, ""]);
@@ -212,8 +234,10 @@ export function stripDrafts(html) {
       }
       // All the whitespace before the marker goes too, so a start tag written
       // one attribute per line keeps its shape.
-      const marker = removeMarker.exec(startTag);
-      edits.push([draft.start + marker.index, draft.start + marker.index + marker[0].length, ""]);
+      const marker = attributes.find((attribute) => attribute.name === "data-draft");
+      let from = nameEnd + marker.start;
+      while (from > nameEnd && /\s/.test(html[from - 1])) from -= 1;
+      edits.push([from, nameEnd + marker.end, ""]);
       continue;
     }
     const range = removalRange(html, draft, last);

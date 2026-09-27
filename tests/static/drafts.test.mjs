@@ -39,6 +39,35 @@ test("findDrafts: every kind, with offsets and the element before it", () => {
   assert.deepEqual(findDrafts('<p data-drafted="x">No.</p><p data-draft-note>No.</p>'), [], "only the data-draft attribute itself");
 });
 
+test("only an attribute named data-draft marks a draft: text in an attribute's value that mentions it stays live", () => {
+  const live = [
+    '<p title="how data-draft works">A live paragraph.</p>',
+    '<img src="/Images/a.png" alt="A page with a data-draft element">',
+    '<a href="/blog/how-this-site-works/" aria-label="Read how data-draft hides text">Read it</a>',
+    `<p title='a data-draft="new" example'>Live.</p>`,
+    '<meta name="description" content="What data-draft=remove does">',
+  ];
+  for (const html of live) {
+    assert.deepEqual(findDrafts(html), [], html);
+    assert.equal(stripDrafts(html), html, html);
+  }
+  // The removal marker is read the same way: a value that mentions it is left as written.
+  assert.equal(stripDrafts('<p title="a data-draft=remove b" data-draft="remove">Going</p>'), '<p title="a data-draft=remove b">Going</p>');
+  assert.equal(stripDrafts("<p data-draft=remove title=x>Going</p>"), "<p title=x>Going</p>", "a bare value");
+  assert.equal(stripDrafts('<p DATA-DRAFT="new">Upper case</p><p>y</p>'), "<p>y</p>", "names are case-insensitive");
+});
+
+test("a new version's record of its live element (data-draft-of) goes with it, and marks nothing by itself", () => {
+  const html = page('  <p>Live.</p>\n  <p data-draft="replace" data-draft-of="1a2b3c4d">Reworded.</p>\n');
+  assert.deepEqual(
+    findDrafts(html).map(({ tag, kind, previous }) => ({ tag, kind, previous })),
+    [{ tag: "p", kind: "replace", previous: { tag: "p", kind: null } }],
+  );
+  assert.equal(stripDrafts(html), page("  <p>Live.</p>\n"));
+  assert.deepEqual(findDrafts('<p>Live.</p><p data-draft-of="1a2b3c4d" data-draft="replace">Reworded.</p>').map((draft) => draft.kind), ["replace"]);
+  assert.deepEqual(findDrafts('<p data-draft-of="1a2b3c4d">Not a draft.</p>'), []);
+});
+
 test("emptiedByDrafts: a paragraph or item whose words are all drafts, through wrappers and across siblings", () => {
   const lines = (html) => emptiedByDrafts(html).map(({ tag, line }) => `${tag}:${line}`);
   assert.deepEqual(lines('<ul>\n<li><span data-draft="new">Only this</span></li>\n</ul>'), ["li:2"]);
