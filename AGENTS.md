@@ -72,7 +72,8 @@ External redirect: `gravatar.html` (`/gravatar/`) is a `noindex` short link with
 
 - Keep Tom's voice. Short first-person sentences, contractions, British spelling, at most one exclamation mark per page. Jokes only in eyebrows, ledes and last sentences, never in an H2, a caption or a proof block's "What I did".
 - Visible copy shows ages and school years; real dates go in data attributes and Details lines. TEDx event dates and blog post months are the visible exceptions; blog posts show no age.
-- Proof over claims. Never overclaim: IYPT was the in-school stage; Tom is one of three student organisers of TEDxDulwich Youth (never "licensee"); the LSHTM work is advising, via the team Tom's dad works in; Namesake #753 was proposed, not built.
+- Proof over claims. Never overclaim: IYPT was the in-school stage; Tom is one of three student organisers of TEDxDulwich Youth (never "licensee"); the LSHTM work is advising, via the team Tom's dad works in; Tom proposed and co-authored Namesake #753 behind the scenes, but never built it (every commit is the maintainer's).
+- Numbers below 10,000 take no comma (6000); from 10,000 they do (108,000).
 - Banned everywhere: impressive, incredible, journey, leverage, showcase. "Passionate" at most once site-wide. A contract enforces both.
 - Every deep page and post gets a summary on its parent page, never a bare link.
 

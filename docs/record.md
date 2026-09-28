@@ -31,7 +31,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Milestone dates for the Details line: to fill in as they happen (applications open, speakers chosen, rehearsals, event).
   - Applications opened in mid-September 2026, the week of 14 September (Tom, 24 September 2026: "last week").
   - Speakers to be chosen by the end of October 2026.
-  - Rehearsals: dates to confirm.
+  - Rehearsals: dates to confirm. Tom took the placeholder line off the `/tedx/` Details list on 26 September 2026 (editor); add it back once the dates are set.
 - Planned: proof block on `/tedx/` now; full blog post after the event.
 
 ### cradle
@@ -53,30 +53,33 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## Programming
 
 ### namesake
-- Namesake (`namesakefyi/namesake`): US non-profit, free name-change guides and tools for trans people, "built by and for the trans community". Volunteer contributor. The cause matters to him.
+- Namesake (`namesakefyi/namesake`): US non-profit, free name-change guides and tools for trans people, "built by and for the trans community". Volunteer contributor. The cause matters to him, especially with everything going on in the US (Tom, September 2026).
 - Merged pull requests, all July 2026, age 16, the week after Year 11 ended:
-  - #717, 24 Jul 2026: fixed support map click navigation while keeping state outlines; separate outline layer, simpler D3 selectors; 45 added, 19 removed; co-authored with maintainer Ky Decker after review. Visible on the homepage.
+  - #717, 24 Jul 2026: fixed support map click navigation while keeping state outlines; separate outline layer, simpler D3 selectors; 45 added, 19 removed; co-authored with maintainer Ky Decker after review (Tom's commit, with Ky Decker as co-author; checked 28 September 2026). Visible on the homepage. The site stopped naming the co-author on 26 September 2026 (editor): Details says "support map click fix", and "What was hard" says Tom pushed the fix.
   - #725, 27 Jul 2026: removed a passthrough image-service override that broke images in local dev after the Cloudflare adapter upgrade. Developer fix.
   - #728, 27 Jul 2026: `formatCleanUrl` now parses with `URL` and returns the hostname without "www", handles bare hostnames; tests updated. Visible in directory listings.
   - #729, 27 Jul 2026: seven directory entries for Illinois, Kentucky and North Carolina with logos (Chicago House, Fauver Law Office, Kentucky Health Justice Network, Kentucky Youth Law Project, Legal Aid Chicago, North Carolina Bar Association, Transformative Justice Law Project, UIC). Co-authored.
   - #735, 27 Jul 2026: `prepare` script so `simple-git-hooks` installs on install; ImageMagick added to the setup guide. Tooling.
-- #753, 11 Sep 2026, by the maintainer: download a blank PDF packet from the form title view (689 lines). Tom raised issue #722 and led the idea and suggestions. Claim as "proposed and specified", never "built".
+- #753, 11 Sep 2026, by the maintainer: download a blank PDF packet from the form title view (689 lines). Tom raised issue #722 and led the idea and suggestions, and worked on it behind the scenes without pushing any commits (Tom, 28 September 2026). Claim as proposed and co-authored, never "built".
+  - Checked 28 September 2026: the pull request is the maintainer's, all eight of its commits are Ky Decker's, the merged commit names no co-author, and the page credits no one else. It resolves issue #722, which Tom opened on 24 July 2026.
+  - On Programming: "#753 (co-authored)" in the Details line since 26 September 2026, and "I also proposed and co-authored the idea of the blank-forms downloads" in "What I did" since 28 September 2026.
 - Current: non-code research for the project. Described publicly only as "research, in progress".
 - The map fix (#717) took a lot of debugging: running scripts in the browser to work out why clicking had broken. A real problem-solving fix, not a typo (Tom, September 2026).
-- What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; got him further invested in the cause (Tom, September 2026).
+- What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; has him looking for more opportunities like it; got him further invested in the cause (Tom, September 2026).
 - Note: PR descriptions and review threads were not readable from the planning session; the notes above come from the merged commits and diffs.
 
 ### this-website
-- `thomaswhite.me`, hand-written HTML/CSS/JS, no framework. Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
+- `thomaswhite.me`, HTML/CSS/JS, no framework; hand-written at first, with AI coding tools writing part of it later (below). Since 26 September 2026 (editor) Programming no longer calls it hand-written or says it has no framework or build step; since 28 September neither do the "How this site works" post, its source or the CV (Tom's call). Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
 - Pinned blog post "How this site works" (`/blog/how-this-site-works/`): drafted in September 2026 from what the repository does, for Tom to rewrite. The commit history shows AI coding tools (Claude) wrote part of the site; the site now says so.
 - Tom on AI (September 2026): the initial site was all hand-coded, before AI was big. He now hands AI the more tedious jobs, like design and CSS; his favourite code is the backend.
-- Hardest part: learning the best practices, because the site is where he experiments with new features (status page, visual regression, accessibility checks, consent-gated analytics).
+- Tom on using AI (September 2026, "How I use AI" on Programming): uses it every day, for everyday things and for coding, sometimes giving it one job that runs on its own for over a day. For a production or public app, like this site, he reviews and understands the code himself; for a quick app just for himself, he plans it and uses what it gives him ("vibe coding").
+- Hardest part: learning the best practices, because the site is his test ground, where he experiments with new features (visual regression, accessibility checks, consent-gated analytics). Also the content: he tends to over-engineer, and writing enough to fill the pages and features he adds is often the hardest part (Tom, September 2026).
 - Automated test suite added 31 Aug 2026 (age 16), from the full repository history (unshallowed September 2026; history starts 16 Aug 2025). Total hours: unknown.
 - What Tom took from it: many features, most of them invisible; coding techniques and third-party integration; a test of keeping a project up to date over a long period.
 
 ### techassist
-- Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter, about three months of work. His biggest project at the time; keeping it consistent as the codebase grew was hard. Massive time investment.
-- Repository `ThomasWCode/techassist` holds only the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source. Briefly public in September 2026, then made private again by Tom; the site no longer links it. The app's line count and modules are still to confirm.
+- Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter among other modules (the others not named), about 6000 lines and about three months of work (Tom, September 2026). His biggest project at the time; keeping it consistent as the codebase grew was hard, and Tom admits it was a mess. Massive time investment.
+- Repository `ThomasWCode/techassist` holds only the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source. Briefly public in September 2026, then made private again by Tom; the site no longer links it. The line count is Tom's figure; the repository can't confirm it, since the Python source isn't there.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
 - Dates from `ThomasWCode/techassist` (the TechAssist website and installer): first commit 4 Feb 2025 (age 14), most commits February and April 2025, last 20 Aug 2025. The first commit already uploads setup version 1.4.5, so the app itself is older than the repository.
 
@@ -86,10 +89,11 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ### early-projects
 - Chrome Dino: first game, Python. Age 10 (Tom, September 2026). Repository uploaded 16 Aug 2025 (age 15).
 - Minesweeper: Python, three difficulty levels. Age 12 (Tom, September 2026). Repository uploaded 20 Aug 2025 (age 15); its `flag.png` is dated 6 May 2024 (age 13).
-- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics. Repository uploaded 16 Aug 2025 (age 15), but an earlier single-file `BouncingBalls.py` is in `ThomasWCode/thomas-tutoring`, last modified 23 Jun 2024 (age 14). Age 14 (Tom, September 2026).
+- Bouncing Ball Physics Simulation: gravity, friction, ball collisions; flexibility and realistic physics over graphics (even then, Tom wasn't a fan of the design side of code; Tom, September 2026). Repository uploaded 16 Aug 2025 (age 15), but an earlier single-file `BouncingBalls.py` is in `ThomasWCode/thomas-tutoring`, last modified 23 Jun 2024 (age 14). Age 14 (Tom, September 2026).
 - Game of Life: click or drag to add cells. Playable by running the repo. Embed deferred (pygbag if pygame, else a small JavaScript version). Age 14 (Tom, September 2026). Repository uploaded 20 Aug 2025 (age 15).
 - SplitMate: first mobile app, splitting shared expenses. Age 14 (Tom, September 2026). Repository uploaded 17 Aug 2025 (age 15).
 - All five repositories were uploaded through GitHub's web "Add files via upload" between 16 and 20 August 2025, so their dates are when they went online, not when they were written. The site uses the ages Tom gave.
+- Programming shows a small selection: Tom has hundreds of unfinished projects (Tom, September 2026).
 - Thomas Tutoring (`ThomasWCode/thomas-tutoring`, private): a tutoring website with sign-up and log-in pages, first commit 9 Jun 2024 (age 14), with Python projects (bouncing balls, speed typing) as downloads. Its projects page says "I have made many projects in Python, HTML and Lua". Earliest web development found; source of "since age 14" on the This website block (confirmed by Tom, September 2026). Not on the site.
 
 ### youtube
@@ -110,6 +114,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ### islington-parks
 - Islington Council Parks: Grow Show (catalogued entries), Apple Day (made apple juice), Spring Festival at Gillespie Park (welcomed visitors). Appeared in Islington Life and the Islington Gazette.
 - Dates (Tom, September 2026): Apple Day every autumn since about age 6 (autumn 2016). Spring Festival every spring since it was introduced, when Tom was about 13 (spring 2024). Grow Show once, in 2025 (age 15), the year its photo was added to the site (September 2025); the Islington Gazette reported the 2025 show as the second annual one, on Sunday 7 September.
+- The show itself began in 2024: Islington Council's news called the 2025 show (7 September, Whittington Park Community Centre) the second annual one, and the third was at Caledonian Park in September 2026 (Council news, 11 September 2025 and 9 September 2026). Tom has helped at it once, in 2025 (Tom, 28 September 2026); Volunteering says "I’ve helped at the Grow Show once so far. Hopefully I will again soon."
 - Press: searched September 2026 for Islington Life and Islington Gazette pieces naming Tom, Apple Day, the Grow Show and Gillespie Park. None names him; the Gazette's Apple Day 2019 photos of the apple press carry no names. Treated as not online.
 
 ### mind-shop
@@ -140,7 +145,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ## To confirm (fill in and copy to the site's Details lines)
 
-- TechAssist: which year at 13, lines of Python and the modules used.
+- TechAssist: which year at 13.
 - Cradle: term, headline finding, limitation.
 - TEDx organising: rehearsal dates; confirm when speakers were chosen.
 - LinkedIn URL when created.

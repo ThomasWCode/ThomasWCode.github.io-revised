@@ -10,9 +10,9 @@ Brief (content strategy §9.3). 600 to 900 words. This first version was drafted
 
 ## Plain HTML, on purpose
 
-Every page is hand-written HTML and CSS, with one JavaScript file shared by all of them. There’s no framework and no build step: the files in the repository are the files you’re looking at, served by GitHub Pages.
+The site you’re on: HTML, CSS and JavaScript, with lots of little features I wanted to build dotted around.
 
-The fonts, Inter and Fraunces, are hosted on the site itself rather than loaded from Google, and every big photo comes in smaller WebP versions so a phone doesn’t download a 6,000-pixel image. The downside of no build step is that the header and footer are copied into every page, which is part of why the next bit exists.
+The fonts, Inter and Fraunces, are hosted on the site itself rather than loaded from Google, and every big photo comes in smaller WebP versions so a phone doesn’t download a 6000-pixel image. The header and footer are copied into every page, which is part of why the next bit exists.
 
 ## Tests for everything
 
