@@ -114,6 +114,7 @@ This guide exists to inform AI suggestions and the site's structure (what space 
 
 **Rules**
 - Short declarative sentences. First person. Contractions. British spelling. At most one exclamation mark per page.
+- Numbers below 10,000 take no comma (6000); from 10,000 they do (108,000) (Tom, 28 September 2026).
 - The joke is a short aside at the end of a plain sentence. Jokes may appear in eyebrows, ledes and the last sentence of a section. Never in an H2, a figure caption, or the "What I did" part of a proof block.
 - Emphasis by specificity (numbers, names, dates in Details). One plain sentence of pride per featured item. "Passionate" at most once site-wide. Banned words in §4.5.
 - It is fine, and often good, for phrasing not to be perfect. Do not polish Tom's sentences into corporate ones.

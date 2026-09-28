@@ -60,9 +60,9 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
   - #728, 27 Jul 2026: `formatCleanUrl` now parses with `URL` and returns the hostname without "www", handles bare hostnames; tests updated. Visible in directory listings.
   - #729, 27 Jul 2026: seven directory entries for Illinois, Kentucky and North Carolina with logos (Chicago House, Fauver Law Office, Kentucky Health Justice Network, Kentucky Youth Law Project, Legal Aid Chicago, North Carolina Bar Association, Transformative Justice Law Project, UIC). Co-authored.
   - #735, 27 Jul 2026: `prepare` script so `simple-git-hooks` installs on install; ImageMagick added to the setup guide. Tooling.
-- #753, 11 Sep 2026, by the maintainer: download a blank PDF packet from the form title view (689 lines). Tom raised issue #722 and led the idea and suggestions. Claim as "proposed and specified", never "built".
+- #753, 11 Sep 2026, by the maintainer: download a blank PDF packet from the form title view (689 lines). Tom raised issue #722 and led the idea and suggestions, and worked on it behind the scenes without pushing any commits (Tom, 28 September 2026). Claim as proposed and co-authored, never "built".
   - Checked 28 September 2026: the pull request is the maintainer's, all eight of its commits are Ky Decker's, the merged commit names no co-author, and the page credits no one else. It resolves issue #722, which Tom opened on 24 July 2026.
-  - Since 26 September 2026 (editor) the Programming Details line says "#753 (co-authored)". That contradicts the check above, the same block's "What I did" ("the maintainer built it") and the CV. See To confirm.
+  - On Programming: "#753 (co-authored)" in the Details line since 26 September 2026, and "I also proposed and co-authored the idea of the blank-forms downloads" in "What I did" since 28 September 2026.
 - Current: non-code research for the project. Described publicly only as "research, in progress".
 - The map fix (#717) took a lot of debugging: running scripts in the browser to work out why clicking had broken. A real problem-solving fix, not a typo (Tom, September 2026).
 - What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; has him looking for more opportunities like it; got him further invested in the cause (Tom, September 2026).
@@ -78,7 +78,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - What Tom took from it: many features, most of them invisible; coding techniques and third-party integration; a test of keeping a project up to date over a long period.
 
 ### techassist
-- Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter among other modules (the others not named), about 6,000 lines and about three months of work (Tom, September 2026). His biggest project at the time; keeping it consistent as the codebase grew was hard, and Tom admits it was a mess. Massive time investment.
+- Built for grandparents at age 13 (Tom, September 2026; age 13 is June 2023 to June 2024, year not yet confirmed; the site and CV use 2024). Written and video guides for everyday computer tasks plus a separate one-click encrypted backup app. Python with Tkinter among other modules (the others not named), about 6000 lines and about three months of work (Tom, September 2026). His biggest project at the time; keeping it consistent as the codebase grew was hard, and Tom admits it was a mess. Massive time investment.
 - Repository `ThomasWCode/techassist` holds only the TechAssist website (671 lines of HTML, CSS and JavaScript) and installers in Git LFS, not the Python source. Briefly public in September 2026, then made private again by Tom; the site no longer links it. The line count is Tom's figure; the repository can't confirm it, since the Python source isn't there.
 - Honest limits: restore was manual; guide videos were on Dropbox and are no longer hosted. Early build for family, not a production app. Repo can be made public.
 - Dates from `ThomasWCode/techassist` (the TechAssist website and installer): first commit 4 Feb 2025 (age 14), most commits February and April 2025, last 20 Aug 2025. The first commit already uploads setup version 1.4.5, so the app itself is older than the repository.
@@ -146,7 +146,6 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - TechAssist: which year at 13.
-- Namesake #753: the Programming Details line says "(co-authored)", but the history shows only the maintainer's commits (see namesake). Either change the line back or record here what Tom co-wrote.
 - Grow Show: Volunteering says it "started last year, hopefully continuing", but the show began in 2024. Did Tom mean his own first show (2025), and did he help at the 2026 one?
 - Cradle: term, headline finding, limitation.
 - TEDx organising: rehearsal dates; confirm when speakers were chosen.
