@@ -207,7 +207,7 @@ The "A few other bits" strip keeps Contact and Testimonials, drops YouTube.
 **Call to action** (replaces "Free coding help", also on Programming, Volunteering and Contact)
 - Eyebrow: not "Free coding help" (Tom: "looks like a scam advert", and people don't know a website is code). Proposed: "Volunteering, the online kind". Tom may veto.
 - H2: **"Got something technical you need help with?"** (kept; Tom prefers it to every alternative offered).
-- Body (approved): "If there's something technical you want doing, get in touch and we can talk about it. I'm happy to volunteer for charities, community groups and other small organisations. Mostly that means websites and web apps, like this site and Namesake, but also Python tools and small desktop apps. Anything big, small, long or short term: a whole website, a fix, a tool, or a second pair of eyes on something broken. Just tell me roughly what you need."
+- Body (approved; Tom changed "a second pair of eyes on" to "taking a look at" in September 2026): "If there's something technical you want doing, get in touch and we can talk about it. I'm happy to volunteer for charities, community groups and other small organisations. Mostly that means websites and web apps, like this site and Namesake, but also Python tools and small desktop apps. Anything big, small, long or short term: a whole website, a fix, a tool, or taking a look at something broken. Just tell me roughly what you need."
 - Buttons: "Email me" (mailto), "See what I've made" (→ /programming/).
 
 **Metadata**: description → "Tom White: Year 12 physics student in London, volunteer developer, TEDx speaker and organiser. Physics investigations, real projects, and a few other bits."
