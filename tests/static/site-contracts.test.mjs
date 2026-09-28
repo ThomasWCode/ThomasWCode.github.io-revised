@@ -38,6 +38,10 @@ function matches(source, expression) {
   return Array.from(source.matchAll(expression));
 }
 
+function frontMatter(permalink) {
+  return new RegExp(`^---\\r?\\npermalink: ${permalink.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\r?\\n---\\r?\\n`);
+}
+
 test("the page manifest covers every published HTML file", async () => {
   const files = await listPublishedHtml(repositoryRoot);
 
@@ -49,10 +53,7 @@ for (const page of pages) {
     const source = await readSiteFile(page.source);
     const html = servedHtml(source);
 
-    assert.match(
-      source,
-      new RegExp(`^---\\r?\\npermalink: ${page.path.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\r?\\n---\\r?\\n`),
-    );
+    assert.match(source, frontMatter(page.path));
     assert.equal(textContent(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || ""), page.title);
     assert.match(html, /<meta\s+name="description"\s+content="[^"]+"(?:\s+data-[\w-]+="[^"]*")*\s*\/>/i);
     assert.match(html, new RegExp(`<link rel="canonical" href="${page.canonical}"\\s*/>`));
@@ -121,7 +122,7 @@ for (const printDocument of documents) {
       result.messages.map((message) => `${message.line}:${message.column} ${message.ruleId} ${message.message}`),
     );
 
-    assert.match(source, new RegExp(`^---\\r?\\npermalink: ${printDocument.path}\\r?\\n---\\r?\\n`));
+    assert.match(source, frontMatter(printDocument.path));
     assert.equal(textContent(html.match(/<title>([\s\S]*?)<\/title>/i)?.[1] || ""), printDocument.title);
     assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
     assert.match(html, new RegExp(`<link rel="canonical" href="${printDocument.canonical}"\\s*/>`));
@@ -145,7 +146,7 @@ for (const redirect of redirects) {
     );
 
     assert.ok(target, `${redirect.target} is not a page in the manifest`);
-    assert.ok(source.startsWith(`---\npermalink: ${redirect.path}\n---\n`));
+    assert.match(source, frontMatter(redirect.path));
     assert.ok(html.includes(`<meta http-equiv="refresh" content="0; url=${redirect.target}" />`));
     assert.ok(html.includes(`<link rel="canonical" href="${target.canonical}" />`));
     assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
@@ -165,7 +166,7 @@ for (const redirect of externalRedirects) {
     );
 
     assert.match(redirect.target, /^https:\/\//, `${redirect.target} is not an external HTTPS URL`);
-    assert.ok(source.startsWith(`---\npermalink: ${redirect.path}\n---\n`));
+    assert.match(source, frontMatter(redirect.path));
     assert.ok(html.includes(`<meta http-equiv="refresh" content="0; url=${redirect.target}" />`));
     assert.ok(html.includes(`<link rel="canonical" href="${redirect.target}" />`));
     assert.match(html, /<meta name="robots" content="noindex"\s*\/>/);
