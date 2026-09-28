@@ -69,7 +69,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Note: PR descriptions and review threads were not readable from the planning session; the notes above come from the merged commits and diffs.
 
 ### this-website
-- `thomaswhite.me`, HTML/CSS/JS, no framework; hand-written at first, with AI coding tools writing part of it later (below). Since 26 September 2026 (editor) Programming no longer calls it hand-written or says it has no build step. Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
+- `thomaswhite.me`, HTML/CSS/JS, no framework; hand-written at first, with AI coding tools writing part of it later (below). Since 26 September 2026 (editor) Programming no longer calls it hand-written or says it has no framework or build step; since 28 September neither do the "How this site works" post, its source or the CV (Tom's call). Playwright end-to-end, visual regression and accessibility tests across Chromium, Firefox and WebKit; Lighthouse budgets; ESLint, Stylelint, html-validate; GitHub Actions CI; Better Stack status page at `status.thomaswhite.me`; CookieYes consent-gated analytics; Formspree contact with reCAPTCHA. Evidence of GitHub, CI and status-page practice.
 - Pinned blog post "How this site works" (`/blog/how-this-site-works/`): drafted in September 2026 from what the repository does, for Tom to rewrite. The commit history shows AI coding tools (Claude) wrote part of the site; the site now says so.
 - Tom on AI (September 2026): the initial site was all hand-coded, before AI was big. He now hands AI the more tedious jobs, like design and CSS; his favourite code is the backend.
 - Tom on using AI (September 2026, "How I use AI" on Programming): uses it every day, for everyday things and for coding, sometimes giving it one job that runs on its own for over a day. For a production or public app, like this site, he reviews and understands the code himself; for a quick app just for himself, he plans it and uses what it gives him ("vibe coding").
@@ -114,7 +114,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ### islington-parks
 - Islington Council Parks: Grow Show (catalogued entries), Apple Day (made apple juice), Spring Festival at Gillespie Park (welcomed visitors). Appeared in Islington Life and the Islington Gazette.
 - Dates (Tom, September 2026): Apple Day every autumn since about age 6 (autumn 2016). Spring Festival every spring since it was introduced, when Tom was about 13 (spring 2024). Grow Show once, in 2025 (age 15), the year its photo was added to the site (September 2025); the Islington Gazette reported the 2025 show as the second annual one, on Sunday 7 September.
-- The show itself began in 2024: Islington Council's news called the 2025 show (7 September, Whittington Park Community Centre) the second annual one, and the third was at Caledonian Park in September 2026 (Council news, 11 September 2025 and 9 September 2026). Since 28 September 2026 (editor) Volunteering says "The Grow Show started last year, hopefully continuing.", which reads as the show starting in 2025. See To confirm.
+- The show itself began in 2024: Islington Council's news called the 2025 show (7 September, Whittington Park Community Centre) the second annual one, and the third was at Caledonian Park in September 2026 (Council news, 11 September 2025 and 9 September 2026). Tom has helped at it once, in 2025 (Tom, 28 September 2026); Volunteering says "I’ve helped at the Grow Show once so far. Hopefully I will again soon."
 - Press: searched September 2026 for Islington Life and Islington Gazette pieces naming Tom, Apple Day, the Grow Show and Gillespie Park. None names him; the Gazette's Apple Day 2019 photos of the apple press carry no names. Treated as not online.
 
 ### mind-shop
@@ -146,7 +146,6 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 ## To confirm (fill in and copy to the site's Details lines)
 
 - TechAssist: which year at 13.
-- Grow Show: Volunteering says it "started last year, hopefully continuing", but the show began in 2024. Did Tom mean his own first show (2025), and did he help at the 2026 one?
 - Cradle: term, headline finding, limitation.
 - TEDx organising: rehearsal dates; confirm when speakers were chosen.
 - LinkedIn URL when created.
