@@ -40,6 +40,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Parameters varied, in order of how thoroughly they were tested: initial release angle; number of magnets (3 or 5); separation between magnets at equilibrium; friction between wires and frame; magnet strength; mass of each magnet.
 - Method: tracking stickers, slow-motion filming, motion-tracking software (Tracker) to extract position against time. Two runs for each parameter. Frame rate unknown. About 40 hours: 20 in school, 20 at home (Tom, September 2026). Tom did the motion tracking and data processing (confirmed September 2026). The site doesn't describe what the other two did.
 - Assets held: slow-mo clips, tracking data and plots, build photos. No report or slides.
+- On the cradle page's Details since 29 September 2026 (editor): "Software: Tracker; two runs for each parameter", approved, with "Tracker" linking to its site, `https://opensourcephysics.github.io/tracker-website/`. Tom deleted that page's "Which term" slot the same day; the one on Physics & Ideas is still open.
 - To confirm: which term, headline finding, main limitation.
 
 ### epq
