@@ -64,6 +64,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
   - Checked 28 September 2026: the pull request is the maintainer's, all eight of its commits are Ky Decker's, the merged commit names no co-author, and the page credits no one else. It resolves issue #722, which Tom opened on 24 July 2026.
   - On Programming: "#753 (co-authored)" in the Details line since 26 September 2026, and "I also proposed and co-authored the idea of the blank-forms downloads" in "What I did" since 28 September 2026.
 - Current: non-code research for the project. Described publicly only as "research, in progress".
+- Screenshots on Programming since 29 September 2026, supplied by Tom: the homepage support map (#717) and the live directory, which shows addresses formatted by #728 and the North Carolina Bar Association entry from #729. No before shot of the map: the bug was in clicking, so a still looks the same before and after.
 - The map fix (#717) took a lot of debugging: running scripts in the browser to work out why clicking had broken. A real problem-solving fix, not a typo (Tom, September 2026).
 - What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; has him looking for more opportunities like it; got him further invested in the cause (Tom, September 2026).
 - Note: PR descriptions and review threads were not readable from the planning session; the notes above come from the merged commits and diffs.
