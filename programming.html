@@ -203,10 +203,51 @@ permalink: /programming/
                   decoding="async"
                 />
               </figure>
-              <p class="draft-note" data-draft>
-                A before-and-after screenshot of the homepage support map, and
-                a screenshot of the live directory.
-              </p>
+              <figure class="image-frame">
+                <picture
+                  ><source
+                    type="image/webp"
+                    srcset="
+                      /Images/optimized/namesake-support-map-480.webp 480w,
+                      /Images/optimized/namesake-support-map-960.webp 960w
+                    "
+                    sizes="(max-width: 768px) 100vw, 40vw" />
+                  <img
+                    src="/Images/namesake-support-map.png"
+                    width="1994"
+                    height="1644"
+                    alt="Namesake’s ‘States we support’ map of the US, with Massachusetts and Rhode Island fully supported and Illinois and New York next"
+                    loading="lazy"
+                    decoding="async"
+                /></picture>
+                <figcaption data-draft="check">
+                  The support map on Namesake’s homepage. My fix made clicking
+                  a state work again.
+                </figcaption>
+              </figure>
+              <figure class="image-frame">
+                <picture
+                  ><source
+                    type="image/webp"
+                    srcset="
+                      /Images/optimized/namesake-directory-480.webp 480w,
+                      /Images/optimized/namesake-directory-960.webp 960w
+                    "
+                    sizes="(max-width: 768px) 100vw, 40vw" />
+                  <img
+                    src="/Images/namesake-directory.png"
+                    width="2000"
+                    height="1373"
+                    alt="Namesake’s support directory, with entries for the Massachusetts Transgender Political Coalition, New Mexico Legal Aid, Advocates for Trans* Law Students and the North Carolina Bar Association"
+                    loading="lazy"
+                    decoding="async"
+                /></picture>
+                <figcaption data-draft="check">
+                  The support directory. I rewrote how the web addresses are
+                  shown, and the North Carolina Bar Association is one of the
+                  organisations I added.
+                </figcaption>
+              </figure>
             </div>
             <div class="proof-block-body">
               <p class="eyebrow">Open source · age 16</p>

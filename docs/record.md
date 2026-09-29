@@ -40,6 +40,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 - Parameters varied, in order of how thoroughly they were tested: initial release angle; number of magnets (3 or 5); separation between magnets at equilibrium; friction between wires and frame; magnet strength; mass of each magnet.
 - Method: tracking stickers, slow-motion filming, motion-tracking software (Tracker) to extract position against time. Two runs for each parameter. Frame rate unknown. About 40 hours: 20 in school, 20 at home (Tom, September 2026). Tom did the motion tracking and data processing (confirmed September 2026). The site doesn't describe what the other two did.
 - Assets held: slow-mo clips, tracking data and plots, build photos. No report or slides.
+- On the cradle page's Details since 29 September 2026 (editor): "Software: Tracker; two runs for each parameter", approved, with "Tracker" linking to its site, `https://opensourcephysics.github.io/tracker-website/`. Tom deleted that page's "Which term" slot the same day; the one on Physics & Ideas is still open.
 - To confirm: which term, headline finding, main limitation.
 
 ### epq
@@ -64,6 +65,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
   - Checked 28 September 2026: the pull request is the maintainer's, all eight of its commits are Ky Decker's, the merged commit names no co-author, and the page credits no one else. It resolves issue #722, which Tom opened on 24 July 2026.
   - On Programming: "#753 (co-authored)" in the Details line since 26 September 2026, and "I also proposed and co-authored the idea of the blank-forms downloads" in "What I did" since 28 September 2026.
 - Current: non-code research for the project. Described publicly only as "research, in progress".
+- Screenshots on Programming since 29 September 2026, supplied by Tom: the homepage support map (#717) and the live directory, which shows addresses formatted by #728 and the North Carolina Bar Association entry from #729. No before shot of the map: the bug was in clicking, so a still looks the same before and after.
 - The map fix (#717) took a lot of debugging: running scripts in the browser to work out why clicking had broken. A real problem-solving fix, not a typo (Tom, September 2026).
 - What Tom took from it: his first project with true collaboration between many people in a large codebase; learnt best practices for collaborating on code; has him looking for more opportunities like it; got him further invested in the cause (Tom, September 2026).
 - Note: PR descriptions and review threads were not readable from the planning session; the notes above come from the merged commits and diffs.

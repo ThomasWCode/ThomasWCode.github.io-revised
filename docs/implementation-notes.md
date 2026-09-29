@@ -118,19 +118,11 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 - `blog/how-this-site-works.html`, 2 items: I drafted the post from what the repository actually does. Rewrite it in your voice, write "What building it taught me" (including how you used AI tools), then remove `data-draft="check"` from the `<article>`.
 - `blog/index.html`: check the lede.
 
-### Programming (`programming.html`), 17 items
-- **Check:**
-  - the drafted ages for this website, TechAssist and the YouTube channel;
-  - the replacement "Why I like programming" line ("solitary when I want it to be…");
-  - Namesake "What was hard" and "The cause matters to me";
-  - "This website" (the AI-tools sentence and "What was hard");
-  - TechAssist "What was hard".
+### Programming (`programming.html`), 4 items
+- **Check:** the captions under the two Namesake screenshots, the support map and the directory (added 29 September 2026).
 - **Write:**
-  - "What I took from it" for all three proof blocks;
-  - Namesake before-and-after map screenshots;
-  - TechAssist screenshots, what your grandparents said and the repository link;
-  - "How I actually use AI" (two or three sentences);
-  - hours and dates in the new Details lines.
+  - TechAssist screenshots: two or three, of the guides and the backup app;
+  - TechAssist "What I took from it", and what your grandparents said.
 
 ### Volunteering (`volunteering.html`), 5 items
 - Check the hero lede.
@@ -147,11 +139,15 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 
 ### Things to gather (strategy §10)
 - LinkedIn URL, when it exists. Add it to the footer More group, Contact, the CV and every JSON-LD `sameAs` list at once.
-- Namesake: a before-and-after screenshot of the support map, and a live screenshot. The map would also be the best image for the home Programming card.
+- Namesake: the support map and directory screenshots went onto Programming on 29 September 2026. A before shot would look the same as the after, since the bug was in clicking; a few seconds of video of clicking a state would show the fix better, if you want one. The map would also be the best image for the home Programming card.
 - TechAssist: screenshots, and make the repository public.
 - Cradle: clips, data, plots, photos, software name, runs per parameter, your role.
 - TEDx organising: photos, the poster, milestone dates. Add them to the Gallery too.
 - The ages and dates listed in `docs/record.md` under "To confirm".
+
+### Still to add to the site
+- **Work experience at the University of Heidelberg (data analysis).** Sections on it are still to write. Put the facts in `docs/record.md` first: dates and your age or school year, the department or group, what data you analysed and with which tools, what you produced, and what can be shown publicly (a plot, a summary). Then decide which pages it goes on, and add it to the CV.
+- **Your more recent projects on GitHub.** All of them are still to add to Programming. For each: the repository link (made public first), what it does in a line or two, when you made it and your age, and whether it earns a proof block or a line in a compact list.
 
 ---
 
@@ -221,7 +217,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 
 This repository shares its history with the main one up to `49b9582`. Its first own commit, `f2e3fc3 Update CNAME`, points the domain at `new.thomaswhite.me`. That commit must not reach production.
 
-1. Finish section 2 first, so the pages go live complete. You can do the writing here in the preview repository first and check it on new.thomaswhite.me. A draft left over stays off thomaswhite.me (its build leaves drafts out), with one exception that fails the main repository's CI instead: a placeholder or check that is all its list item or paragraph holds, which would leave it empty. Two do today: the "Which term" items on Physics & Ideas and Magnetic Newton's cradle. Finishing them clears it. So does marking the `<li>` itself with `class="draft-note" data-draft` (the contract needs a placeholder's class). `npm run check` in step 3 names any left.
+1. Finish section 2 first, so the pages go live complete. You can do the writing here in the preview repository first and check it on new.thomaswhite.me. A draft left over stays off thomaswhite.me (its build leaves drafts out), with one exception that fails the main repository's CI instead: a placeholder or check that is all its list item or paragraph holds, which would leave it empty. One does today: the "Which term" item on Physics & Ideas (Tom deleted the cradle page's on 29 September 2026). Finishing it clears it. So does marking the `<li>` itself with `class="draft-note" data-draft` (the contract needs a placeholder's class). `npm run check` in step 3 names any left.
 2. Publish or discard anything pending in the editor at `edit.thomaswhite.me` (repository `ThomasWCode/edit.thomaswhite.me`), which edits this preview repository until the merge: unsaved edits, saves on the `edits` branch here that `main` lacks, and any open pull request from it. The branch itself stays: the editor never deletes it, and with nothing pending it equals `main` or trails it. Anything left there would miss the merge. Nothing in the editor stops a save from here on, so run steps 2 to 7 in one go. Once nothing is pending, the Claude session running the merge tells you that from then on changes made in the editor are no longer read: anything saved there would miss the merge, until step 7 points the editor at the main repository. Save nothing through the editor again until step 7.
 3. In a local clone of the main repository:
 
