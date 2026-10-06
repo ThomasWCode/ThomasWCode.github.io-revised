@@ -198,7 +198,7 @@ Home · Programming · Physics & Ideas · Volunteering · Blog · Sport, music &
 **Card grid "What do you want to look at?"** (reorder and recopy; keep the current picture-card look, which Tom likes)
 1. **Programming** (wide). Image: the Namesake map or this site. Copy: "Real projects for real people: Namesake, this website, TechAssist. Plus where I started."
 2. **Physics & Ideas** (wide, new). Image: cradle build photo or TEDx stage. Copy: "A magnetic Newton's cradle investigation with slow-mo tracking data, my TEDx talk on quantum gravity, and what I'm reading."
-3. **My TEDx talk** (stays, recopied). Copy: "I spoke at TEDxDulwich College Youth in Year 11. This year I'm organising it."
+3. **My TEDx talk** (stays, recopied). Copy: "I spoke at TEDxDulwich Youth in Year 11. This year I'm organising it."
 4. **Volunteering**. Copy: "Building for charities and local groups, advising a research team on AI, and hands-on help at Islington parks and a Mind shop."
 5. **Blog**. Copy: "Things I've written: the talk as an essay, how this site is built, and whatever else I'm thinking about."
 6. **Sport, music & drama**. Copy: "Running, Spartan races, a triathlon, drums and LAMDA."
@@ -243,7 +243,7 @@ Full investigation, written like a short lab report but readable. Sections:
 
 ### 7.2b TEDx page (existing, grows into two halves)
 
-- **Hero**: eyebrow "TEDxDulwich College Youth" (the talk's event), H1 "Bridging the Gap" stays, lede gains "I spoke in 2026. I'm organising the 2027 event."
+- **Hero**: eyebrow "TEDxDulwich Youth", H1 "Bridging the Gap" stays, lede gains "I spoke in 2026. I'm organising the 2027 event."
 - **Half 1, The talk (Year 11, age 15)**: everything currently on the page. Below the videos, a summary of the essay with "Read the talk as an essay →" (blog post). "If you want to go further": three to five items Tom actually drew on.
 - **Half 2, Organising it (Year 12)**: proof block. What it is: TEDxDulwich Youth, 28 February 2027, one of three student organisers (the licence is held by an adult; never say licensee). What I do: drive it forward; the applicant information site (`sites.google.com/view/tedxdulwich`, linked), posters, application forms, advertising decks and scripts, all the technical work; coordinating the drama department (the theatre), marketing and its posting rules, the sister school, and staff. What's hard: one honest paragraph. After the event, the summary blog post is linked here.
 - Both halves carry Details lines with real dates.
