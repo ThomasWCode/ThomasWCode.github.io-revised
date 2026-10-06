@@ -228,7 +228,7 @@ For relevant changes:
 
 1. Run `git diff --check`.
 2. Run `npm run check` for the full deterministic suite: lint, static and content contracts, Playwright browser coverage, committed visual baselines and Lighthouse budgets.
-3. Run `node scripts/audit.mjs` after dependency changes. It runs `npm audit` and fails on high or critical advisories, apart from the ones it excuses with a reason. CI runs it too.
+3. Run `node scripts/audit.mjs` after dependency changes. It runs `npm audit` and fails on high or critical advisories, apart from the ones it excuses with a reason, and only while npm audit finds no fix for them. CI runs it too. `.github/dependabot.yml` asks for grouped version updates once a month; a Playwright update usually needs the visual baselines regenerated on its branch.
 4. Run `npm run test:production` when the deployed site, routing, redirects, DNS or status-page integration changes. Run `npm run test:external-links` when link destinations change or as a periodic maintenance check.
 5. Run `npm run list:drafts` to see what is still a draft. Everything it lists stays off thomaswhite.me.
 6. Preview manually when visual or interaction risk remains. `node tests/support/clean-url-server.mjs` serves clean paths at `http://127.0.0.1:4173`; unlike `python -m http.server`, it strips YAML front matter in memory and models GitHub Pages clean URLs and folder index pages.
