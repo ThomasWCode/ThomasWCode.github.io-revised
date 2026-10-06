@@ -2,7 +2,8 @@
 // apart from the advisories excused below. CI runs this instead of `npm audit`.
 // An exception only holds while npm audit finds no fix for its advisory: once a
 // fixed release can be installed, the exception lapses and CI fails until the
-// dependency is updated (usually `npm audit fix`) and the exception removed.
+// dependency is updated and the exception removed. An exception for an advisory
+// npm audit no longer reports fails too, so none is left behind.
 // tests/static/audit.test.mjs covers these rules.
 import { spawnSync } from "node:child_process";
 import { resolve } from "node:path";
@@ -48,10 +49,18 @@ export function assess(report, exceptions = excused) {
   };
 }
 
-function describeFix(fix) {
+// CI passes only when nothing fails, no exception has lapsed and none is unused.
+export function passes({ failing, lapsed, unused }) {
+  return failing.length === 0 && lapsed.length === 0 && unused.length === 0;
+}
+
+// npm's `fixAvailable` is `true` when `npm audit fix` can install the fix within
+// the declared ranges. An object names the dependency to update when the fix lies
+// outside them, which only `npm audit fix --force` installs; `isSemVerMajor` then
+// says whether that update is also a major one.
+export function describeFix(fix) {
   if (fix === true) return "`npm audit fix` installs it";
-  const command = fix.isSemVerMajor ? "npm audit fix --force" : "npm audit fix";
-  return `\`${command}\` updates ${fix.name} to ${fix.version}${fix.isSemVerMajor ? ", a major update" : ""}`;
+  return `\`npm audit fix --force\` updates ${fix.name} to ${fix.version}, ${fix.isSemVerMajor ? "a major update" : "outside its declared range"}`;
 }
 
 function runAudit() {
@@ -78,14 +87,15 @@ function runAudit() {
 }
 
 function main() {
-  const { excused: held, lapsed, failing, unused } = assess(runAudit());
+  const result = assess(runAudit());
+  const { excused: held, lapsed, failing, unused } = result;
 
   for (const advisory of held) {
     console.log(`Excused ${advisory.id} (${advisory.severity}, ${advisory.name} ${advisory.range}): ${excused[advisory.id]}. npm audit finds no fix yet.`);
   }
 
   for (const id of unused) {
-    console.log(`::warning::${id} is excused in scripts/audit.mjs, but npm audit no longer reports it. Remove the exception.`);
+    console.error(`${id} is excused in scripts/audit.mjs, but npm audit no longer reports it. Remove the exception.`);
   }
 
   for (const advisory of lapsed) {
@@ -96,7 +106,7 @@ function main() {
     console.error(`${advisory.severity}: ${advisory.name} ${advisory.range}: ${advisory.title} (${advisory.url})`);
   }
 
-  if (failing.length > 0 || lapsed.length > 0) {
+  if (!passes(result)) {
     if (failing.length > 0) {
       console.error(`${failing.length} high or critical advisories. Update the dependency, or excuse the advisory in scripts/audit.mjs with the reason; an exception only holds while there is no fix.`);
     }
