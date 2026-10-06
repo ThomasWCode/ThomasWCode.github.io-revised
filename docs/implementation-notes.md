@@ -198,7 +198,7 @@ Run `npm run list:drafts` for the live list with file and line numbers. On 23 Se
 ## 5. Questions
 
 1. Do you approve the hero follow-on sentence and the "Volunteering, the online kind" eyebrow?
-2. The **Full talk** YouTube player on `/tedx/` has had an empty video ID and thumbnail since your commit of 24 August 2026 ("update tedx and testimonials"), so it shows a broken image and plays nothing. Was that intentional? If not, restore `data-videoid="YJ-s-Gx1FN0"` and the thumbnail `https://i.ytimg.com/vi/YJ-s-Gx1FN0/hqdefault.jpg`.
+2. ~~The **Full talk** YouTube player on `/tedx/` has had an empty video ID and thumbnail since your commit of 24 August 2026 ("update tedx and testimonials"). Was that intentional?~~ Answered: the full talk is now on the TEDx Talks channel as `E6me-h-22tQ`, and since 6 October 2026 the player, its thumbnail and the hero's "Watch it on YouTube" button all point to it. Restoring `YJ-s-Gx1FN0` would have been wrong: it is a Roblox Studio tutorial from your old channel, which the hero button had been linking to.
 3. "The code" links (Programming and the post) point to `https://github.com/ThomasWCode/ThomasWCode.github.io`, which I took to be the main repository. Is that right, and is it public?
 4. The Namesake "My merged changes" link searches for merged PRs by the GitHub user `ThomasWCode`. Did you open the Namesake PRs from that account?
 5. How do you want to describe the AI help in building this site? I drafted one plain sentence on Programming, and left "What building it taught me" in the post for you.

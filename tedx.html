@@ -121,7 +121,7 @@ permalink: /tedx/
               <div class="button-row">
                 <a
                   class="button button--paper external-link"
-                  href="https://www.youtube.com/watch?v=YJ-s-Gx1FN0"
+                  href="https://www.youtube.com/watch?v=E6me-h-22tQ"
                   target="_blank"
                   rel="noopener noreferrer"
                   >Watch it on YouTube</a
@@ -256,12 +256,13 @@ permalink: /tedx/
           <div class="media-grid">
             <article class="media-card editorial-card">
               <div class="video-frame">
-                <video controls preload="metadata" playsinline>
-                  <source
-                    src="/Images/Highlight-optimized.mp4"
-                    type="video/mp4"
-                  />
-                  <source src="/Images/Highlight.mp4" type="video/mp4" />
+                <video
+                  controls
+                  preload="metadata"
+                  playsinline
+                  poster="/Images/optimized/tedx-highlight-poster-1280.webp"
+                >
+                  <source src="/Images/tedx-highlight.mp4" type="video/mp4" />
                   Your browser does not support HTML video.
                 </video>
               </div>
@@ -272,18 +273,28 @@ permalink: /tedx/
               <button
                 class="youtube-facade"
                 type="button"
-                data-videoid=""
+                data-videoid="E6me-h-22tQ"
                 data-video-title="Tom White TEDx talk: Bridging the Gap"
                 aria-label="Play the full TEDx talk"
               >
-                <img
-                  src=""
-                  width="480"
-                  height="360"
-                  alt="TEDx talk video thumbnail"
-                  loading="lazy"
-                  decoding="async"
-                /><span class="youtube-play-btn" aria-hidden="true">▶</span>
+                <picture
+                  ><source
+                    type="image/webp"
+                    srcset="
+                      /Images/optimized/tedx-full-talk-thumbnail-480.webp   480w,
+                      /Images/optimized/tedx-full-talk-thumbnail-960.webp   960w,
+                      /Images/optimized/tedx-full-talk-thumbnail-1280.webp 1280w
+                    "
+                    sizes="(max-width: 768px) 100vw, 50vw" />
+                  <img
+                    src="/Images/tedx-full-talk-thumbnail.jpg"
+                    width="1280"
+                    height="720"
+                    alt="TEDx talk video thumbnail"
+                    loading="lazy"
+                    decoding="async"
+                /></picture
+                ><span class="youtube-play-btn" aria-hidden="true">▶</span>
               </button>
               <h3>Full talk</h3>
               <p>All twelve minutes.</p>
