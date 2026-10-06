@@ -16,7 +16,7 @@ Tom's goals for the next one to two years, in his words: "I will be focusing on 
 
 Since the first draft of this plan, three things changed it materially:
 
-- Tom is one of three student organisers of **TEDxDulwich Youth** (28 February 2027), the event he spoke at in 2026. He drives it: website, posters, application forms, advertising decks and scripts, all technical work, and coordination between the drama department, marketing, a sister school and staff.
+- Tom is one of three student organisers of **TEDxDulwich Youth** (28 February 2027), the event he spoke at in 2026, when it was called TEDxDulwich College Youth. He drives it: website, posters, application forms, advertising decks and scripts, all technical work, and coordination between the drama department, marketing, a sister school and staff.
 - Tom has **weekly calls with a TB vaccine mathematical modelling team at LSHTM**, advising them on incorporating AI into their backend modelling workflow (AI practice, GitHub, prompts). It is the same team he is building the VAXTB tool for, and the team his dad works in.
 - The site gets a **Blog**, and the site is explicitly a **source for the personal statement and CV** rather than something admissions tutors are expected to read.
 
@@ -32,7 +32,7 @@ Everything below came from Tom or is already on the site. Nothing else should be
 - Interests on the site: programming, astrophysics, particle physics, drumming, hiking, AI including AI safety. Cat called Dusty with his own site (`dusty.thomaswhite.me`).
 
 **Physics and ideas**
-- TEDx talk "Bridging the Gap", 28 February 2026 (Year 11, age 15), on why General Relativity and Quantum Mechanics disagree, gravity across both, String Theory and the Theory of Everything. Designed to be engaging and understandable rather than technical. Full talk on the TEDx Talks YouTube channel (`E6me-h-22tQ`), 60-second highlight hosted locally, TEDx event page 67110. Eight youth speakers, four adult speakers, theme "Bridges". Tom has the script as text.
+- TEDx talk "Bridging the Gap" at TEDxDulwich College Youth, 28 February 2026 (Year 11, age 15), on why General Relativity and Quantum Mechanics disagree, gravity across both, String Theory and the Theory of Everything. Designed to be engaging and understandable rather than technical. Full talk on the TEDx Talks YouTube channel (`E6me-h-22tQ`), 60-second highlight hosted locally, TEDx event page 67110. Eight youth speakers, four adult speakers, theme "Bridges". Tom has the script as text.
 - IYPT (International Young Physicists' Tournament) in-school project, Year 11, now finished. Tom did not take part in the national competition. Team of three investigated "factors affecting a magnetic Newton's cradle". Magnetic cradles are rare and could not be sourced, so the team built one from scratch, put tracking stickers on it, filmed in slow motion under different parameters, and Tom used motion-tracking software to turn the footage into data. Parameters varied, in order of how thoroughly they were tested: initial release angle; number of magnets (3 or 5); separation between magnets at equilibrium; friction between wires and frame; magnet strength; mass of each magnet. Tom still has slow-mo clips, tracking data and plots, and build photos. No written report or slides.
 - EPQ: will happen, not started. Topic unknown.
 - Reading Tom would put his name to: almost all of Stephen Hawking; *Why Does E=mc²?* (Cox and Forshaw); *Immune* (Dettmer); *If Anyone Builds It, Everyone Dies* (Yudkowsky and Soares); *The Anxious Generation* (Haidt); *This Mortal Coil* (Doig); all of Dennis E. Taylor (Bobiverse). "Quite a lot of science fiction." Tom can also name papers he has read, both related to the talk and not, across physics, philosophy, psychology and AI.
@@ -198,7 +198,7 @@ Home · Programming · Physics & Ideas · Volunteering · Blog · Sport, music &
 **Card grid "What do you want to look at?"** (reorder and recopy; keep the current picture-card look, which Tom likes)
 1. **Programming** (wide). Image: the Namesake map or this site. Copy: "Real projects for real people: Namesake, this website, TechAssist. Plus where I started."
 2. **Physics & Ideas** (wide, new). Image: cradle build photo or TEDx stage. Copy: "A magnetic Newton's cradle investigation with slow-mo tracking data, my TEDx talk on quantum gravity, and what I'm reading."
-3. **My TEDx talk** (stays, recopied). Copy: "I spoke at TEDxDulwich Youth in Year 11. This year I'm organising it."
+3. **My TEDx talk** (stays, recopied). Copy: "I spoke at TEDxDulwich College Youth in Year 11. This year I'm organising it."
 4. **Volunteering**. Copy: "Building for charities and local groups, advising a research team on AI, and hands-on help at Islington parks and a Mind shop."
 5. **Blog**. Copy: "Things I've written: the talk as an essay, how this site is built, and whatever else I'm thinking about."
 6. **Sport, music & drama**. Copy: "Running, Spartan races, a triathlon, drums and LAMDA."
@@ -243,7 +243,7 @@ Full investigation, written like a short lab report but readable. Sections:
 
 ### 7.2b TEDx page (existing, grows into two halves)
 
-- **Hero**: eyebrow "TEDxDulwich Youth", H1 "Bridging the Gap" stays, lede gains "I spoke in 2026. I'm organising the 2027 event."
+- **Hero**: eyebrow "TEDxDulwich College Youth" (the talk's event), H1 "Bridging the Gap" stays, lede gains "I spoke in 2026. I'm organising the 2027 event."
 - **Half 1, The talk (Year 11, age 15)**: everything currently on the page. Below the videos, a summary of the essay with "Read the talk as an essay →" (blog post). "If you want to go further": three to five items Tom actually drew on.
 - **Half 2, Organising it (Year 12)**: proof block. What it is: TEDxDulwich Youth, 28 February 2027, one of three student organisers (the licence is held by an adult; never say licensee). What I do: drive it forward; the applicant information site (`sites.google.com/view/tedxdulwich`, linked), posters, application forms, advertising decks and scripts, all the technical work; coordinating the drama department (the theatre), marketing and its posting rules, the sister school, and staff. What's hard: one honest paragraph. After the event, the summary blog post is linked here.
 - Both halves carry Details lines with real dates.
