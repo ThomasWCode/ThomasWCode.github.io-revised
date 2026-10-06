@@ -24,7 +24,7 @@
 - `npm run build:cv` prints `/cv/` to `Tom-White-CV.pdf` with Playwright Chromium, as this checkout's site serves the page. `-- --live` prints it as thomaswhite.me serves it, drafts left out, and `-- --out <file>` writes somewhere else; the live site's build uses both. Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to use a different Chromium.
 - `npm test` runs lint, static checks and the deterministic browser suite.
 - `npm run check` adds visual regression and Lighthouse checks to `npm test`.
-- `npm audit --audit-level=high` checks the development toolchain for known high or critical advisories.
+- `node scripts/audit.mjs` checks the development toolchain for known high or critical advisories with `npm audit`, apart from the advisories it excuses, each with its reason. The only one now is `braces` (GHSA-vfj7-8cjw-p6xm), which has no fixed release yet. When a fix ships, remove the exception; the script warns once npm audit no longer reports an excused advisory.
 
 ## Test boundaries
 
