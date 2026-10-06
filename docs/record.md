@@ -22,7 +22,10 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ### tedx-talk
 - TEDxDulwich Youth, 28 February 2026. Year 11, age 15. Talk "Bridging the Gap": why General Relativity and Quantum Mechanics disagree, gravity across both, String Theory, Theory of Everything. Twelve minutes. Designed to be engaging and understandable, not technical.
-- Eight youth speakers, four adult speakers, theme "Bridges". TEDx event page 67110. YouTube `YJ-s-Gx1FN0`. 60-second highlight hosted on the site. Script exists as text.
+- Eight youth speakers, four adult speakers, theme "Bridges". TEDx event page 67110. Script exists as text.
+- Full talk on YouTube, on the TEDx Talks channel: `E6me-h-22tQ`, 11 minutes 47 seconds, titled "The Gap between General Relativity and Quantum Mechanics | Thomas White | TEDxDulwich College Youth". On `/tedx/` from 6 October 2026 (the hero's "Watch it on YouTube" button and the Full talk player). The `YJ-s-Gx1FN0` the page linked before was never the talk: it is a Roblox Studio tutorial on the `leopardbookshop` channel.
+- 60-second clip: a new widescreen montage (54 seconds, captions burned in, ending on a card pointing to the full talk on the TEDx Talks channel) replaced the old 60-second highlight on 6 October 2026. Hosted on the site as `Images/tedx-highlight.mp4` (720p) with a poster frame; also on Tom's YouTube channel `@ThomasWhite-y7e` as `4uTtwyhfd-w`.
+- The TEDx Talks title, the clip's end card and the stage sign call the event "TEDxDulwich College Youth"; the site says "TEDxDulwich Youth" (question for Tom, 6 October 2026).
 - Planned: blog post "Bridging the Gap", 800 to 1,000 words plus "Since the talk". The page `/blog/bridging-the-gap/` and `docs/blog-sources/bridging-the-gap.md` hold the section structure; Tom writes the text.
 
 ### tedx-organising
@@ -100,6 +103,7 @@ Ages are computed from the birth date below. Visible site copy shows ages and sc
 
 ### youtube
 - Channel `leopardbookshop`: Roblox Studio and Lua tutorials, later some Python. Just over 400 subscribers and 108,000 views. Channel joined 29 Nov 2020 (age 10); 30 videos, the oldest Roblox tutorials about five years old, Advent of Code videos December 2022 (age 12), last upload 1 Sep 2023 (age 13). Site shows ages 10 to 13 and "learning Lua, at 10"; confirmed by Tom (September 2026).
+- A second channel, `@ThomasWhite-y7e` ("Thomas White"), was in use by October 2026: it holds the TEDx 60-second clip (`4uTtwyhfd-w`). Not linked from the site and not in the JSON-LD `sameAs` lists (question for Tom, 6 October 2026).
 
 ### st-johns-garden
 - Friends of St John's Garden website, `stjohnsgardenEC1.org`, for an Islington council group looking after a small green space in Farringdon. Source of the testimonial from Analisa Plehn, quoted word for word including "Thomas" (decided September 2026). The domain was registered 8 Aug 2025 (age 15) and the Wayback Machine first saved it 15 Apr 2026. Tom (September 2026): the domain was bought at about the same time as the site went live, so the site dates it August 2025, age 15.
