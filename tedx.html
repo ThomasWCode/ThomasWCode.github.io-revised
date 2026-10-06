@@ -277,14 +277,24 @@ permalink: /tedx/
                 data-video-title="Tom White TEDx talk: Bridging the Gap"
                 aria-label="Play the full TEDx talk"
               >
-                <img
-                  src="https://i.ytimg.com/vi/E6me-h-22tQ/maxresdefault.jpg"
-                  width="1280"
-                  height="720"
-                  alt="TEDx talk video thumbnail"
-                  loading="lazy"
-                  decoding="async"
-                /><span class="youtube-play-btn" aria-hidden="true">▶</span>
+                <picture
+                  ><source
+                    type="image/webp"
+                    srcset="
+                      /Images/optimized/tedx-full-talk-thumbnail-480.webp   480w,
+                      /Images/optimized/tedx-full-talk-thumbnail-960.webp   960w,
+                      /Images/optimized/tedx-full-talk-thumbnail-1280.webp 1280w
+                    "
+                    sizes="(max-width: 768px) 100vw, 50vw" />
+                  <img
+                    src="/Images/tedx-full-talk-thumbnail.jpg"
+                    width="1280"
+                    height="720"
+                    alt="TEDx talk video thumbnail"
+                    loading="lazy"
+                    decoding="async"
+                /></picture
+                ><span class="youtube-play-btn" aria-hidden="true">▶</span>
               </button>
               <h3>Full talk</h3>
               <p>All twelve minutes.</p>
