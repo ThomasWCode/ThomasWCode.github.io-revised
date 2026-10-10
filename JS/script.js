@@ -167,24 +167,45 @@ function initialiseNavigation() {
     }
   }
 
-  // Number the visible mobile menu rows so the CSS can slide them in one after another.
+  // Number the visible mobile menu rows so the CSS can slide them in one after another, and out in reverse.
   function numberMenuRows() {
-    Array.from(navPanel.querySelectorAll(menuRowSelector))
-      .filter((row) => row.getClientRects().length > 0)
-      .forEach((row, index) => {
-        row.classList.add("nav-row");
-        row.style.setProperty("--nav-row", String(index));
-      });
+    const rows = Array.from(navPanel.querySelectorAll(menuRowSelector))
+      .filter((row) => row.getClientRects().length > 0);
+
+    rows.forEach((row, index) => {
+      row.classList.add("nav-row");
+      row.style.setProperty("--nav-row", String(index));
+    });
+    navPanel.style.setProperty("--nav-rows", String(rows.length));
   }
 
-  function setNavState(open) {
+  // Hide the mobile menu once its closing animation has finished.
+  function finishClosingMenu() {
+    if (navPanel.classList.contains("nav-panel--closing")) {
+      navPanel.classList.remove("nav-panel--closing");
+      navPanel.hidden = true;
+    }
+  }
+
+  function setNavState(open, animate = true) {
+    const closing = !open && animate && !navPanel.hidden;
+
     navToggle.setAttribute("aria-expanded", String(open));
     navToggle.setAttribute(
       "aria-label",
       open ? "Close navigation menu" : "Open navigation menu",
     );
-    navPanel.hidden = !open;
+    header.classList.toggle("site-header--menu-open", open);
     navPanel.classList.toggle("nav-panel--open", open);
+    navPanel.classList.toggle("nav-panel--closing", closing);
+
+    // Without the closing animation (reduced motion), hide the menu straight away.
+    if (closing && window.getComputedStyle(navPanel).animationName === "nav-panel-out") {
+      return;
+    }
+
+    navPanel.classList.remove("nav-panel--closing");
+    navPanel.hidden = !open;
 
     if (open) {
       numberMenuRows();
@@ -198,10 +219,12 @@ function initialiseNavigation() {
 
   function syncNavigation() {
     if (desktopQuery.matches) {
+      navPanel.classList.remove("nav-panel--closing");
+      header.classList.remove("site-header--menu-open");
       navPanel.hidden = false;
       setMoreState(false);
     } else {
-      setNavState(false);
+      setNavState(false, false);
       moreMenu.hidden = false;
     }
   }
@@ -214,9 +237,27 @@ function initialiseNavigation() {
     setMoreState(moreToggle.getAttribute("aria-expanded") !== "true");
   });
 
+  navPanel.addEventListener("animationend", (event) => {
+    if (event.target === navPanel && event.animationName === "nav-panel-out") {
+      finishClosingMenu();
+    }
+  });
+
+  navPanel.addEventListener("animationcancel", (event) => {
+    if (event.target === navPanel && event.animationName === "nav-panel-out") {
+      finishClosingMenu();
+    }
+  });
+
   document.addEventListener("click", (event) => {
     if (desktopQuery.matches && !event.target.closest(".nav-more")) {
       setMoreState(false);
+    } else if (
+      !desktopQuery.matches &&
+      navToggle.getAttribute("aria-expanded") === "true" &&
+      !event.target.closest(".nav-panel, .nav-toggle")
+    ) {
+      setNavState(false);
     }
   });
 
