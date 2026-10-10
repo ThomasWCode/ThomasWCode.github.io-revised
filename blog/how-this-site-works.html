@@ -10,14 +10,14 @@ permalink: /blog/how-this-site-works/
     <title>How this site works | Tom White</title>
     <meta
       name="description"
-      content="The invisible engineering behind this site: tests in three browsers, visual regression, Lighthouse budgets, CI, a public status page and consent-gated analytics."
+      content="The invisible engineering behind this site: tests in three browsers, visual regression, Lighthouse budgets, a public status page, consent-gated analytics and an editor that saves to GitHub."
     />
     <link rel="canonical" href="https://thomaswhite.me/blog/how-this-site-works/" />
     <meta property="og:type" content="article" />
     <meta property="og:title" content="How this site works | Tom White" />
     <meta
       property="og:description"
-      content="The invisible engineering behind this site: tests in three browsers, visual regression, Lighthouse budgets, CI, a public status page and consent-gated analytics."
+      content="The invisible engineering behind this site: tests in three browsers, visual regression, Lighthouse budgets, a public status page, consent-gated analytics and an editor that saves to GitHub."
     />
     <meta property="og:url" content="https://thomaswhite.me/blog/how-this-site-works/" />
     <meta
@@ -122,8 +122,8 @@ permalink: /blog/how-this-site-works/
               <h1>How this site works</h1>
               <p class="hero-lede">
                 Most of this website is stuff you can’t see: the tests, checks
-                and monitoring that stop it breaking. This is how it fits
-                together.
+                and monitoring that stop it breaking, and the editor I change it
+                with. This is how it fits together.
               </p>
             </div>
           </div>
@@ -157,6 +157,11 @@ permalink: /blog/how-this-site-works/
                 main heading, a description, a canonical link, valid HTML,
                 images whose declared sizes match the real files, and no link to
                 a file that doesn’t exist.
+              </li>
+              <li>
+                Content checks read the words, not just the code. They fail if a
+                page uses a word I’ve banned from the site, or mentions a school
+                year without a date for me to re-read it.
               </li>
               <li>
                 Playwright opens every page in Chromium at desktop and phone
@@ -193,6 +198,40 @@ permalink: /blog/how-this-site-works/
               >, linked in the footer. A scheduled job also checks the live pages every
               morning, and the links to other sites once a week.
             </p>
+            <h2>Changing it without opening the code</h2>
+            <p>
+              I don’t open the code to change a sentence any more. There’s a
+              separate editor for that: I sign in with GitHub, it shows each
+              page as it looks, and I click into the text and type. When I
+              save, it rewrites only the words I changed, leaving the rest of
+              the HTML exactly as it was, and checks them against the same
+              rules as the tests first.
+            </p>
+            <p>
+              Each save is a commit on its own branch. When I press Publish, it
+              opens a pull request, waits for every test to pass and merges it,
+              so a change from the editor goes through the same checks as one
+              from my laptop.
+            </p>
+            <p>
+              It can also save a change as a draft: a new paragraph, a rewrite,
+              or something to take down. Drafts show on a preview copy of the
+              site, and when the live site is built, a script takes them out
+              before anything is served. The morning check of the live pages
+              fails if one ever gets through.
+            </p>
+            <h2>Keeping it up to date</h2>
+            <p>
+              The site itself doesn’t use any packages, but the tools that test
+              it do. Once a month, Dependabot opens pull requests to update
+              them, and a check fails if npm finds a serious security problem
+              in one that has a fix.
+            </p>
+            <p>
+              Once a month, a script also reads every page for anything with a
+              date that is due a re-read, like a “Year 12”, and opens an issue
+              on GitHub so the site doesn’t quietly go out of date.
+            </p>
             <h2>Small things that matter</h2>
             <p>
               Analytics only load if you agree to them in the cookie banner.
@@ -203,9 +242,11 @@ permalink: /blog/how-this-site-works/
               lines.
             </p>
             <p>
-              Once a month, a script reads every page for anything with a date
-              that is due a re-read, like a “Year 12”, and opens an issue on
-              GitHub so the site doesn’t quietly go out of date.
+              On a phone, the header gets out of the way: once you scroll, the
+              bar slides up and the Menu button swings in as a quarter circle
+              in the corner. My CV is a page on the site too, and the PDF is
+              printed from it every time the site is published, so the two
+              can’t disagree.
             </p>
             <h2>What building it taught me</h2>
             <p class="draft-note" data-draft>
