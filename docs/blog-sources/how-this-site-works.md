@@ -31,9 +31,9 @@ Tests only prove the code works on my side. Better Stack checks the site’s pag
 
 ## Changing it without opening the code
 
-I don’t open the code to change a sentence any more. There’s a separate editor for that: I sign in with GitHub, it shows each page as it looks, and I click into the text and type. When I save, it rewrites only the words I changed, leaving the rest of the HTML exactly as it was, and checks them against the same rules as the tests first.
+I don’t open the code to change a sentence any more. There’s a separate editor for that: I sign in with GitHub, it shows each page as it looks, and I click into the text and type. When I save, it rewrites only the words I changed, leaving the rest of the HTML exactly as it was, and first checks them against the same content rules as the static tests.
 
-Each save is a commit on its own branch. When I press Publish, it opens a pull request, waits for every test to pass and merges it, so a change from the editor goes through the same checks as one from my laptop.
+Each save is a commit on the editor’s own branch, where saves build up until I press Publish. Then it opens a pull request, waits for every test to pass and merges it, so a change from the editor goes through the same checks as one from my laptop.
 
 It can also save a change as a draft: a new paragraph, a rewrite, or something to take down. Drafts show on a preview copy of the site, and when the live site is built, a script takes them out before anything is served. The morning check of the live pages fails if one ever gets through.
 

@@ -38,6 +38,7 @@ permalink: /blog/how-this-site-works/
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         "headline": "How this site works",
+        "description": "The invisible engineering behind this site: tests in three browsers, visual regression, Lighthouse budgets, a public status page, consent-gated analytics and an editor that saves to GitHub.",
         "author": {
           "@type": "Person",
           "name": "Tom White",
@@ -204,14 +205,14 @@ permalink: /blog/how-this-site-works/
               separate editor for that: I sign in with GitHub, it shows each
               page as it looks, and I click into the text and type. When I
               save, it rewrites only the words I changed, leaving the rest of
-              the HTML exactly as it was, and checks them against the same
-              rules as the tests first.
+              the HTML exactly as it was, and first checks them against the
+              same content rules as the static tests.
             </p>
             <p>
-              Each save is a commit on its own branch. When I press Publish, it
-              opens a pull request, waits for every test to pass and merges it,
-              so a change from the editor goes through the same checks as one
-              from my laptop.
+              Each save is a commit on the editor’s own branch, where saves
+              build up until I press Publish. Then it opens a pull request,
+              waits for every test to pass and merges it, so a change from the
+              editor goes through the same checks as one from my laptop.
             </p>
             <p>
               It can also save a change as a draft: a new paragraph, a rewrite,
