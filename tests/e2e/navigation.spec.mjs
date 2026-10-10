@@ -167,6 +167,59 @@ test("@phone-only the mobile menu slides in and its rows follow one by one, top 
   await panel.getByRole("link", { name: "Gallery", exact: true }).filter({ visible: true }).click({ trial: true });
 });
 
+test("@phone-only the open mobile menu blurs the page, and slides off with its rows leaving bottom first", async ({ page }) => {
+  await openDeterministicPage(page, "/");
+  const header = page.locator(".site-header");
+  const toggle = page.locator(".nav-toggle");
+  const panel = page.locator("#primary-navigation");
+  const backdropFilter = () =>
+    header.evaluate((element) => {
+      const backdrop = window.getComputedStyle(element, "::after");
+      return backdrop.visibility === "visible" ? backdrop.backdropFilter : "none";
+    });
+
+  await toggle.click();
+  await expect(header).toHaveClass(/site-header--menu-open/);
+  expect(await backdropFilter()).toContain("blur");
+  await finishAnimations(page);
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(header).not.toHaveClass(/site-header--menu-open/);
+  await expect(panel).toHaveClass(/nav-panel--closing/);
+  await expect(panel).toBeVisible();
+
+  const animations = await panel.evaluate((element) => ({
+    panel: element.getAnimations().map((animation) => animation.animationName),
+    rowDelays: Array.from(element.querySelectorAll(".nav-row"))
+      .filter((row) => row.getClientRects().length > 0)
+      .map((row) => row.getAnimations()[0]?.effect.getComputedTiming().delay),
+  }));
+  expect(animations.panel).toEqual(["nav-panel-out"]);
+  for (let index = 1; index < animations.rowDelays.length; index += 1) {
+    expect(animations.rowDelays[index]).toBeLessThan(animations.rowDelays[index - 1]);
+  }
+
+  await expect(panel).toBeHidden();
+  await expect(panel).not.toHaveClass(/nav-panel--closing/);
+  await finishAnimations(page);
+  expect(await backdropFilter()).toBe("none");
+});
+
+test("@phone-only tapping the blurred page closes the mobile menu", async ({ page }) => {
+  await openDeterministicPage(page, "/");
+  const toggle = page.locator(".nav-toggle");
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await finishAnimations(page);
+  const viewport = page.viewportSize();
+  await page.mouse.click(viewport.width / 2, viewport.height - 10);
+
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator("#primary-navigation")).toBeHidden();
+});
+
 test("@phone-only the mobile menu opens without motion when reduced motion is requested", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await openDeterministicPage(page, "/");
