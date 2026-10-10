@@ -14,6 +14,7 @@ This repository contains the source for `thomaswhite.me`. The published site is 
 - `cv.html` is the unlinked source of `Tom-White-CV.pdf` (see § CV).
 - `CNAME` sets the domain: `thomaswhite.me` in the main repository, `new.thomaswhite.me` in the preview clone.
 - `_config.yml` excludes `docs/`, `tests/`, `scripts/`, `AGENTS.md` and the tooling from the published site. Jekyll renders Markdown even without front matter, so anything not excluded is public. Never remove the `docs/` exclusion: `docs/record.md` is private.
+- `.gitattributes` makes git store every text file with LF line endings, whatever a checkout's own settings, and marks the images, video, fonts and PDF binary. The editor refuses a file with Windows line endings (CRLF).
 - `scripts/` holds the content review (`content-review.mjs`), the CV build (`build-cv.mjs`) and the dependency audit (`audit.mjs`).
 - `tests/` contains static, browser, visual, Lighthouse and deployed-site checks.
 - `docs/content-strategy.md` is the content, structure and voice plan; `docs/record.md` is Tom's private record of facts, dates and decisions; `docs/blog-sources/` holds post sources; `docs/implementation-notes.md` records what the strategy implementation changed and what is still to write. `docs/testing.md`, `docs/updating-tests-and-baselines.md` and `docs/status-page-operations.md` cover tests, baselines and monitoring. The browser editor for the site's text lives in its own repository (§ Editor).
